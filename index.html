@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Siddharth is a product designer crafting premium AI-first digital experiences, from voice tools and workflow systems to thoughtful product interfaces."
+    />
+    <meta name="theme-color" content="#050505" />
+    <title>Siddharth | Product Designer for AI Experiences</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-light.svg"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-dark.svg"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicons/fav-dark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <nav class="floating-nav glass-panel" aria-label="Primary navigation">
+          <a class="nav-logo" href="#top" aria-label="Siddharth home">
+            <img class="logo-mark" src="./assets/Sid-logo.svg" alt="Siddharth logo" />
+          </a>
+          <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#ai-work">AI Work</a>
+          </div>
+          <a class="button button-primary nav-cta" href="#contact">Get in Touch</a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-drawer"
+            aria-label="Open navigation menu"
+          >
+            <span class="sr-only">Toggle navigation menu</span>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-menu"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 5L16 5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 12L20 12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 19L12 19"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-close"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M18 6L6.00081 17.9992M17.9992 18L6 6.00085"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </nav>
+        <div class="mobile-drawer-shell" id="mobile-drawer">
+          <div class="mobile-drawer glass-panel">
+            <a class="mobile-drawer-link" href="#about">About</a>
+            <a class="mobile-drawer-link" href="#work">Work</a>
+            <a class="mobile-drawer-link" href="#ai-work">AI Work</a>
+            <a class="button button-primary mobile-drawer-cta" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
+
+      <main id="top">
+        <section class="section hero" data-reveal>
+          <div class="hero-backdrop" aria-hidden="true"></div>
+          <div class="hero-cursor" aria-hidden="true">
+            <img class="hero-cursor-icon" src="./assets/blue_cursor.svg" alt="" />
+            <span class="hero-cursor-tag">You</span>
+          </div>
+          <div class="hero-copy">
+            <p class="hero-kicker">👋 Hi! I&apos;m Siddharth, currently designing at Upstox.</p>
+            <h1>Creating artifacts imbued<br />with shared understanding, legible to users.</h1>
+          </div>
+        </section>
+
+        <section class="section work-section" id="work" data-reveal>
+          <div class="section-heading work-heading">
+            <div>
+              <p class="eyebrow">Featured AI Work</p>
+              <h2>Selected products shaped around clarity, speed, and trust.</h2>
+            </div>
+            <p class="section-text">
+              A curated mix of AI workflows, voice products, and design systems
+              built to feel useful from the first interaction.
+            </p>
+          </div>
+
+          <div class="project-stack">
+            <article class="project-card glass-panel" style="--card-index: 1">
+              <div class="project-inner">
+                <div class="project-copy">
+                  <div class="card-content">
+                    <div class="card-meta">
+                      <span>01</span>
+                      <span>AI Meeting Assistant</span>
+                    </div>
+                    <div>
+                      <h3>Smart transcription, summaries, searchable notes.</h3>
+                      <p>
+                        A meeting workspace designed to capture the signal in every
+                        conversation and make next steps immediately usable.
+                      </p>
+                      <div class="tag-row">
+                        <span>Live transcription</span>
+                        <span>Semantic search</span>
+                        <span>Action items</span>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="project-link" href="#contact">Discuss this product</a>
+                </div>
+                <div class="project-showcase">
+                  <div class="card-visual meeting-visual">
+                    <div class="meeting-toolbar">
+                      <span class="visual-pill">Live summary</span>
+                      <span class="visual-pill visual-pill-muted">47 min</span>
+                    </div>
+                    <div class="meeting-layout">
+                      <div class="transcript-panel">
+                        <span class="transcript-line transcript-line-short"></span>
+                        <span class="transcript-line"></span>
+                        <span class="transcript-line transcript-line-medium"></span>
+                        <span class="transcript-line"></span>
+                        <span class="transcript-line transcript-line-short"></span>
+                      </div>
+                      <div class="summary-panel">
+                        <span class="summary-chip">Key decisions</span>
+                        <ul class="mini-list">
+                          <li>Prioritize onboarding automation</li>
+                          <li>Cluster themes across user calls</li>
+                          <li>Share highlights with product and sales</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="project-stats">
+                    <div class="project-stat">
+                      <span>Session length</span>
+                      <strong>47 min</strong>
+                    </div>
+                    <div class="project-stat">
+                      <span>Summary readiness</span>
+                      <strong>Instant</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-panel" style="--card-index: 2">
+              <div class="project-inner">
+                <div class="project-copy">
+                  <div class="card-content">
+                    <div class="card-meta">
+                      <span>02</span>
+                      <span>Voice Capture Studio</span>
+                    </div>
+                    <div>
+                      <h3>High-quality audio recording with noise cleanup.</h3>
+                      <p>
+                        Built for clarity at the source, with an interface that
+                        feels quiet, technical, and effortless to trust.
+                      </p>
+                      <div class="tag-row">
+                        <span>Noise cleanup</span>
+                        <span>Waveform review</span>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="project-link" href="#contact">Explore voice workflows</a>
+                </div>
+                <div class="project-showcase">
+                  <div class="card-visual voice-visual">
+                    <div class="waveform" aria-hidden="true">
+                      <span style="--bar: 24%"></span>
+                      <span style="--bar: 48%"></span>
+                      <span style="--bar: 62%"></span>
+                      <span style="--bar: 38%"></span>
+                      <span style="--bar: 72%"></span>
+                      <span style="--bar: 90%"></span>
+                      <span style="--bar: 56%"></span>
+                      <span style="--bar: 34%"></span>
+                      <span style="--bar: 68%"></span>
+                      <span style="--bar: 42%"></span>
+                      <span style="--bar: 28%"></span>
+                    </div>
+                    <div class="meter-block">
+                      <div class="meter-head">
+                        <span>Cleanup strength</span>
+                        <span>84%</span>
+                      </div>
+                      <div class="meter-track">
+                        <span class="meter-fill"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="project-stats">
+                    <div class="project-stat">
+                      <span>Cleanup strength</span>
+                      <strong>84%</strong>
+                    </div>
+                    <div class="project-stat">
+                      <span>Latency</span>
+                      <strong>Low</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-panel" style="--card-index: 3">
+              <div class="project-inner">
+                <div class="project-copy">
+                  <div class="card-content">
+                    <div class="card-meta">
+                      <span>03</span>
+                      <span>Transcript to Content Engine</span>
+                    </div>
+                    <div>
+                      <h3>Turn conversations into posts, blogs, threads, clips.</h3>
+                      <p>
+                        A content workflow that transforms raw transcripts into
+                        polished, multi-channel assets without losing the original
+                        voice.
+                      </p>
+                      <div class="tag-row">
+                        <span>Repurposing</span>
+                        <span>Multi-format output</span>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="project-link" href="#contact">Build a content engine</a>
+                </div>
+                <div class="project-showcase">
+                  <div class="card-visual content-visual">
+                    <div class="flow-origin">Transcript</div>
+                    <div class="flow-line"></div>
+                    <div class="flow-targets">
+                      <span>LinkedIn</span>
+                      <span>Blogs</span>
+                      <span>Threads</span>
+                      <span>Clips</span>
+                    </div>
+                  </div>
+                  <div class="project-stats">
+                    <div class="project-stat">
+                      <span>Output types</span>
+                      <strong>4 formats</strong>
+                    </div>
+                    <div class="project-stat">
+                      <span>Publishing speed</span>
+                      <strong>Fast</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-panel" style="--card-index: 4">
+              <div class="project-inner">
+                <div class="project-copy">
+                  <div class="card-content">
+                    <div class="card-meta">
+                      <span>04</span>
+                      <span>AI Research Workspace</span>
+                    </div>
+                    <div>
+                      <h3>Summarize docs, compare insights, generate actions.</h3>
+                      <p>
+                        Designed for fast comprehension across large document sets,
+                        with outputs tuned for decision-making instead of noise.
+                      </p>
+                      <div class="tag-row">
+                        <span>Doc synthesis</span>
+                        <span>Insight comparison</span>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="project-link" href="#contact">Design calmer research tools</a>
+                </div>
+                <div class="project-showcase">
+                  <div class="card-visual research-visual">
+                    <div class="research-stack">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <div class="insight-stack">
+                      <span class="insight-line insight-line-long"></span>
+                      <span class="insight-line"></span>
+                      <span class="insight-line insight-line-short"></span>
+                      <span class="insight-line"></span>
+                    </div>
+                  </div>
+                  <div class="project-stats">
+                    <div class="project-stat">
+                      <span>Docs compared</span>
+                      <strong>12+</strong>
+                    </div>
+                    <div class="project-stat">
+                      <span>Action clarity</span>
+                      <strong>High</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-panel" style="--card-index: 5">
+              <div class="project-inner">
+                <div class="project-copy">
+                  <div class="card-content">
+                    <div class="card-meta">
+                      <span>05</span>
+                      <span>AI Design Copilot</span>
+                    </div>
+                    <div>
+                      <h3>Generate UI flows, wireframes, and design systems faster.</h3>
+                      <p>
+                        A co-creation environment helping product teams explore
+                        interface directions with more structure and less drift.
+                      </p>
+                      <div class="tag-row">
+                        <span>UI flows</span>
+                        <span>System generation</span>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="project-link" href="#contact">Shape the next copilot</a>
+                </div>
+                <div class="project-showcase">
+                  <div class="card-visual copilot-visual">
+                    <div class="wireframe-window">
+                      <div class="window-bar"></div>
+                      <div class="wireframe-layout">
+                        <span class="wireframe-sidebar"></span>
+                        <div class="wireframe-main">
+                          <span class="wireframe-block wireframe-block-large"></span>
+                          <span class="wireframe-block"></span>
+                          <span class="wireframe-block wireframe-block-small"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="project-stats">
+                    <div class="project-stat">
+                      <span>Flow generation</span>
+                      <strong>Rapid</strong>
+                    </div>
+                    <div class="project-stat">
+                      <span>System coverage</span>
+                      <strong>Broad</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="ai-work" data-reveal>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Use Cases</p>
+              <h2>When great audio &amp; transcription matter most</h2>
+            </div>
+            <p class="section-text">
+              The products behind voice capture and transcription need to hold
+              up across messy, high-stakes conversations and turn them into
+              something usable.
+            </p>
+          </div>
+
+          <div class="use-case-layout">
+            <div class="scenario-grid">
+              <article class="scenario-card glass-panel">
+                <span>Podcasts &amp; interviews</span>
+              </article>
+              <article class="scenario-card glass-panel">
+                <span>Sales calls</span>
+              </article>
+              <article class="scenario-card glass-panel">
+                <span>User research sessions</span>
+              </article>
+              <article class="scenario-card glass-panel">
+                <span>Team meetings</span>
+              </article>
+              <article class="scenario-card glass-panel">
+                <span>Content creation</span>
+              </article>
+              <article class="scenario-card glass-panel">
+                <span>Courses &amp; webinars</span>
+              </article>
+            </div>
+
+            <div class="conversion-panel glass-panel">
+              <div>
+                <p class="eyebrow">Repurpose Faster</p>
+                <h3>Convert every conversation into content instantly</h3>
+                <p>
+                  Design a workflow where transcripts become ready-to-publish
+                  outputs without losing nuance, speed, or signal.
+                </p>
+              </div>
+              <div class="tag-cloud">
+                <span>LinkedIn posts</span>
+                <span>X threads</span>
+                <span>Blogs</span>
+                <span>Summaries</span>
+                <span>Email newsletters</span>
+                <span>Video captions</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section about-section" id="about" data-reveal>
+          <div class="about-layout">
+            <div class="about-copy glass-panel">
+              <p class="eyebrow">About</p>
+              <h2>Designing AI products that feel intuitive, grounded, and ready to scale.</h2>
+              <p>
+                Siddharth is a product designer focused on AI experiences,
+                interface systems, growth design, and the product decisions that
+                help complex tools feel crisp and unmistakably human.
+              </p>
+              <p>
+                His work spans startups, SaaS platforms, and future-forward
+                teams building the next generation of workflow, voice, and
+                intelligence products.
+              </p>
+            </div>
+
+            <div class="stats-grid">
+              <article class="stat-card glass-panel">
+                <strong>7+</strong>
+                <span>Years of experience across product design and systems</span>
+              </article>
+              <article class="stat-card glass-panel">
+                <strong>AI</strong>
+                <span>Focused on AI products, UX systems, and interface craft</span>
+              </article>
+              <article class="stat-card glass-panel">
+                <strong>SaaS</strong>
+                <span>Trusted by startups, SaaS teams, and ambitious operators</span>
+              </article>
+              <article class="stat-card glass-panel">
+                <strong>Scale</strong>
+                <span>From zero-to-one concepts to resilient design foundations</span>
+              </article>
+            </div>
+          </div>
+
+          <div class="memory-strip glass-panel" aria-label="A looping gallery of Siddharth moments">
+            <div class="memory-strip-head">
+              <p class="eyebrow">Off Screen</p>
+              <p class="memory-strip-text">
+                A looping reel of field notes, visual references, and personal
+                moments that shape the work behind the interface.
+              </p>
+            </div>
+            <div class="memory-window">
+              <div class="memory-rail">
+                <div class="memory-track">
+                  <figure class="memory-card tilt-left">
+                    <div class="memory-photo photo-scene-1"></div>
+                    <figcaption>Field Notes / Mountain Air</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-right">
+                    <div class="memory-photo photo-scene-2"></div>
+                    <figcaption>Late Nights / Social Glow</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-left-soft">
+                    <div class="memory-photo photo-scene-3"></div>
+                    <figcaption>Mirror Check / Everyday Texture</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-right-soft">
+                    <div class="memory-photo photo-scene-4"></div>
+                    <figcaption>City Quiet / Dusk Framing</figcaption>
+                  </figure>
+                </div>
+                <div class="memory-track" aria-hidden="true">
+                  <figure class="memory-card tilt-left">
+                    <div class="memory-photo photo-scene-1"></div>
+                    <figcaption>Field Notes / Mountain Air</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-right">
+                    <div class="memory-photo photo-scene-2"></div>
+                    <figcaption>Late Nights / Social Glow</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-left-soft">
+                    <div class="memory-photo photo-scene-3"></div>
+                    <figcaption>Mirror Check / Everyday Texture</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-right-soft">
+                    <div class="memory-photo photo-scene-4"></div>
+                    <figcaption>City Quiet / Dusk Framing</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-grid">
+            <article class="testimonial-card glass-panel">
+              <p>
+                "Siddharth brings rare clarity to complex AI products. Clean
+                thinking, world-class execution."
+              </p>
+              <span>Founder, AI Workflow Platform</span>
+            </article>
+            <article class="testimonial-card glass-panel">
+              <p>
+                "One of the strongest product designers we've worked with."
+              </p>
+              <span>VP Product, SaaS Team</span>
+            </article>
+            <article class="testimonial-card glass-panel">
+              <p>
+                "He consistently turns abstract product ideas into interfaces
+                that feel considered, calm, and commercially sharp."
+              </p>
+              <span>Head of Design, Future Tech Studio</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="section closing-section" id="contact" data-reveal>
+          <div class="closing-panel glass-panel">
+            <p class="eyebrow">Get in Touch</p>
+            <h2>Building the next great AI product? Let's design it right.</h2>
+            <p>
+              Available for select collaborations across AI product design,
+              workflow tools, research-heavy systems, and premium digital
+              experiences.
+            </p>
+            <div class="closing-actions">
+              <a class="button button-primary" href="mailto:siddharthsingawne@gmail.com">
+                siddharthsingawne@gmail.com
+              </a>
+              <a
+                class="button button-secondary"
+                href="https://cal.com/siddharth"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Book a Call
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-social-rail">
+          <a class="footer-social-link" href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M8 8v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 16v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 16v-3a2 2 0 1 0 -4 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>LinkedIn</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://x.com" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Twitter</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 3.6c5 6 7 10.5 7.5 16.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.4 19c3.5 -3.5 6 -6.5 14.5 -6.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3.1 10.75c5 0 9.814 -.38 15.314 -5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Dribbble</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://www.behance.net" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 12l4.5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.64 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 6l3 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Behance</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="footer-note">Thanks for scrolling. Let&apos;s create something great.</p>
+      </footer>
+    </div>
+  </body>
+</html>
