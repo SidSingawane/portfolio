@@ -1305,7 +1305,7 @@ main#top {
 }
 
 .site-footer {
-  width: calc(100% - (var(--gutter) * 2));
+  width: min(var(--max-width), calc(100% - (var(--gutter) * 2)));
   margin: 0 auto;
   padding: 36px 0 44px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
