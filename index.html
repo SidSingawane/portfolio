@@ -28,7 +28,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=29" />
     <script defer src="script.js"></script>
   </head>
   <body>
@@ -41,7 +41,7 @@
           <div class="nav-links">
             <a href="#work"><span data-text="Work">Work</span></a>
             <a href="#about"><span data-text="About">About</span></a>
-            <a href="#ai-work"><span data-text="AI Work">AI Work</span></a>
+            <a href="#ai-work"><span data-text="Resume">Resume</span></a>
           </div>
           <a class="button button-primary nav-cta" href="#contact">Get in touch</a>
           <button
@@ -122,15 +122,19 @@
 
         <section class="section work-section" id="work" data-reveal>
           <div class="section-heading work-heading">
-            <h2>Selected products shaped around clarity, speed, and trust.</h2>
+            <h2>Featured work</h2>
           </div>
 
           <div class="project-stack">
-            <article class="project-card glass-panel" style="--card-index: 1">
+            <article class="project-card" style="--card-index: 1">
               <div class="project-inner">
                 <div class="project-copy">
                   <h3>AI Meeting Assistant</h3>
                   <p>A meeting workspace designed to capture the signal in every conversation and make next steps immediately usable.</p>
+                  <div class="project-stats">
+                    <div class="stat-chip"><span class="stat-value">32% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Active FnO Clients</span></div>
+                    <div class="stat-chip"><span class="stat-value">41% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Average Daily TurnOver</span></div>
+                  </div>
                   <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
@@ -139,11 +143,15 @@
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 2">
+            <article class="project-card" style="--card-index: 2">
               <div class="project-inner">
                 <div class="project-copy">
                   <h3>Voice Capture Studio</h3>
                   <p>Built for clarity at the source, with an interface that feels quiet, technical, and effortless to trust.</p>
+                  <div class="project-stats">
+                    <div class="stat-chip"><span class="stat-value">84% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Noise Reduction</span></div>
+                    <div class="stat-chip"><span class="stat-value">2.1s <span class="stat-arrow">&#9660;</span></span><span class="stat-label">Processing Latency</span></div>
+                  </div>
                   <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
@@ -152,11 +160,15 @@
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 3">
+            <article class="project-card" style="--card-index: 3">
               <div class="project-inner">
                 <div class="project-copy">
                   <h3>Transcript to Content Engine</h3>
                   <p>A content workflow that transforms raw transcripts into polished, multi-channel assets without losing the original voice.</p>
+                  <div class="project-stats">
+                    <div class="stat-chip"><span class="stat-value">4x <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Content Output</span></div>
+                    <div class="stat-chip"><span class="stat-value">6 <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Format Types</span></div>
+                  </div>
                   <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
@@ -165,11 +177,15 @@
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 4">
+            <article class="project-card" style="--card-index: 4">
               <div class="project-inner">
                 <div class="project-copy">
                   <h3>AI Research Workspace</h3>
                   <p>Designed for fast comprehension across large document sets, with outputs tuned for decision-making instead of noise.</p>
+                  <div class="project-stats">
+                    <div class="stat-chip"><span class="stat-value">12+ <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Docs Compared</span></div>
+                    <div class="stat-chip"><span class="stat-value">3x <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Decision Speed</span></div>
+                  </div>
                   <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
@@ -178,11 +194,15 @@
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 5">
+            <article class="project-card" style="--card-index: 5">
               <div class="project-inner">
                 <div class="project-copy">
                   <h3>AI Design Copilot</h3>
                   <p>A co-creation environment helping product teams explore interface directions with more structure and less drift.</p>
+                  <div class="project-stats">
+                    <div class="stat-chip"><span class="stat-value">60% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Design Velocity</span></div>
+                    <div class="stat-chip"><span class="stat-value">10+ <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Components Generated</span></div>
+                  </div>
                   <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
@@ -195,53 +215,30 @@
 
         <section class="section" id="ai-work" data-reveal>
           <div class="section-heading">
-            <h2>When great audio &amp; transcription matter most</h2>
+            <h2>Other Noteworthy Highlights</h2>
           </div>
 
-          <div class="use-case-layout">
-            <div class="scenario-grid">
-              <article class="scenario-card glass-panel">
-                <span>Podcasts &amp; interviews</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Sales calls</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>User research sessions</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Team meetings</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Content creation</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Courses &amp; webinars</span>
-              </article>
+          <div class="bento-grid">
+            <div class="bento-item bento-wide">
+              <div class="bento-placeholder"></div>
             </div>
-
-            <div class="conversion-panel glass-panel">
-              <div>
-                <p class="eyebrow">Repurpose Faster</p>
-                <h3>Convert every conversation into content instantly</h3>
-                <p>
-                  Design a workflow where transcripts become ready-to-publish
-                  outputs without losing nuance, speed, or signal.
-                </p>
-              </div>
-              <div class="tag-cloud">
-                <span>LinkedIn posts</span>
-                <span>X threads</span>
-                <span>Blogs</span>
-                <span>Summaries</span>
-                <span>Email newsletters</span>
-                <span>Video captions</span>
-              </div>
+            <div class="bento-item">
+              <div class="bento-placeholder"></div>
+            </div>
+            <div class="bento-item">
+              <div class="bento-placeholder"></div>
+            </div>
+            <div class="bento-item bento-wide">
+              <div class="bento-placeholder"></div>
             </div>
           </div>
         </section>
 
         <section class="section about-section" id="about" data-reveal>
+          <div class="section-heading">
+            <h2>A Bit About Me</h2>
+          </div>
+
           <div class="about-layout">
             <div class="about-copy glass-panel">
               <h2>Designing AI products that feel intuitive, grounded, and ready to scale.</h2>
@@ -327,6 +324,13 @@
             </div>
           </div>
 
+        </section>
+
+        <section class="section testimonial-section" data-reveal>
+          <div class="section-heading">
+            <h2>Perspective on My Work</h2>
+          </div>
+
           <div class="testimonial-grid">
             <article class="testimonial-card glass-panel">
               <p>
@@ -353,7 +357,7 @@
 
         <section class="section closing-section" id="contact" data-reveal>
           <div class="closing-panel glass-panel">
-            <h2>Building the next great AI product? Let's design it right.</h2>
+            <h2>Building products that drive impact?<br/>Let's talk!</h2>
             <p>
               Available for select collaborations across AI product design,
               workflow tools, research-heavy systems, and premium digital
