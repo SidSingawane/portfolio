@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Case study: Options Strategy Builder at Upstox — designing a decision intelligence system for retail options traders."
+    />
+    <meta name="theme-color" content="#050505" />
+    <title>Options Strategy Builder — Upstox | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-dark.svg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="case-study.css?v=3" />
+  </head>
+  <body>
+    <div class="site-shell">
+
+      <!-- ===== Header ===== -->
+      <header class="site-header">
+        <nav class="floating-nav" aria-label="Primary navigation">
+          <a class="nav-logo" href="index.html" aria-label="Siddharth home">
+            <img class="logo-mark" src="./assets/Sid-logo.svg" alt="Siddharth logo" />
+          </a>
+          <div class="nav-links">
+            <a href="index.html#work"><span data-text="Work">Work</span></a>
+            <a href="index.html#about"><span data-text="About">About</span></a>
+            <a href="index.html#ai-work"><span data-text="Resume">Resume</span></a>
+          </div>
+          <a class="button button-primary nav-cta" href="index.html#contact">Get in touch</a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 5L16 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M4 12L20 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M4 19L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+
+        <!-- ===== 1. Hero ===== -->
+        <section class="cs-hero cs-container" data-reveal>
+          <span class="cs-hero__badge">Fintech</span>
+          <h1 class="cs-hero__title">Options Strategy Builder</h1>
+          <p class="cs-hero__intro">A feature within Upstox enabling users to build, analyse, and execute multi-leg options strategies inside a single workflow.</p>
+          <div class="cs-hero__image"></div>
+        </section>
+
+        <!-- ===== 2. Project Overview ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-overview">
+              <aside class="cs-meta">
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Industry</div>
+                  <div class="cs-meta__value">Fintech</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Role</div>
+                  <div class="cs-meta__value">Senior Product Designer</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Timeline</div>
+                  <div class="cs-meta__value">12 Weeks</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Company</div>
+                  <div class="cs-meta__value">Upstox</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Team</div>
+                  <div class="cs-meta__value">PMs, Engineers, Researchers</div>
+                </div>
+              </aside>
+              <div class="cs-content">
+                <h3>Overview</h3>
+                <p>At Upstox, I worked on designing an Options Strategy Builder &mdash; a feature that helps traders build, analyse, and execute multi-leg options strategies within a single workflow.</p>
+                <p>The goal was to bring decision-making tools closer to execution, reducing the cognitive overhead of options trading for retail users.</p>
+
+                <h3>Problem</h3>
+                <p>Most retail options traders on Upstox relied on fragmented workflows and external tools to plan strategies. This created friction at every step:</p>
+                <ul>
+                  <li>Users relied on external tools like Sensibull for strategy analysis</li>
+                  <li>Fragmented workflows across multiple platforms broke focus</li>
+                  <li>High cognitive load from juggling Greeks, payoff graphs, and pricing</li>
+                  <li>Low trust in the platform for decision-making &mdash; users trusted Upstox for execution only</li>
+                </ul>
+
+                <h3>Why This Problem Mattered</h3>
+                <p>Options trading in India was exploding. Weekly expiry options had turned retail traders into active participants. But the tools hadn't kept up. The goal was to unify the entire build &rarr; analyse &rarr; execute flow into one cohesive experience that earned users' trust.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 3. Impact Metrics ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Impact</h2>
+            <p class="cs-section-subtitle">Measurable outcomes from the shipped feature across key engagement and usability metrics.</p>
+            <div class="cs-metrics">
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">35%</div>
+                <div class="cs-metric-card__label">Faster Strategy Creation</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">28%</div>
+                <div class="cs-metric-card__label">Reduction in User Drop-offs</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">42%</div>
+                <div class="cs-metric-card__label">Increase in Feature Engagement</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 4. Full Width Visuals ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual cs-visual--hero"></div>
+          </div>
+        </div>
+
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual-grid">
+              <div class="cs-visual" style="aspect-ratio: 4/3;"></div>
+              <div class="cs-visual" style="aspect-ratio: 4/3;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 5. Industry Context ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Industry Context</h2>
+            <p class="cs-section-subtitle">Understanding the landscape that shaped the design decisions.</p>
+
+            <div class="cs-content cs-prose">
+              <h3>The Rise of Retail Options Trading</h3>
+              <p>India's options market had grown exponentially, driven by weekly expiry contracts and mobile-first trading behavior. Retail traders &mdash; many of them new to derivatives &mdash; were executing complex multi-leg strategies with tools that weren't designed for them.</p>
+
+              <h3>The Complexity Challenge</h3>
+              <p>Options trading is inherently complex. Every decision involves reading Greeks, understanding implied volatility, assessing risk-reward across multiple legs, and timing execution precisely. Most platforms either dumbed this down too much or presented everything at once &mdash; neither approach served the user well.</p>
+            </div>
+
+            <div class="cs-quote" data-reveal>
+              <p class="cs-quote__text">"Users trusted Upstox for execution, but not for decision-making."</p>
+              <p class="cs-quote__source">User Research Insight</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 6. Full Width Visual ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual cs-visual--wide"></div>
+          </div>
+        </div>
+
+        <!-- ===== 7. Research & Discovery ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Research &amp; Discovery</h2>
+            <p class="cs-section-subtitle">Understanding trader behaviors, motivations, and pain points through qualitative and quantitative research.</p>
+
+            <div class="cs-card-grid">
+              <div class="cs-card">
+                <div class="cs-card__tag">Segment 01</div>
+                <div class="cs-card__title">Beginner Traders</div>
+                <div class="cs-card__label">Characteristics</div>
+                <p class="cs-card__text">New to derivatives, learning through YouTube and social media. Trade weekly expiries with small capital.</p>
+                <div class="cs-card__label">Goals</div>
+                <p class="cs-card__text">Want guided strategy suggestions and clear risk visibility before executing.</p>
+                <div class="cs-card__label">Pain Points</div>
+                <p class="cs-card__text">Overwhelmed by Greeks and multi-leg complexity. Need hand-holding without feeling condescended to.</p>
+              </div>
+              <div class="cs-card">
+                <div class="cs-card__tag">Segment 02</div>
+                <div class="cs-card__title">Intermediate Traders</div>
+                <div class="cs-card__label">Characteristics</div>
+                <p class="cs-card__text">1-2 years of experience. Use external tools alongside Upstox. Comfortable with basic strategies.</p>
+                <div class="cs-card__label">Goals</div>
+                <p class="cs-card__text">Want faster execution, strategy comparison, and saving strategies for reuse.</p>
+                <div class="cs-card__label">Pain Points</div>
+                <p class="cs-card__text">Frustrated by switching between Sensibull and Upstox. Want analysis and execution in one place.</p>
+              </div>
+              <div class="cs-card">
+                <div class="cs-card__tag">Segment 03</div>
+                <div class="cs-card__title">Advanced Traders</div>
+                <div class="cs-card__label">Characteristics</div>
+                <p class="cs-card__text">Active daily traders with deep derivatives knowledge. Use multi-leg strategies with precise timing.</p>
+                <div class="cs-card__label">Goals</div>
+                <p class="cs-card__text">Need real-time Greeks, granular control over legs, and fast execution with minimal clicks.</p>
+                <div class="cs-card__label">Pain Points</div>
+                <p class="cs-card__text">Platform feels too basic. Want power-user features without sacrificing speed or reliability.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 8. Competitive Analysis ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Competitive Landscape</h2>
+            <p class="cs-section-subtitle">Mapping how existing tools approached the strategy building problem.</p>
+
+            <div class="cs-compare-grid">
+              <div class="cs-card">
+                <div class="cs-card__tag">Competitor</div>
+                <div class="cs-card__title">Sensibull</div>
+                <div class="cs-card__label">Strengths</div>
+                <p class="cs-card__text">Rich analytical tools, payoff graphs, strategy templates. Strong brand trust among options traders.</p>
+                <div class="cs-card__label">Weaknesses</div>
+                <p class="cs-card__text">Disconnected from execution. Adds a layer of complexity rather than reducing it. Desktop-heavy UX.</p>
+              </div>
+              <div class="cs-card">
+                <div class="cs-card__tag">Competitor</div>
+                <div class="cs-card__title">Dhan</div>
+                <div class="cs-card__label">Strengths</div>
+                <p class="cs-card__text">Clean, modern interface. Good mobile experience. Quick order entry flow.</p>
+                <div class="cs-card__label">Weaknesses</div>
+                <p class="cs-card__text">Strategy building feels bolted on. Limited analytical depth for serious traders.</p>
+              </div>
+              <div class="cs-card">
+                <div class="cs-card__tag">Competitor</div>
+                <div class="cs-card__title">TradingView</div>
+                <div class="cs-card__label">Strengths</div>
+                <p class="cs-card__text">Best-in-class charting. Massive community. Extensible with custom indicators.</p>
+                <div class="cs-card__label">Weaknesses</div>
+                <p class="cs-card__text">No native strategy builder for Indian markets. Overwhelming for non-charting tasks.</p>
+              </div>
+            </div>
+
+            <div class="cs-quote" data-reveal>
+              <p class="cs-quote__text">"Nobody balanced usability and analytical power effectively."</p>
+              <p class="cs-quote__source">Competitive Analysis Insight</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 9. Problem Definition ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Problem Definition</h2>
+            <p class="cs-section-subtitle">Framing the core problems and jobs-to-be-done that guided the design.</p>
+
+            <div class="cs-jtbd-grid">
+              <div class="cs-card">
+                <div class="cs-card__tag">Functional</div>
+                <div class="cs-card__title">Build &amp; Execute</div>
+                <p class="cs-card__text">Help me build a multi-leg strategy and execute it without leaving the platform or losing context.</p>
+              </div>
+              <div class="cs-card">
+                <div class="cs-card__tag">Emotional</div>
+                <div class="cs-card__title">Feel Confident</div>
+                <p class="cs-card__text">Make me feel like I understand the risk before I commit capital. Reduce my anxiety around complex trades.</p>
+              </div>
+              <div class="cs-card">
+                <div class="cs-card__tag">Behavioral</div>
+                <div class="cs-card__title">Decide Faster</div>
+                <p class="cs-card__text">Help me compare strategies quickly and act on opportunities before the market moves past them.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 10. UX Architecture ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">UX Architecture</h2>
+            <p class="cs-section-subtitle">A modular system designed to support the full strategy lifecycle.</p>
+
+            <div class="cs-flow">
+              <div class="cs-flow__node">
+                <div class="cs-flow__node-title">Underlying</div>
+                <div class="cs-flow__node-desc">Select instrument &amp; expiry</div>
+              </div>
+              <div class="cs-flow__connector"></div>
+              <div class="cs-flow__node">
+                <div class="cs-flow__node-title">Positions</div>
+                <div class="cs-flow__node-desc">Add &amp; configure legs</div>
+              </div>
+              <div class="cs-flow__connector"></div>
+              <div class="cs-flow__node">
+                <div class="cs-flow__node-title">Payoff Graph</div>
+                <div class="cs-flow__node-desc">Visualize risk &amp; reward</div>
+              </div>
+              <div class="cs-flow__connector"></div>
+              <div class="cs-flow__node">
+                <div class="cs-flow__node-title">Metrics</div>
+                <div class="cs-flow__node-desc">Max profit, loss, breakeven</div>
+              </div>
+              <div class="cs-flow__connector"></div>
+              <div class="cs-flow__node">
+                <div class="cs-flow__node-title">Greeks</div>
+                <div class="cs-flow__node-desc">Delta, Gamma, Theta, Vega</div>
+              </div>
+              <div class="cs-flow__connector"></div>
+              <div class="cs-flow__node">
+                <div class="cs-flow__node-title">Execution</div>
+                <div class="cs-flow__node-desc">Review &amp; place orders</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Full Width Visual ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual cs-visual--hero"></div>
+          </div>
+        </div>
+
+        <!-- ===== 11. Design Challenges ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Challenges</h2>
+            <p class="cs-section-subtitle">Navigating the tension between analytical depth and interface clarity.</p>
+
+            <div class="cs-challenge" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">01</div>
+                <div class="cs-challenge__title">Complexity vs Clarity</div>
+                <p class="cs-challenge__text">Options strategies involve multiple variables changing in real-time. The challenge was presenting enough information for informed decisions without overwhelming users. We used progressive disclosure to layer information based on user expertise and task context.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+
+            <div class="cs-challenge cs-challenge--reverse" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">02</div>
+                <div class="cs-challenge__title">Mobile Constraints</div>
+                <p class="cs-challenge__text">Most Upstox traders are mobile-first. Building a multi-leg strategy on a small screen required rethinking information hierarchy. We prioritized the payoff graph and key metrics, using expandable panels for deeper data like individual Greeks per leg.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+
+            <div class="cs-challenge" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">03</div>
+                <div class="cs-challenge__title">Real-Time Performance</div>
+                <p class="cs-challenge__text">Options prices change every second. The interface needed to update Greeks, payoff graphs, and margin requirements in real-time without creating visual noise or cognitive overload. We used subtle animation and color-coded deltas to communicate changes smoothly.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 12. Design Solutions ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Solutions</h2>
+            <p class="cs-section-subtitle">Key design decisions that shaped the final experience.</p>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">01</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h4>Dedicated Strategy Builder</h4>
+                <p>A full-screen, focused workspace where traders construct strategies leg by leg. The interface adapts its information density based on the number of legs added, progressively revealing complexity.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">02</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h4>Persistent Payoff Graph</h4>
+                <p>The payoff visualization stays anchored while users modify legs. Real-time updates show how each change affects the overall risk-reward profile, giving immediate visual feedback for every decision.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">03</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h4>Dual Entry System</h4>
+                <p>Users can build strategies either from scratch (custom legs) or from templates (pre-built strategies like Iron Condor, Bull Call Spread). Both paths converge into the same builder, so users always end up in a familiar workspace.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">04</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h4>Progressive Disclosure</h4>
+                <p>Greeks, margin requirements, and detailed breakeven analysis are available but not front-loaded. Users access deeper data through expandable panels, keeping the primary view clean and decision-focused.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">05</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h4>Save &amp; Reuse Strategies</h4>
+                <p>Traders can save their strategies for weekly reuse. Saved strategies auto-populate with current market data when reopened, reducing setup time for recurring trades.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">06</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h4>Execution Layer</h4>
+                <p>A streamlined order review screen that summarizes all legs, total margin required, and net premium. One-tap execution with clear confirmation states and fallback handling for partial fills.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Full Width Visual ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual-grid">
+              <div class="cs-visual" style="aspect-ratio: 4/3;"></div>
+              <div class="cs-visual" style="aspect-ratio: 4/3;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 13. Iterations ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Iterations</h2>
+            <p class="cs-section-subtitle">How the design evolved through rapid prototyping, testing, and stakeholder feedback.</p>
+
+            <div class="cs-timeline">
+              <div class="cs-timeline__item">
+                <div class="cs-timeline__version">V1</div>
+                <div class="cs-timeline__label">Problem</div>
+                <p class="cs-timeline__text">Initial concept tried to show everything at once &mdash; Greeks, graph, legs, and order form on a single screen.</p>
+                <div class="cs-timeline__label">Improvement</div>
+                <p class="cs-timeline__text">Split into distinct zones with progressive disclosure. Reduced visual density by 40%.</p>
+              </div>
+              <div class="cs-timeline__item">
+                <div class="cs-timeline__version">V2</div>
+                <div class="cs-timeline__label">Problem</div>
+                <p class="cs-timeline__text">Template selection felt disconnected from the builder. Users lost context switching between views.</p>
+                <div class="cs-timeline__label">Improvement</div>
+                <p class="cs-timeline__text">Merged template picker into the builder as an inline overlay, maintaining spatial continuity.</p>
+              </div>
+              <div class="cs-timeline__item">
+                <div class="cs-timeline__version">V3</div>
+                <div class="cs-timeline__label">Problem</div>
+                <p class="cs-timeline__text">Payoff graph was too small and lacked interactivity. Users couldn't explore scenarios.</p>
+                <div class="cs-timeline__label">Improvement</div>
+                <p class="cs-timeline__text">Made graph expandable to full-width. Added touch/hover to explore P&amp;L at any price point.</p>
+              </div>
+              <div class="cs-timeline__item">
+                <div class="cs-timeline__version">V4</div>
+                <div class="cs-timeline__label">Problem</div>
+                <p class="cs-timeline__text">Mobile leg editing required too many taps. Adding strike + type + qty felt tedious.</p>
+                <div class="cs-timeline__label">Improvement</div>
+                <p class="cs-timeline__text">Introduced quick-edit swipe gestures and smart defaults based on the previous leg configuration.</p>
+              </div>
+              <div class="cs-timeline__item">
+                <div class="cs-timeline__version">V5</div>
+                <div class="cs-timeline__label">Problem</div>
+                <p class="cs-timeline__text">Execution confirmation lacked clarity on total risk. Users hesitated at the final step.</p>
+                <div class="cs-timeline__label">Improvement</div>
+                <p class="cs-timeline__text">Added a visual summary card showing max loss, max profit, and breakeven. Reduced last-step hesitation by 28%.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 14. Usability Testing ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Usability Testing</h2>
+            <p class="cs-section-subtitle">Insights from moderated sessions with 12 traders across all three segments.</p>
+
+            <div class="cs-content cs-prose" style="margin-bottom: 48px;">
+              <h3 style="margin-top: 0;">Testing Goals</h3>
+              <ul>
+                <li>Validate the progressive disclosure model for different expertise levels</li>
+                <li>Test strategy creation speed compared to existing Sensibull workflow</li>
+                <li>Assess clarity of the payoff graph and metric cards</li>
+                <li>Identify friction points in the execution flow</li>
+              </ul>
+            </div>
+
+            <div class="cs-quote-cards">
+              <div class="cs-quote-card">
+                <p class="cs-quote-card__text">"I always want the graph visible. It's the one thing that tells me if my strategy makes sense."</p>
+                <span class="cs-quote-card__source">Intermediate Trader, 2yr exp.</span>
+              </div>
+              <div class="cs-quote-card">
+                <p class="cs-quote-card__text">"Too many numbers at once. I just need to know: what's my max loss and when do I break even?"</p>
+                <span class="cs-quote-card__source">Beginner Trader, 4mo exp.</span>
+              </div>
+              <div class="cs-quote-card">
+                <p class="cs-quote-card__text">"I'd use this weekly if I could save strategies. Right now I rebuild the same Iron Condor every Thursday."</p>
+                <span class="cs-quote-card__source">Advanced Trader, 5yr exp.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Full Width Visual ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual cs-visual--hero"></div>
+          </div>
+        </div>
+
+        <!-- ===== 15. Final Outcome ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Final Outcome</h2>
+            <p class="cs-section-subtitle">The shipped feature delivered measurable improvements across the trading experience.</p>
+
+            <div class="cs-metrics">
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">35%</div>
+                <div class="cs-metric-card__label">Faster strategy creation compared to external tool workflows</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">3x</div>
+                <div class="cs-metric-card__label">Better decision confidence reported in post-launch surveys</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">0</div>
+                <div class="cs-metric-card__label">External tools needed &mdash; unified trading workflow inside Upstox</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 16. Key Learnings ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Key Learnings</h2>
+            <p class="cs-section-subtitle">Principles that emerged from this project and now shape how I approach financial product design.</p>
+
+            <div class="cs-learnings">
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h4 class="cs-learning__title">Financial UX is Decision Design</h4>
+                  <p class="cs-learning__text">In fintech, the interface isn't just a tool &mdash; it's a decision environment. Every element either reduces or adds cognitive load. Design for clarity of consequence, not just usability.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h4 class="cs-learning__title">Progressive Disclosure is Critical</h4>
+                  <p class="cs-learning__text">Showing everything at once kills confidence. Layering information based on user intent and expertise creates a sense of control &mdash; which is what traders actually need.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h4 class="cs-learning__title">Systems Thinking Scales Better Than Screens</h4>
+                  <p class="cs-learning__text">Designing individual screens is easy. Designing a system where every module works together &mdash; payoff graph, Greeks, legs, execution &mdash; is what makes the experience feel cohesive.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h4 class="cs-learning__title">Behavior Beats Assumptions</h4>
+                  <p class="cs-learning__text">We assumed advanced traders wanted maximum data density. Research showed they wanted speed and confidence, not more numbers. Always validate &mdash; even with expert users.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 17. Future Opportunities ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Future Opportunities</h2>
+            <p class="cs-section-subtitle">Where the strategy builder could evolve to create even more value.</p>
+
+            <div class="cs-opportunity-grid">
+              <div class="cs-opportunity-card">
+                <div class="cs-opportunity-card__icon">AI</div>
+                <div class="cs-opportunity-card__title">AI-Assisted Strategy Suggestions</div>
+                <p class="cs-opportunity-card__text">Surface contextual strategy recommendations based on market conditions, user history, and risk profile.</p>
+              </div>
+              <div class="cs-opportunity-card">
+                <div class="cs-opportunity-card__icon">BT</div>
+                <div class="cs-opportunity-card__title">Backtesting</div>
+                <p class="cs-opportunity-card__text">Let users test strategies against historical data to build confidence before committing real capital.</p>
+              </div>
+              <div class="cs-opportunity-card">
+                <div class="cs-opportunity-card__icon">SIM</div>
+                <div class="cs-opportunity-card__title">Scenario Simulation</div>
+                <p class="cs-opportunity-card__text">What-if tools that let traders explore how strategies perform under different volatility and price scenarios.</p>
+              </div>
+              <div class="cs-opportunity-card">
+                <div class="cs-opportunity-card__icon">RR</div>
+                <div class="cs-opportunity-card__title">Personalized Risk Recommendations</div>
+                <p class="cs-opportunity-card__text">Proactive risk alerts and position-sizing suggestions tailored to the user's trading behavior and capital.</p>
+              </div>
+              <div class="cs-opportunity-card">
+                <div class="cs-opportunity-card__icon">SYNC</div>
+                <div class="cs-opportunity-card__title">Cross-Platform Syncing</div>
+                <p class="cs-opportunity-card__text">Seamless strategy continuity between mobile and desktop &mdash; start on mobile, refine on web, execute anywhere.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 18. Reflection ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-reflection">
+              <h2 class="cs-reflection__title">Reflection</h2>
+              <p class="cs-reflection__text">This project reinforced that designing for financial products is really designing trust systems. Every interaction either builds or erodes a trader's confidence in their own decisions.</p>
+              <p class="cs-reflection__text">The best financial UX doesn't just present data &mdash; it creates a behavioral system where power, clarity, emotion, and risk all exist in balance. The strategy builder became that system.</p>
+              <p class="cs-reflection__text">It was a reminder that the real design challenge in fintech isn't making things simpler. It's making complexity feel navigable.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Project Nav ===== -->
+        <div class="cs-project-nav" data-reveal>
+          <a class="cs-back-link" href="index.html#work">
+            <span>&larr;</span>
+            <span>Back to all projects</span>
+          </a>
+        </div>
+
+      </main>
+
+      <!-- ===== Footer ===== -->
+      <footer class="site-footer">
+        <div class="footer-social-rail">
+          <a class="footer-social-link" href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M8 8v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 16v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 16v-3a2 2 0 1 0 -4 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>LinkedIn</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://x.com" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Twitter</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 3.6c5 6 7 10.5 7.5 16.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.4 19c3.5 -3.5 6 -6.5 14.5 -6.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3.1 10.75c5 0 9.814 -.38 15.314 -5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Dribbble</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://www.behance.net" target="_blank" rel="noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 12l4.5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.64 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 6l3 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Behance</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="footer-note">Thanks for scrolling. Let&apos;s create something great.</p>
+      </footer>
+    </div>
+
+    <script>
+      // Header scroll state
+      const header = document.querySelector(".site-header");
+      const updateHeaderState = () => {
+        header.classList.toggle("is-scrolled", window.scrollY > 40);
+      };
+      updateHeaderState();
+      window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+      // Reveal on scroll
+      const revealItems = document.querySelectorAll("[data-reveal]");
+      if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+        );
+        revealItems.forEach((item) => revealObserver.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+      }
+      // Show first two sections immediately
+      revealItems.forEach((item, i) => { if (i < 2) item.classList.add("is-visible"); });
+
+      // Mobile nav toggle
+      const navToggle = document.querySelector(".nav-toggle");
+      if (navToggle) {
+        navToggle.addEventListener("click", () => {
+          const isOpen = header.classList.toggle("nav-open");
+          navToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+      }
+    </script>
+  </body>
+</html>
