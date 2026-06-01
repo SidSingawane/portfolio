@@ -20,14 +20,15 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="case-study.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=30" />
+    <link rel="stylesheet" href="case-study.css?v=6" />
   </head>
   <body>
     <div class="site-shell">
 
       <!-- ===== Header ===== -->
       <header class="site-header">
-        <nav class="floating-nav" aria-label="Primary navigation">
+        <nav class="floating-nav glass-panel" aria-label="Primary navigation">
           <a class="nav-logo" href="index.html" aria-label="Siddharth home">
             <img class="logo-mark" src="./assets/Sid-logo.svg" alt="Siddharth logo" />
           </a>
@@ -41,16 +42,64 @@
             class="nav-toggle"
             type="button"
             aria-expanded="false"
+            aria-controls="mobile-drawer"
             aria-label="Open navigation menu"
           >
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 5L16 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              <path d="M4 12L20 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              <path d="M4 19L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <span class="sr-only">Toggle navigation menu</span>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-menu"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 5L16 5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 12L20 12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 19L12 19"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-close"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M18 6L6.00081 17.9992M17.9992 18L6 6.00085"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
         </nav>
+        <div class="mobile-drawer-shell" id="mobile-drawer">
+          <div class="mobile-drawer glass-panel">
+            <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="mobile-drawer-link" href="index.html#work">Work</a>
+            <a class="mobile-drawer-link" href="index.html#ai-work">AI Work</a>
+            <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
+          </div>
+        </div>
       </header>
+      <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
 
       <main>
 
@@ -506,7 +555,7 @@
             <h2 class="cs-section-title">Usability Testing</h2>
             <p class="cs-section-subtitle">Insights from moderated sessions with 12 traders across all three segments.</p>
 
-            <div class="cs-content cs-prose" style="margin-bottom: 48px;">
+            <div class="cs-content cs-prose" style="margin-bottom: 40px;">
               <h3 style="margin-top: 0;">Testing Goals</h3>
               <ul>
                 <li>Validate the progressive disclosure model for different expertise levels</li>
@@ -751,12 +800,23 @@
 
       // Mobile nav toggle
       const navToggle = document.querySelector(".nav-toggle");
+      const backdrop = document.querySelector(".mobile-drawer-backdrop");
+      function closeDrawer() {
+        header.classList.remove("nav-open");
+        if (navToggle) navToggle.setAttribute("aria-expanded", "false");
+      }
       if (navToggle) {
         navToggle.addEventListener("click", () => {
           const isOpen = header.classList.toggle("nav-open");
           navToggle.setAttribute("aria-expanded", String(isOpen));
         });
       }
+      if (backdrop) {
+        backdrop.addEventListener("click", closeDrawer);
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDrawer();
+      });
     </script>
   </body>
 </html>
