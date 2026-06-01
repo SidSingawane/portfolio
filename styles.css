@@ -1422,10 +1422,6 @@ main#top {
   padding: clamp(28px, 4vw, 40px);
   display: grid;
   gap: 20px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-    linear-gradient(135deg, rgba(201, 184, 156, 0.08), transparent 48%),
-    var(--surface-strong);
   transition:
     transform 200ms ease,
     border-color 200ms ease;
