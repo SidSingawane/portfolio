@@ -28,7 +28,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=31" />
     <script defer src="script.js"></script>
   </head>
   <body>
@@ -39,11 +39,11 @@
             <img class="logo-mark" src="./assets/Sid-logo.svg" alt="Siddharth logo" />
           </a>
           <div class="nav-links">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#ai-work">AI Work</a>
+            <a href="#work"><span data-text="Work">Work</span></a>
+            <a href="#about"><span data-text="About">About</span></a>
+            <a href="#ai-work"><span data-text="Resume">Resume</span></a>
           </div>
-          <a class="button button-primary nav-cta" href="#contact">Get in Touch</a>
+          <a class="button button-primary nav-cta" href="#contact">Get in touch</a>
           <button
             class="nav-toggle"
             type="button"
@@ -101,7 +101,7 @@
             <a class="mobile-drawer-link" href="#about">About</a>
             <a class="mobile-drawer-link" href="#work">Work</a>
             <a class="mobile-drawer-link" href="#ai-work">AI Work</a>
-            <a class="button button-primary mobile-drawer-cta" href="#contact">Get in Touch</a>
+            <a class="button button-primary mobile-drawer-cta" href="#contact">Get in touch</a>
           </div>
         </div>
       </header>
@@ -122,283 +122,91 @@
 
         <section class="section work-section" id="work" data-reveal>
           <div class="section-heading work-heading">
-            <div>
-              <p class="eyebrow">Featured AI Work</p>
-              <h2>Selected products shaped around clarity, speed, and trust.</h2>
-            </div>
-            <p class="section-text">
-              A curated mix of AI workflows, voice products, and design systems
-              built to feel useful from the first interaction.
-            </p>
+            <h2>Featured work</h2>
           </div>
 
           <div class="project-stack">
-            <article class="project-card glass-panel" style="--card-index: 1">
+            <article class="project-card" style="--card-index: 1">
               <div class="project-inner">
                 <div class="project-copy">
-                  <div class="card-content">
-                    <div class="card-meta">
-                      <span>01</span>
-                      <span>AI Meeting Assistant</span>
-                    </div>
-                    <div>
-                      <h3>Smart transcription, summaries, searchable notes.</h3>
-                      <p>
-                        A meeting workspace designed to capture the signal in every
-                        conversation and make next steps immediately usable.
-                      </p>
-                      <div class="tag-row">
-                        <span>Live transcription</span>
-                        <span>Semantic search</span>
-                        <span>Action items</span>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="project-link" href="#contact">Discuss this product</a>
-                </div>
-                <div class="project-showcase">
-                  <div class="card-visual meeting-visual">
-                    <div class="meeting-toolbar">
-                      <span class="visual-pill">Live summary</span>
-                      <span class="visual-pill visual-pill-muted">47 min</span>
-                    </div>
-                    <div class="meeting-layout">
-                      <div class="transcript-panel">
-                        <span class="transcript-line transcript-line-short"></span>
-                        <span class="transcript-line"></span>
-                        <span class="transcript-line transcript-line-medium"></span>
-                        <span class="transcript-line"></span>
-                        <span class="transcript-line transcript-line-short"></span>
-                      </div>
-                      <div class="summary-panel">
-                        <span class="summary-chip">Key decisions</span>
-                        <ul class="mini-list">
-                          <li>Prioritize onboarding automation</li>
-                          <li>Cluster themes across user calls</li>
-                          <li>Share highlights with product and sales</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                  <h3>AI Meeting Assistant</h3>
+                  <p>A meeting workspace designed to capture the signal in every conversation and make next steps immediately usable.</p>
                   <div class="project-stats">
-                    <div class="project-stat">
-                      <span>Session length</span>
-                      <strong>47 min</strong>
-                    </div>
-                    <div class="project-stat">
-                      <span>Summary readiness</span>
-                      <strong>Instant</strong>
-                    </div>
+                    <div class="stat-chip"><span class="stat-value">32% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Active FnO Clients</span></div>
+                    <div class="stat-chip"><span class="stat-value">41% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Average Daily TurnOver</span></div>
                   </div>
+                  <a class="project-link" href="case-study-options.html">View Project <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="project-image">
+                  <div class="image-placeholder"></div>
                 </div>
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 2">
+            <article class="project-card" style="--card-index: 2">
               <div class="project-inner">
                 <div class="project-copy">
-                  <div class="card-content">
-                    <div class="card-meta">
-                      <span>02</span>
-                      <span>Voice Capture Studio</span>
-                    </div>
-                    <div>
-                      <h3>High-quality audio recording with noise cleanup.</h3>
-                      <p>
-                        Built for clarity at the source, with an interface that
-                        feels quiet, technical, and effortless to trust.
-                      </p>
-                      <div class="tag-row">
-                        <span>Noise cleanup</span>
-                        <span>Waveform review</span>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="project-link" href="#contact">Explore voice workflows</a>
-                </div>
-                <div class="project-showcase">
-                  <div class="card-visual voice-visual">
-                    <div class="waveform" aria-hidden="true">
-                      <span style="--bar: 24%"></span>
-                      <span style="--bar: 48%"></span>
-                      <span style="--bar: 62%"></span>
-                      <span style="--bar: 38%"></span>
-                      <span style="--bar: 72%"></span>
-                      <span style="--bar: 90%"></span>
-                      <span style="--bar: 56%"></span>
-                      <span style="--bar: 34%"></span>
-                      <span style="--bar: 68%"></span>
-                      <span style="--bar: 42%"></span>
-                      <span style="--bar: 28%"></span>
-                    </div>
-                    <div class="meter-block">
-                      <div class="meter-head">
-                        <span>Cleanup strength</span>
-                        <span>84%</span>
-                      </div>
-                      <div class="meter-track">
-                        <span class="meter-fill"></span>
-                      </div>
-                    </div>
-                  </div>
+                  <h3>Voice Capture Studio</h3>
+                  <p>Built for clarity at the source, with an interface that feels quiet, technical, and effortless to trust.</p>
                   <div class="project-stats">
-                    <div class="project-stat">
-                      <span>Cleanup strength</span>
-                      <strong>84%</strong>
-                    </div>
-                    <div class="project-stat">
-                      <span>Latency</span>
-                      <strong>Low</strong>
-                    </div>
+                    <div class="stat-chip"><span class="stat-value">84% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Noise Reduction</span></div>
+                    <div class="stat-chip"><span class="stat-value">2.1s <span class="stat-arrow">&#9660;</span></span><span class="stat-label">Processing Latency</span></div>
                   </div>
+                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="project-image">
+                  <div class="image-placeholder"></div>
                 </div>
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 3">
+            <article class="project-card" style="--card-index: 3">
               <div class="project-inner">
                 <div class="project-copy">
-                  <div class="card-content">
-                    <div class="card-meta">
-                      <span>03</span>
-                      <span>Transcript to Content Engine</span>
-                    </div>
-                    <div>
-                      <h3>Turn conversations into posts, blogs, threads, clips.</h3>
-                      <p>
-                        A content workflow that transforms raw transcripts into
-                        polished, multi-channel assets without losing the original
-                        voice.
-                      </p>
-                      <div class="tag-row">
-                        <span>Repurposing</span>
-                        <span>Multi-format output</span>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="project-link" href="#contact">Build a content engine</a>
-                </div>
-                <div class="project-showcase">
-                  <div class="card-visual content-visual">
-                    <div class="flow-origin">Transcript</div>
-                    <div class="flow-line"></div>
-                    <div class="flow-targets">
-                      <span>LinkedIn</span>
-                      <span>Blogs</span>
-                      <span>Threads</span>
-                      <span>Clips</span>
-                    </div>
-                  </div>
+                  <h3>Transcript to Content Engine</h3>
+                  <p>A content workflow that transforms raw transcripts into polished, multi-channel assets without losing the original voice.</p>
                   <div class="project-stats">
-                    <div class="project-stat">
-                      <span>Output types</span>
-                      <strong>4 formats</strong>
-                    </div>
-                    <div class="project-stat">
-                      <span>Publishing speed</span>
-                      <strong>Fast</strong>
-                    </div>
+                    <div class="stat-chip"><span class="stat-value">4x <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Content Output</span></div>
+                    <div class="stat-chip"><span class="stat-value">6 <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Format Types</span></div>
                   </div>
+                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="project-image">
+                  <div class="image-placeholder"></div>
                 </div>
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 4">
+            <article class="project-card" style="--card-index: 4">
               <div class="project-inner">
                 <div class="project-copy">
-                  <div class="card-content">
-                    <div class="card-meta">
-                      <span>04</span>
-                      <span>AI Research Workspace</span>
-                    </div>
-                    <div>
-                      <h3>Summarize docs, compare insights, generate actions.</h3>
-                      <p>
-                        Designed for fast comprehension across large document sets,
-                        with outputs tuned for decision-making instead of noise.
-                      </p>
-                      <div class="tag-row">
-                        <span>Doc synthesis</span>
-                        <span>Insight comparison</span>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="project-link" href="#contact">Design calmer research tools</a>
-                </div>
-                <div class="project-showcase">
-                  <div class="card-visual research-visual">
-                    <div class="research-stack">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div class="insight-stack">
-                      <span class="insight-line insight-line-long"></span>
-                      <span class="insight-line"></span>
-                      <span class="insight-line insight-line-short"></span>
-                      <span class="insight-line"></span>
-                    </div>
-                  </div>
+                  <h3>AI Research Workspace</h3>
+                  <p>Designed for fast comprehension across large document sets, with outputs tuned for decision-making instead of noise.</p>
                   <div class="project-stats">
-                    <div class="project-stat">
-                      <span>Docs compared</span>
-                      <strong>12+</strong>
-                    </div>
-                    <div class="project-stat">
-                      <span>Action clarity</span>
-                      <strong>High</strong>
-                    </div>
+                    <div class="stat-chip"><span class="stat-value">12+ <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Docs Compared</span></div>
+                    <div class="stat-chip"><span class="stat-value">3x <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Decision Speed</span></div>
                   </div>
+                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="project-image">
+                  <div class="image-placeholder"></div>
                 </div>
               </div>
             </article>
 
-            <article class="project-card glass-panel" style="--card-index: 5">
+            <article class="project-card" style="--card-index: 5">
               <div class="project-inner">
                 <div class="project-copy">
-                  <div class="card-content">
-                    <div class="card-meta">
-                      <span>05</span>
-                      <span>AI Design Copilot</span>
-                    </div>
-                    <div>
-                      <h3>Generate UI flows, wireframes, and design systems faster.</h3>
-                      <p>
-                        A co-creation environment helping product teams explore
-                        interface directions with more structure and less drift.
-                      </p>
-                      <div class="tag-row">
-                        <span>UI flows</span>
-                        <span>System generation</span>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="project-link" href="#contact">Shape the next copilot</a>
-                </div>
-                <div class="project-showcase">
-                  <div class="card-visual copilot-visual">
-                    <div class="wireframe-window">
-                      <div class="window-bar"></div>
-                      <div class="wireframe-layout">
-                        <span class="wireframe-sidebar"></span>
-                        <div class="wireframe-main">
-                          <span class="wireframe-block wireframe-block-large"></span>
-                          <span class="wireframe-block"></span>
-                          <span class="wireframe-block wireframe-block-small"></span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <h3>AI Design Copilot</h3>
+                  <p>A co-creation environment helping product teams explore interface directions with more structure and less drift.</p>
                   <div class="project-stats">
-                    <div class="project-stat">
-                      <span>Flow generation</span>
-                      <strong>Rapid</strong>
-                    </div>
-                    <div class="project-stat">
-                      <span>System coverage</span>
-                      <strong>Broad</strong>
-                    </div>
+                    <div class="stat-chip"><span class="stat-value">60% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Design Velocity</span></div>
+                    <div class="stat-chip"><span class="stat-value">10+ <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Components Generated</span></div>
                   </div>
+                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="project-image">
+                  <div class="image-placeholder"></div>
                 </div>
               </div>
             </article>
@@ -407,64 +215,32 @@
 
         <section class="section" id="ai-work" data-reveal>
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">Use Cases</p>
-              <h2>When great audio &amp; transcription matter most</h2>
-            </div>
-            <p class="section-text">
-              The products behind voice capture and transcription need to hold
-              up across messy, high-stakes conversations and turn them into
-              something usable.
-            </p>
+            <h2>Other Noteworthy Highlights</h2>
           </div>
 
-          <div class="use-case-layout">
-            <div class="scenario-grid">
-              <article class="scenario-card glass-panel">
-                <span>Podcasts &amp; interviews</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Sales calls</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>User research sessions</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Team meetings</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Content creation</span>
-              </article>
-              <article class="scenario-card glass-panel">
-                <span>Courses &amp; webinars</span>
-              </article>
+          <div class="bento-grid">
+            <div class="bento-item bento-wide">
+              <div class="bento-placeholder"></div>
             </div>
-
-            <div class="conversion-panel glass-panel">
-              <div>
-                <p class="eyebrow">Repurpose Faster</p>
-                <h3>Convert every conversation into content instantly</h3>
-                <p>
-                  Design a workflow where transcripts become ready-to-publish
-                  outputs without losing nuance, speed, or signal.
-                </p>
-              </div>
-              <div class="tag-cloud">
-                <span>LinkedIn posts</span>
-                <span>X threads</span>
-                <span>Blogs</span>
-                <span>Summaries</span>
-                <span>Email newsletters</span>
-                <span>Video captions</span>
-              </div>
+            <div class="bento-item">
+              <div class="bento-placeholder"></div>
+            </div>
+            <div class="bento-item">
+              <div class="bento-placeholder"></div>
+            </div>
+            <div class="bento-item bento-wide">
+              <div class="bento-placeholder"></div>
             </div>
           </div>
         </section>
 
         <section class="section about-section" id="about" data-reveal>
+          <div class="section-heading">
+            <h2>A Bit About Me</h2>
+          </div>
+
           <div class="about-layout">
             <div class="about-copy glass-panel">
-              <p class="eyebrow">About</p>
               <h2>Designing AI products that feel intuitive, grounded, and ready to scale.</h2>
               <p>
                 Siddharth is a product designer focused on AI experiences,
@@ -548,6 +324,13 @@
             </div>
           </div>
 
+        </section>
+
+        <section class="section testimonial-section" data-reveal>
+          <div class="section-heading">
+            <h2>Perspective on My Work</h2>
+          </div>
+
           <div class="testimonial-grid">
             <article class="testimonial-card glass-panel">
               <p>
@@ -574,8 +357,7 @@
 
         <section class="section closing-section" id="contact" data-reveal>
           <div class="closing-panel glass-panel">
-            <p class="eyebrow">Get in Touch</p>
-            <h2>Building the next great AI product? Let's design it right.</h2>
+            <h2>Building products that drive impact?<br/>Let's talk!</h2>
             <p>
               Available for select collaborations across AI product design,
               workflow tools, research-heavy systems, and premium digital
@@ -584,14 +366,6 @@
             <div class="closing-actions">
               <a class="button button-primary" href="mailto:siddharthsingawne@gmail.com">
                 siddharthsingawne@gmail.com
-              </a>
-              <a
-                class="button button-secondary"
-                href="https://cal.com/siddharth"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Book a Call
               </a>
             </div>
           </div>
