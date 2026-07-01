@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Case study on AI Design Copilot: a workspace for exploring interface directions inside your team's design system."
+    />
+    <meta name="theme-color" content="#050505" />
+    <title>AI Design Copilot — Case Study | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-dark.svg"
+    />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="styles.css?v=50" />
+    <link rel="stylesheet" href="case-study.css?v=13" />
+    <script defer src="script.js?v=16"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#top">Skip to content</a>
+    <canvas id="code-rain" aria-hidden="true"></canvas>
+    <div class="site-shell">
+
+      <!-- ===== Header ===== -->
+      <header class="site-header">
+        <nav class="floating-nav glass-panel" aria-label="Primary navigation">
+          <a class="nav-logo" href="index.html" aria-label="Siddharth home">
+            <img class="logo-mark" src="./assets/Sid-logo.svg" alt="Siddharth logo" />
+          </a>
+          <div class="nav-links">
+            <a href="index.html#work"><span data-text="Work">Work</span></a>
+            <a href="index.html#ai-work"><span data-text="Highlights">Highlights</span></a>
+            <a href="index.html#about"><span data-text="About">About</span></a>
+          </div>
+          <div class="nav-actions">
+            <button class="theme-toggle" type="button" aria-label="Switch to light theme">
+              <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" />
+                <path
+                  d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1L5.3 5.3"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <a class="button button-primary nav-cta magnetic" href="index.html#contact">Get in touch</a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-drawer"
+            aria-label="Open navigation menu"
+          >
+            <span class="sr-only">Toggle navigation menu</span>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-menu"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 5L16 5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 12L20 12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 19L12 19"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-close"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M18 6L6.00081 17.9992M17.9992 18L6 6.00085"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          </div>
+        </nav>
+        <div class="mobile-drawer-shell" id="mobile-drawer">
+          <div class="mobile-drawer glass-panel">
+            <a class="mobile-drawer-link" href="index.html#work">Work</a>
+            <a class="mobile-drawer-link" href="index.html#ai-work">Highlights</a>
+            <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
+
+      <main id="top" tabindex="-1">
+
+        <!-- ===== Hero ===== -->
+        <section class="cs-hero cs-container" data-reveal>
+          <span class="cs-hero__badge">Design Tools</span>
+          <h1 class="cs-hero__title">AI Design Copilot</h1>
+          <p class="cs-hero__intro">A design tool that generates screens using your components, not somebody&apos;s idea of what a button should look like. Fast exploration without the cleanup pass.</p>
+          <div class="cs-hero__image"></div>
+        </section>
+
+        <!-- ===== Project Overview ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-overview">
+              <aside class="cs-meta">
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Type</div>
+                  <div class="cs-meta__value">Self-initiated product</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Role</div>
+                  <div class="cs-meta__value">Product Designer</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Timeline</div>
+                  <div class="cs-meta__value">8 Weeks</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Focus</div>
+                  <div class="cs-meta__value">Tool UX, design systems</div>
+                </div>
+              </aside>
+              <div class="cs-content">
+                <h2>Overview</h2>
+                <p>AI can generate an interface in ten seconds. Most of them belong to no design system, ignore the brief, and can&apos;t be built. Fast, yes. Useful, sometimes.</p>
+                <p>Design Copilot is a workspace where the AI generates inside your team&apos;s design system. Explorations don&apos;t pile up as random screenshots; they stay organised as directions you can compare. And what leaves the tool maps to components engineering actually has, so handoff doesn&apos;t start from zero.</p>
+
+                <h2>Problem</h2>
+                <p>The current generation of UI generators trades away exactly what a working design team needs:</p>
+                <ul>
+                  <li>The screens ignore your tokens, your components, and every pattern your team already agreed on.</li>
+                  <li>Explorations end up as a folder of unconnected images with no way to compare them.</li>
+                  <li>You can&apos;t sit them side by side and argue, so decisions fall back to whose taste wins the room.</li>
+                  <li>The output is a picture. Handoff to engineering starts from zero.</li>
+                </ul>
+
+                <h2>The Goal</h2>
+                <p>Fast, on-system exploration. Screens that are comparable, critiquable, and one step away from being built.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Impact Metrics ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Impact</h2>
+            <p class="cs-section-subtitle">From pilots with real product teams, compared against how they were exploring before.</p>
+            <div class="cs-metrics" data-stagger>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">60%</div>
+                <div class="cs-metric-card__label">Faster from brief to a set of options to argue about</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">10+</div>
+                <div class="cs-metric-card__label">Real components generated and mapped per project</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">3</div>
+                <div class="cs-metric-card__label">Directions on the table when the team picked one</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Full Width Visual ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual cs-visual--hero"></div>
+          </div>
+        </div>
+
+        <!-- ===== Design Challenges ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Challenges</h2>
+            <p class="cs-section-subtitle">How do you constrain a generator without strangling it?</p>
+
+            <div class="cs-challenge" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">01</div>
+                <div class="cs-challenge__title">Staying on system</div>
+                <p class="cs-challenge__text">Left alone, generators wander off-brand by the second iteration. Tokens and components are hard constraints in this tool. Colour, type, spacing, and elements all come from the system. Layout and hierarchy stay free. Nobody has to spend an afternoon repainting screens.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+
+            <div class="cs-challenge cs-challenge--reverse" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">02</div>
+                <div class="cs-challenge__title">Making three options something you can actually argue about</div>
+                <p class="cs-challenge__text">Three options are only useful if you can compare them. Direction boards line up variants side by side with annotated trade-offs (density, effort, risk). Critique gets a structure. Decisions leave a record instead of dying in a Figma comment.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Design Solutions ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Solutions</h2>
+            <p class="cs-section-subtitle">Three ideas that made this actually useful in a working team.</p>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">01</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h3>Your system is the guardrail, not a suggestion</h3>
+                <p>Tokens and components are hard constraints. Every generated screen is on-brand from the first pixel. Every iteration is forward motion instead of cleanup.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">02</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h3>Direction boards</h3>
+                <p>Parallel explorations live as named directions with structured critique attached. The question in the room stops being &ldquo;which do we like?&rdquo; and becomes &ldquo;which trade-offs are we okay with?&rdquo;</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">03</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h3>Handoff that&apos;s already halfway built</h3>
+                <p>Every element in the picked direction maps to a real component with real props. What you send to engineering isn&apos;t a screenshot. It&apos;s a head start.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Visual Grid ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual-grid">
+              <div class="cs-visual"></div>
+              <div class="cs-visual"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Key Learnings ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Key Learnings</h2>
+            <p class="cs-section-subtitle">What working on this made me think about designing for design teams.</p>
+
+            <div class="cs-learnings">
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h3 class="cs-learning__title">The constraints are the product</h3>
+                  <p class="cs-learning__text">Speed of generation isn&apos;t a differentiator anymore. Everyone has that. What&apos;s worth building is generation that lands inside the system the first time.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h3 class="cs-learning__title">Comparison is the actual workflow</h3>
+                  <p class="cs-learning__text">Teams don&apos;t want one perfect answer. They want three honest options and a way to argue. Designing the critique surface mattered more than designing the canvas.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h3 class="cs-learning__title">Drift is where velocity dies</h3>
+                  <p class="cs-learning__text">Every off-system element is a bit of future rework. Preventing drift is where the 60% speedup actually came from. Cleanup work is invisible until you stop doing it.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Reflection ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-reflection">
+              <h2 class="cs-reflection__title">Reflection</h2>
+              <p class="cs-reflection__text">Designing a tool for designers is a strange kind of mirror. Every opinion you have about your own process gets tested against what you actually do when you sit down to work.</p>
+              <p class="cs-reflection__text">The one thing I&apos;m sure of after eight weeks in this: AI helps design most when it&apos;s forced to respect the same system the team is. Everything else is a demo.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Project Nav ===== -->
+        <div class="cs-project-nav" data-reveal>
+          <a class="cs-back-link" href="index.html#work">
+            <span aria-hidden="true">&larr;</span>
+            <span>Back to all projects</span>
+          </a>
+          <a class="cs-back-link" href="case-study-options.html">
+            <span>Next project: Options Strategy Builder</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="button button-primary magnetic cs-contact-cta" href="index.html#contact">
+            Discuss a project like this
+          </a>
+        </div>
+
+      </main>
+
+      <!-- ===== Footer ===== -->
+      <footer class="site-footer">
+        <div class="footer-social-rail">
+          <a class="footer-social-link" href="https://www.linkedin.com/in/siddharthsingawne/" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M8 8v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 16v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 16v-3a2 2 0 1 0 -4 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>LinkedIn</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://medium.com/@bhaweshsingawne29/typography-is-not-decoration-its-direction-3109166b928f" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 16C9.20914 16 11 14.2091 11 12C11 9.79086 9.20914 8 7 8C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M15 16C16.1046 16 17 14.2091 17 12C17 9.79086 16.1046 8 15 8C13.8954 8 13 9.79086 13 12C13 14.2091 13.8954 16 15 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M20 16C20.5523 16 21 14.2091 21 12C21 9.79086 20.5523 8 20 8C19.4477 8 19 9.79086 19 12C19 14.2091 19.4477 16 20 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Medium</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 3.6c5 6 7 10.5 7.5 16.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.4 19c3.5 -3.5 6 -6.5 14.5 -6.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3.1 10.75c5 0 9.814 -.38 15.314 -5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Dribbble</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://www.behance.net/sdesign9" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 12l4.5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.64 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 6l3 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Behance</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="footer-note">Thanks for scrolling. Let&apos;s create something great.</p>
+      </footer>
+    </div>
+  </body>
+</html>

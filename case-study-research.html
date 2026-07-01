@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Case study on the AI Research Workspace: reading twelve documents at once to make a real decision at the end."
+    />
+    <meta name="theme-color" content="#050505" />
+    <title>AI Research Workspace — Case Study | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-dark.svg"
+    />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="styles.css?v=50" />
+    <link rel="stylesheet" href="case-study.css?v=13" />
+    <script defer src="script.js?v=16"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#top">Skip to content</a>
+    <canvas id="code-rain" aria-hidden="true"></canvas>
+    <div class="site-shell">
+
+      <!-- ===== Header ===== -->
+      <header class="site-header">
+        <nav class="floating-nav glass-panel" aria-label="Primary navigation">
+          <a class="nav-logo" href="index.html" aria-label="Siddharth home">
+            <img class="logo-mark" src="./assets/Sid-logo.svg" alt="Siddharth logo" />
+          </a>
+          <div class="nav-links">
+            <a href="index.html#work"><span data-text="Work">Work</span></a>
+            <a href="index.html#ai-work"><span data-text="Highlights">Highlights</span></a>
+            <a href="index.html#about"><span data-text="About">About</span></a>
+          </div>
+          <div class="nav-actions">
+            <button class="theme-toggle" type="button" aria-label="Switch to light theme">
+              <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" />
+                <path
+                  d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1L5.3 5.3"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <a class="button button-primary nav-cta magnetic" href="index.html#contact">Get in touch</a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-drawer"
+            aria-label="Open navigation menu"
+          >
+            <span class="sr-only">Toggle navigation menu</span>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-menu"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 5L16 5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 12L20 12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 19L12 19"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="nav-toggle-icon nav-toggle-icon-close"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M18 6L6.00081 17.9992M17.9992 18L6 6.00085"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          </div>
+        </nav>
+        <div class="mobile-drawer-shell" id="mobile-drawer">
+          <div class="mobile-drawer glass-panel">
+            <a class="mobile-drawer-link" href="index.html#work">Work</a>
+            <a class="mobile-drawer-link" href="index.html#ai-work">Highlights</a>
+            <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
+
+      <main id="top" tabindex="-1">
+
+        <!-- ===== Hero ===== -->
+        <section class="cs-hero cs-container" data-reveal>
+          <span class="cs-hero__badge">Research &middot; AI</span>
+          <h1 class="cs-hero__title">AI Research Workspace</h1>
+          <p class="cs-hero__intro">A workspace for reading twelve documents at once and coming out the other end with a decision, not another PDF to read later.</p>
+          <div class="cs-hero__image"></div>
+        </section>
+
+        <!-- ===== Project Overview ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-overview">
+              <aside class="cs-meta">
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Type</div>
+                  <div class="cs-meta__value">Self-initiated product</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Role</div>
+                  <div class="cs-meta__value">Product Designer</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Timeline</div>
+                  <div class="cs-meta__value">10 Weeks</div>
+                </div>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Focus</div>
+                  <div class="cs-meta__value">Information architecture, synthesis UX</div>
+                </div>
+              </aside>
+              <div class="cs-content">
+                <h2>Overview</h2>
+                <p>Real research questions almost never have one document&apos;s worth of answer. They have twelve. And the interesting bit is usually where those twelve disagree with each other. Most tools either summarise the documents one at a time or squash the whole set into one answer that hides where anything came from.</p>
+                <p>This workspace makes reading across documents the main thing, not a feature. Built for the people who read to decide, not just read.</p>
+
+                <h2>Problem</h2>
+                <p>The way most people compare sources doesn&apos;t work past about three or four:</p>
+                <ul>
+                  <li>You end up with too many tabs and a mental model held together with vibes.</li>
+                  <li>Highlights and notes split across different tools and never end up in the same place.</li>
+                  <li>AI summaries blend everything into a false middle. The disagreements, which are usually the whole point, vanish.</li>
+                  <li>Answers come with no citations, so you re-check them anyway. You&apos;re back to reading.</li>
+                </ul>
+
+                <h2>The Goal</h2>
+                <p>Let one person hold twelve documents in their head at once. Every claim in the synthesis links back to the passage that supports it.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Impact Metrics ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Impact</h2>
+            <p class="cs-section-subtitle">From structured sessions with analysts and founders using the tool on real work.</p>
+            <div class="cs-metrics" data-stagger>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">12+</div>
+                <div class="cs-metric-card__label">Documents held in one view at once</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">3x</div>
+                <div class="cs-metric-card__label">Faster from &ldquo;here&apos;s the question&rdquo; to a decision</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">100%</div>
+                <div class="cs-metric-card__label">Of synthesised claims link back to a source passage</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Full Width Visual ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual cs-visual--hero"></div>
+          </div>
+        </div>
+
+        <!-- ===== Design Challenges ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Challenges</h2>
+            <p class="cs-section-subtitle">Reading a lot, quickly, without losing the parts that matter.</p>
+
+            <div class="cs-challenge" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">01</div>
+                <div class="cs-challenge__title">Sixty cells that don&apos;t drown you</div>
+                <p class="cs-challenge__text">Twelve documents against five questions is a sixty-cell grid. That&apos;s a lot to look at. Each cell shows a one-line stance (agree, disagree, silent) with the full passage a click away. You scan the grid to find the interesting rows, then dive into the cells that matter.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+
+            <div class="cs-challenge cs-challenge--reverse" data-reveal>
+              <div class="cs-challenge__content">
+                <div class="cs-challenge__number">02</div>
+                <div class="cs-challenge__title">Making disagreement the point, not a footnote</div>
+                <p class="cs-challenge__text">Most AI synthesis flattens everything into a middle. The tool does the opposite. Cells where the sources actually disagree get highlighted. Those are the rows that will change your mind, so they&apos;re what the tool draws you toward.</p>
+              </div>
+              <div class="cs-challenge__visual"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Design Solutions ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Design Solutions</h2>
+            <p class="cs-section-subtitle">Three ideas that make the workspace feel less like reading and more like thinking.</p>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">01</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h3>The claim matrix</h3>
+                <p>Documents across the top, your questions down the side. Every cell tells you where that source stands. Reading becomes scanning. The gaps in the evidence, which used to hide across twelve PDFs, are suddenly obvious.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">02</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h3>Every claim comes with its receipts</h3>
+                <p>The summary is generated, but every sentence in it links back to the passages behind it. Confidence tracks how many sources agree. If you don&apos;t trust a line, you can check it in one click.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+
+            <div class="cs-solution-block" data-reveal>
+              <div class="cs-solution-block__label">
+                <div class="cs-solution-block__number">03</div>
+                <div class="cs-solution-block__tag">Feature</div>
+              </div>
+              <div class="cs-solution-block__body">
+                <h3>You get a decision brief, not a summary</h3>
+                <p>The end of the workflow isn&apos;t a paragraph of prose. It&apos;s a one-pager: the question, what the evidence says, where the sources disagree, and a recommendation. Built to be forwarded to whoever&apos;s actually making the call.</p>
+                <div class="cs-solution-block__visual"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Visual Grid ===== -->
+        <div class="cs-visual-spacer" data-reveal>
+          <div class="cs-container">
+            <div class="cs-visual-grid">
+              <div class="cs-visual"></div>
+              <div class="cs-visual"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Key Learnings ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <h2 class="cs-section-title">Key Learnings</h2>
+            <p class="cs-section-subtitle">What working on this changed my mind about.</p>
+
+            <div class="cs-learnings">
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h3 class="cs-learning__title">Half the synthesis work is a layout problem</h3>
+                  <p class="cs-learning__text">The matrix did a lot of the work before any AI ran. Getting the structure right first meant the generation had less to do, and what it did do was easier to verify.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h3 class="cs-learning__title">Citations are the interface, not metadata</h3>
+                  <p class="cs-learning__text">Once every claim had a visible source, people stopped re-checking everything and started skimming with confidence. Trust turns out to be an interaction pattern, not a personality trait.</p>
+                </div>
+              </div>
+              <div class="cs-learning" data-reveal>
+                <div class="cs-learning__number"></div>
+                <div>
+                  <h3 class="cs-learning__title">Design for the decision, not the document</h3>
+                  <p class="cs-learning__text">The workspace only started feeling coherent once the output became a decision brief. Framing the end state that way pulled every earlier screen into focus.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Reflection ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-reflection">
+              <h2 class="cs-reflection__title">Reflection</h2>
+              <p class="cs-reflection__text">Most research tools help you read more. The actual job is deciding sooner. That single reframe drove every layout choice on this project, and it&apos;s the thing I keep coming back to when I look at other tools in this space.</p>
+              <p class="cs-reflection__text">The other thing this reinforced, and I&apos;ve seen it in every AI product I&apos;ve worked on: people don&apos;t need the machine to be right. They need to see why it might be.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Project Nav ===== -->
+        <div class="cs-project-nav" data-reveal>
+          <a class="cs-back-link" href="index.html#work">
+            <span aria-hidden="true">&larr;</span>
+            <span>Back to all projects</span>
+          </a>
+          <a class="cs-back-link" href="case-study-copilot.html">
+            <span>Next project: AI Design Copilot</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="button button-primary magnetic cs-contact-cta" href="index.html#contact">
+            Discuss a project like this
+          </a>
+        </div>
+
+      </main>
+
+      <!-- ===== Footer ===== -->
+      <footer class="site-footer">
+        <div class="footer-social-rail">
+          <a class="footer-social-link" href="https://www.linkedin.com/in/siddharthsingawne/" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 11v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M8 8v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 16v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 16v-3a2 2 0 1 0 -4 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>LinkedIn</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://medium.com/@bhaweshsingawne29/typography-is-not-decoration-its-direction-3109166b928f" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 16C9.20914 16 11 14.2091 11 12C11 9.79086 9.20914 8 7 8C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M15 16C16.1046 16 17 14.2091 17 12C17 9.79086 16.1046 8 15 8C13.8954 8 13 9.79086 13 12C13 14.2091 13.8954 16 15 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M20 16C20.5523 16 21 14.2091 21 12C21 9.79086 20.5523 8 20 8C19.4477 8 19 9.79086 19 12C19 14.2091 19.4477 16 20 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Medium</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 3.6c5 6 7 10.5 7.5 16.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.4 19c3.5 -3.5 6 -6.5 14.5 -6.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3.1 10.75c5 0 9.814 -.38 15.314 -5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Dribbble</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+          <a class="footer-social-link" href="https://www.behance.net/sdesign9" target="_blank" rel="noopener noreferrer">
+            <span class="footer-social-label">
+              <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3 12l4.5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.64 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 6l3 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Behance</span>
+            </span>
+            <span class="footer-arrow" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="footer-note">Thanks for scrolling. Let&apos;s create something great.</p>
+      </footer>
+    </div>
+  </body>
+</html>
