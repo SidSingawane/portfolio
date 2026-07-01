@@ -22,16 +22,49 @@
       media="(prefers-color-scheme: dark)"
     />
     <link rel="icon" type="image/svg+xml" href="./assets/favicons/fav-dark.svg" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=31" />
-    <script defer src="script.js"></script>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="styles.css?v=50" />
+    <script defer src="script.js?v=16"></script>
   </head>
   <body>
+    <a class="skip-link" href="#top">Skip to content</a>
+    <canvas id="code-rain" aria-hidden="true"></canvas>
     <div class="site-shell">
       <header class="site-header">
         <nav class="floating-nav glass-panel" aria-label="Primary navigation">
@@ -40,10 +73,30 @@
           </a>
           <div class="nav-links">
             <a href="#work"><span data-text="Work">Work</span></a>
+            <a href="#ai-work"><span data-text="Highlights">Highlights</span></a>
             <a href="#about"><span data-text="About">About</span></a>
-            <a href="#ai-work"><span data-text="Resume">Resume</span></a>
           </div>
-          <a class="button button-primary nav-cta" href="#contact">Get in touch</a>
+          <div class="nav-actions">
+            <button class="theme-toggle" type="button" aria-label="Switch to light theme">
+              <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" />
+                <path
+                  d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1L5.3 5.3"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <a class="button button-primary nav-cta magnetic" href="#contact">Get in touch</a>
           <button
             class="nav-toggle"
             type="button"
@@ -95,19 +148,20 @@
               />
             </svg>
           </button>
+          </div>
         </nav>
         <div class="mobile-drawer-shell" id="mobile-drawer">
           <div class="mobile-drawer glass-panel">
-            <a class="mobile-drawer-link" href="#about">About</a>
             <a class="mobile-drawer-link" href="#work">Work</a>
-            <a class="mobile-drawer-link" href="#ai-work">AI Work</a>
+            <a class="mobile-drawer-link" href="#ai-work">Highlights</a>
+            <a class="mobile-drawer-link" href="#about">About</a>
             <a class="button button-primary mobile-drawer-cta" href="#contact">Get in touch</a>
           </div>
         </div>
       </header>
       <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
 
-      <main id="top">
+      <main id="top" tabindex="-1">
         <section class="section hero" data-reveal>
           <div class="hero-backdrop" aria-hidden="true"></div>
           <div class="hero-cursor" aria-hidden="true">
@@ -116,12 +170,25 @@
           </div>
           <div class="hero-copy">
             <p class="hero-kicker">👋 Hi! I&apos;m Siddharth, currently designing at Upstox.</p>
-            <h1>Creating artifacts imbued<br />with shared understanding, legible to users.</h1>
+            <h1>I design tools that respect <br />the people using them.</h1>
+          </div>
+          <div class="hero-visual" data-water>
+            <img
+              class="hero-iceberg"
+              src="./assets/iceberg.webp"
+              alt=""
+              aria-hidden="true"
+              width="1039"
+              height="407"
+              fetchpriority="high"
+              decoding="async"
+            />
           </div>
         </section>
 
         <section class="section work-section" id="work" data-reveal>
           <div class="section-heading work-heading">
+            <p class="eyebrow">Above the surface</p>
             <h2>Featured work</h2>
           </div>
 
@@ -129,13 +196,13 @@
             <article class="project-card" style="--card-index: 1">
               <div class="project-inner">
                 <div class="project-copy">
-                  <h3>AI Meeting Assistant</h3>
-                  <p>A meeting workspace designed to capture the signal in every conversation and make next steps immediately usable.</p>
+                  <h3>Options Strategy Builder</h3>
+                  <p>A place inside Upstox where options traders can build a strategy, see the risk, and place the order without opening a second app.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">32% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Active FnO Clients</span></div>
-                    <div class="stat-chip"><span class="stat-value">41% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Average Daily TurnOver</span></div>
+                    <div class="stat-chip"><span class="stat-value">32% <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Active FnO Clients</span></div>
+                    <div class="stat-chip"><span class="stat-value">41% <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Average Daily TurnOver</span></div>
                   </div>
-                  <a class="project-link" href="case-study-options.html">View Project <span aria-hidden="true">&rarr;</span></a>
+                  <a class="project-link" href="case-study-options.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
                   <div class="image-placeholder"></div>
@@ -146,13 +213,13 @@
             <article class="project-card" style="--card-index: 2">
               <div class="project-inner">
                 <div class="project-copy">
-                  <h3>Voice Capture Studio</h3>
-                  <p>Built for clarity at the source, with an interface that feels quiet, technical, and effortless to trust.</p>
+                  <h3>Homepage Reimagined</h3>
+                  <p>Rebuilding the Upstox home screen after it had quietly turned into a parking lot for every feature launch of the year.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">84% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Noise Reduction</span></div>
-                    <div class="stat-chip"><span class="stat-value">2.1s <span class="stat-arrow">&#9660;</span></span><span class="stat-label">Processing Latency</span></div>
+                    <div class="stat-chip"><span class="stat-value">84% <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Noise Reduction</span></div>
+                    <div class="stat-chip"><span class="stat-value">2.1s <span class="stat-arrow" aria-hidden="true">&#9660;</span><span class="sr-only"> decrease</span></span><span class="stat-label">Processing Latency</span></div>
                   </div>
-                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                  <a class="project-link" href="case-study-voice.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
                   <div class="image-placeholder"></div>
@@ -163,13 +230,13 @@
             <article class="project-card" style="--card-index: 3">
               <div class="project-inner">
                 <div class="project-copy">
-                  <h3>Transcript to Content Engine</h3>
-                  <p>A content workflow that transforms raw transcripts into polished, multi-channel assets without losing the original voice.</p>
+                  <h3>Arc Design System</h3>
+                  <p>Upstox&apos;s design system. Started when we realised the same button was shipping in five slightly different shapes.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">4x <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Content Output</span></div>
-                    <div class="stat-chip"><span class="stat-value">6 <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Format Types</span></div>
+                    <div class="stat-chip"><span class="stat-value">4x <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Content Output</span></div>
+                    <div class="stat-chip"><span class="stat-value">6 <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Format Types</span></div>
                   </div>
-                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                  <a class="project-link" href="case-study-transcript.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
                   <div class="image-placeholder"></div>
@@ -180,13 +247,13 @@
             <article class="project-card" style="--card-index: 4">
               <div class="project-inner">
                 <div class="project-copy">
-                  <h3>AI Research Workspace</h3>
-                  <p>Designed for fast comprehension across large document sets, with outputs tuned for decision-making instead of noise.</p>
+                  <h3>Simplifying Account Opening</h3>
+                  <p>The account opening flow was 24 screens. We got it to 16 without dropping a single compliance check.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">12+ <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Docs Compared</span></div>
-                    <div class="stat-chip"><span class="stat-value">3x <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Decision Speed</span></div>
+                    <div class="stat-chip"><span class="stat-value">24&rarr;16</span><span class="stat-label">Steps in the new flow</span></div>
+                    <div class="stat-chip"><span class="stat-value">10</span><span class="stat-label">Competitor flows benchmarked</span></div>
                   </div>
-                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
+                  <a class="project-link" href="case-study-ao.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
                   <div class="image-placeholder"></div>
@@ -194,31 +261,16 @@
               </div>
             </article>
 
-            <article class="project-card" style="--card-index: 5">
-              <div class="project-inner">
-                <div class="project-copy">
-                  <h3>AI Design Copilot</h3>
-                  <p>A co-creation environment helping product teams explore interface directions with more structure and less drift.</p>
-                  <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">60% <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Design Velocity</span></div>
-                    <div class="stat-chip"><span class="stat-value">10+ <span class="stat-arrow">&#9650;</span></span><span class="stat-label">Components Generated</span></div>
-                  </div>
-                  <a class="project-link" href="#contact">View Project <span aria-hidden="true">&rarr;</span></a>
-                </div>
-                <div class="project-image">
-                  <div class="image-placeholder"></div>
-                </div>
-              </div>
-            </article>
           </div>
         </section>
 
         <section class="section" id="ai-work" data-reveal>
           <div class="section-heading">
+            <p class="eyebrow">At the waterline</p>
             <h2>Other Noteworthy Highlights</h2>
           </div>
 
-          <div class="bento-grid">
+          <div class="bento-grid" data-stagger>
             <div class="bento-item bento-wide">
               <div class="bento-placeholder"></div>
             </div>
@@ -236,40 +288,49 @@
 
         <section class="section about-section" id="about" data-reveal>
           <div class="section-heading">
+            <p class="eyebrow">Beneath the surface</p>
             <h2>A Bit About Me</h2>
           </div>
 
           <div class="about-layout">
             <div class="about-copy glass-panel">
-              <h2>Designing AI products that feel intuitive, grounded, and ready to scale.</h2>
+              <h2>Designing for fintech and healthtech. Five years in, still figuring out what people actually need.</h2>
               <p>
-                Siddharth is a product designer focused on AI experiences,
-                interface systems, growth design, and the product decisions that
-                help complex tools feel crisp and unmistakably human.
+                I&apos;m a product designer based in Bengaluru. Most of my work
+                sits inside fintech and healthtech, on the kind of end-to-end
+                problems where an idea has to survive a PM, an engineering
+                team, a research round, and a live experiment before anyone
+                calls it a design.
               </p>
               <p>
-                His work spans startups, SaaS platforms, and future-forward
-                teams building the next generation of workflow, voice, and
-                intelligence products.
+                I found design by accident at NIFT Mumbai. Stayed for the moment
+                a sketch turns into something a stranger opens on a Tuesday
+                morning. Most projects are just me hunting for the version that
+                feels obvious in hindsight, usually after four versions that
+                weren&apos;t.
+              </p>
+              <p>
+                Open to full-time roles and freelance work, wherever there&apos;s
+                a problem worth doing well.
               </p>
             </div>
 
-            <div class="stats-grid">
+            <div class="stats-grid" data-stagger>
               <article class="stat-card glass-panel">
-                <strong>7+</strong>
-                <span>Years of experience across product design and systems</span>
+                <strong>5+</strong>
+                <span>Years designing for fintech and healthtech users</span>
               </article>
               <article class="stat-card glass-panel">
-                <strong>AI</strong>
-                <span>Focused on AI products, UX systems, and interface craft</span>
+                <strong>0&rarr;1</strong>
+                <span>From napkin sketch to something people actually open</span>
               </article>
               <article class="stat-card glass-panel">
-                <strong>SaaS</strong>
-                <span>Trusted by startups, SaaS teams, and ambitious operators</span>
+                <strong>Systems</strong>
+                <span>Design systems that hold up when the roadmap changes</span>
               </article>
               <article class="stat-card glass-panel">
-                <strong>Scale</strong>
-                <span>From zero-to-one concepts to resilient design foundations</span>
+                <strong>NIFT</strong>
+                <span>Mumbai. Where I learnt to draw before I could code</span>
               </article>
             </div>
           </div>
@@ -278,8 +339,8 @@
             <div class="memory-strip-head">
               <p class="eyebrow">Off Screen</p>
               <p class="memory-strip-text">
-                A looping reel of field notes, visual references, and personal
-                moments that shape the work behind the interface.
+                Field notes, half-finished ideas, and the odd photograph. The
+                stuff that sits behind the work but doesn&apos;t make it in.
               </p>
             </div>
             <div class="memory-window">
@@ -328,10 +389,11 @@
 
         <section class="section testimonial-section" data-reveal>
           <div class="section-heading">
+            <p class="eyebrow">Soundings</p>
             <h2>Perspective on My Work</h2>
           </div>
 
-          <div class="testimonial-grid">
+          <div class="testimonial-grid" data-stagger>
             <article class="testimonial-card glass-panel">
               <p>
                 "Siddharth brings rare clarity to complex AI products. Clean
@@ -347,8 +409,8 @@
             </article>
             <article class="testimonial-card glass-panel">
               <p>
-                "He consistently turns abstract product ideas into interfaces
-                that feel considered, calm, and commercially sharp."
+                "He turns half-formed product ideas into interfaces
+                you can actually ship."
               </p>
               <span>Head of Design, Future Tech Studio</span>
             </article>
@@ -357,16 +419,56 @@
 
         <section class="section closing-section" id="contact" data-reveal>
           <div class="closing-panel glass-panel">
-            <h2>Building products that drive impact?<br/>Let's talk!</h2>
+            <h2>Working on something worth doing well?<br/>Let&apos;s talk.</h2>
             <p>
-              Available for select collaborations across AI product design,
-              workflow tools, research-heavy systems, and premium digital
-              experiences.
+              I take on freelance work and full-time roles. Fintech, healthtech,
+              and messy product problems especially welcome.
             </p>
             <div class="closing-actions">
-              <a class="button button-primary" href="mailto:siddharthsingawne@gmail.com">
+              <a class="button button-primary magnetic" href="mailto:siddharthsingawne@gmail.com">
                 siddharthsingawne@gmail.com
               </a>
+              <button
+                class="button button-icon copy-button"
+                type="button"
+                data-copy="siddharthsingawne@gmail.com"
+                aria-label="Copy email to clipboard"
+              >
+                <svg
+                  class="copy-icon copy-icon-default"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+                  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                </svg>
+                <svg
+                  class="copy-icon copy-icon-check"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 12l5 5l10 -10" />
+                </svg>
+                <span class="sr-only copy-live" aria-live="polite"></span>
+              </button>
             </div>
           </div>
         </section>
@@ -374,7 +476,7 @@
 
       <footer class="site-footer">
         <div class="footer-social-rail">
-          <a class="footer-social-link" href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+          <a class="footer-social-link" href="https://www.linkedin.com/in/siddharthsingawne/" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -388,18 +490,19 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://x.com" target="_blank" rel="noreferrer">
+          <a class="footer-social-link" href="https://medium.com/@bhaweshsingawne29/typography-is-not-decoration-its-direction-3109166b928f" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M7 16C9.20914 16 11 14.2091 11 12C11 9.79086 9.20914 8 7 8C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M15 16C16.1046 16 17 14.2091 17 12C17 9.79086 16.1046 8 15 8C13.8954 8 13 9.79086 13 12C13 14.2091 13.8954 16 15 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M20 16C20.5523 16 21 14.2091 21 12C21 9.79086 20.5523 8 20 8C19.4477 8 19 9.79086 19 12C19 14.2091 19.4477 16 20 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-              <span>Twitter</span>
+              <span>Medium</span>
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noreferrer">
+          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -412,7 +515,7 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://www.behance.net" target="_blank" rel="noreferrer">
+          <a class="footer-social-link" href="https://www.behance.net/sdesign9" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
