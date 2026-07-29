@@ -42,9 +42,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      href="./assets/fonts/tiempos/TiemposHeadline-Bold.otf"
       as="font"
-      type="font/woff2"
+      type="font/otf"
       crossorigin
     />
     <link
@@ -59,8 +59,8 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=50" />
-    <script defer src="script.js?v=16"></script>
+    <link rel="stylesheet" href="styles.css?v=98" />
+    <script defer src="script.js?v=31"></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -75,6 +75,7 @@
             <a href="#work"><span data-text="Work">Work</span></a>
             <a href="#ai-work"><span data-text="Highlights">Highlights</span></a>
             <a href="#about"><span data-text="About">About</span></a>
+            <a href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener"><span data-text="Resume">Resume</span></a>
           </div>
           <div class="nav-actions">
             <button class="theme-toggle" type="button" aria-label="Switch to light theme">
@@ -155,6 +156,7 @@
             <a class="mobile-drawer-link" href="#work">Work</a>
             <a class="mobile-drawer-link" href="#ai-work">Highlights</a>
             <a class="mobile-drawer-link" href="#about">About</a>
+            <a class="mobile-drawer-link" href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
             <a class="button button-primary mobile-drawer-cta" href="#contact">Get in touch</a>
           </div>
         </div>
@@ -164,18 +166,19 @@
       <main id="top" tabindex="-1">
         <section class="section hero" data-reveal>
           <div class="hero-backdrop" aria-hidden="true"></div>
+          <div class="hero-rays" data-side-rays aria-hidden="true"></div>
           <div class="hero-cursor" aria-hidden="true">
             <img class="hero-cursor-icon" src="./assets/blue_cursor.svg" alt="" />
             <span class="hero-cursor-tag">You</span>
           </div>
           <div class="hero-copy">
             <p class="hero-kicker">👋 Hi! I&apos;m Siddharth, currently designing at Upstox.</p>
-            <h1>I design tools that respect <br />the people using them.</h1>
+            <h1>Creating artifacts imbued with shared <br />understanding, legible to users.</h1>
           </div>
           <div class="hero-visual" data-water>
             <img
               class="hero-iceberg"
-              src="./assets/iceberg.webp"
+              src="./assets/iceberg-dark.webp?v=1"
               alt=""
               aria-hidden="true"
               width="1039"
@@ -199,13 +202,15 @@
                   <h3>Options Strategy Builder</h3>
                   <p>A place inside Upstox where options traders can build a strategy, see the risk, and place the order without opening a second app.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">32% <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Active FnO Clients</span></div>
-                    <div class="stat-chip"><span class="stat-value">41% <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Average Daily TurnOver</span></div>
+                    <div class="stat-chip"><span class="stat-value">228K+</span><span class="stat-label">Orders placed through the builder</span></div>
+                    <div class="stat-chip"><span class="stat-value">84%</span><span class="stat-label">New-user adoption in the first cohort</span></div>
                   </div>
                   <a class="project-link" href="case-study-options.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
-                  <div class="image-placeholder"></div>
+                  <div class="image-placeholder image-placeholder--media">
+                    <img class="placeholder-media" src="./assets/covers/Strategy.svg" alt="Options Strategy Builder preview" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+                  </div>
                 </div>
               </div>
             </article>
@@ -216,13 +221,15 @@
                   <h3>Homepage Reimagined</h3>
                   <p>Rebuilding the Upstox home screen after it had quietly turned into a parking lot for every feature launch of the year.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">84% <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Noise Reduction</span></div>
-                    <div class="stat-chip"><span class="stat-value">2.1s <span class="stat-arrow" aria-hidden="true">&#9660;</span><span class="sr-only"> decrease</span></span><span class="stat-label">Processing Latency</span></div>
+                    <div class="stat-chip"><span class="stat-value">3&times; <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Impressions after the redesign</span></div>
+                    <div class="stat-chip"><span class="stat-value">2.3&times; <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Order conversions from Home</span></div>
                   </div>
                   <a class="project-link" href="case-study-voice.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
-                  <div class="image-placeholder"></div>
+                  <div class="image-placeholder image-placeholder--media">
+                    <img class="placeholder-media" src="./assets/covers/Home%20page.svg" alt="Homepage Reimagined preview" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+                  </div>
                 </div>
               </div>
             </article>
@@ -231,15 +238,17 @@
               <div class="project-inner">
                 <div class="project-copy">
                   <h3>Arc Design System</h3>
-                  <p>Upstox&apos;s design system. Started when we realised the same button was shipping in five slightly different shapes.</p>
+                  <p>Upstox&apos;s cross-platform design system. Started when the same button was shipping in five slightly different shapes and designers were fighting the system instead of using it.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">4x <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Content Output</span></div>
-                    <div class="stat-chip"><span class="stat-value">6 <span class="stat-arrow" aria-hidden="true">&#9650;</span><span class="sr-only"> increase</span></span><span class="stat-label">Format Types</span></div>
+                    <div class="stat-chip"><span class="stat-value">90%</span><span class="stat-label">Token adoption across product teams</span></div>
+                    <div class="stat-chip"><span class="stat-value">80%</span><span class="stat-label">Component generation, automated</span></div>
                   </div>
-                  <a class="project-link" href="case-study-transcript.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
+                  <a class="project-link" href="case-study-arc.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
-                  <div class="image-placeholder"></div>
+                  <div class="image-placeholder image-placeholder--media">
+                    <img class="placeholder-media" src="./assets/covers/Arc-DS.png" alt="Arc Design System preview" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+                  </div>
                 </div>
               </div>
             </article>
@@ -250,13 +259,15 @@
                   <h3>Simplifying Account Opening</h3>
                   <p>The account opening flow was 24 screens. We got it to 16 without dropping a single compliance check.</p>
                   <div class="project-stats">
-                    <div class="stat-chip"><span class="stat-value">24&rarr;16</span><span class="stat-label">Steps in the new flow</span></div>
-                    <div class="stat-chip"><span class="stat-value">10</span><span class="stat-label">Competitor flows benchmarked</span></div>
+                    <div class="stat-chip"><span class="stat-value">41% <span class="stat-arrow" aria-hidden="true">&#9660;</span><span class="sr-only"> reduction</span></span><span class="stat-label">Median onboarding time</span></div>
+                    <div class="stat-chip"><span class="stat-value">60% <span class="stat-arrow" aria-hidden="true">&#9660;</span><span class="sr-only"> reduction</span></span><span class="stat-label">P90 completion time</span></div>
                   </div>
                   <a class="project-link" href="case-study-ao.html">View case study <span class="link-arrow" aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="project-image">
-                  <div class="image-placeholder"></div>
+                  <div class="image-placeholder image-placeholder--media">
+                    <img class="placeholder-media" src="./assets/covers/Account%20opening.png" alt="Simplifying Account Opening preview" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+                  </div>
                 </div>
               </div>
             </article>
@@ -268,21 +279,34 @@
           <div class="section-heading">
             <p class="eyebrow">At the waterline</p>
             <h2>Other Noteworthy Highlights</h2>
+            <p class="section-text">A few more things worth showing &mdash; self-initiated explorations into how AI products should feel. Not shipped, honestly labelled.</p>
           </div>
 
           <div class="bento-grid" data-stagger>
-            <div class="bento-item bento-wide">
+            <a class="bento-item" href="case-study-transcript.html">
               <div class="bento-placeholder"></div>
-            </div>
-            <div class="bento-item">
+              <div class="bento-caption">
+                <span class="bento-tag">Concept &middot; Self-initiated</span>
+                <span class="bento-name">Transcript to Content Engine</span>
+                <span class="bento-desc">One recording in, six channel-ready formats out, without losing the speaker&apos;s voice.</span>
+              </div>
+            </a>
+            <a class="bento-item" href="case-study-research.html">
               <div class="bento-placeholder"></div>
-            </div>
-            <div class="bento-item">
+              <div class="bento-caption">
+                <span class="bento-tag">Concept &middot; Self-initiated</span>
+                <span class="bento-name">AI Research Workspace</span>
+                <span class="bento-desc">Read twelve documents at once and leave with a decision, not another PDF.</span>
+              </div>
+            </a>
+            <a class="bento-item" href="case-study-copilot.html">
               <div class="bento-placeholder"></div>
-            </div>
-            <div class="bento-item bento-wide">
-              <div class="bento-placeholder"></div>
-            </div>
+              <div class="bento-caption">
+                <span class="bento-tag">Concept &middot; Self-initiated</span>
+                <span class="bento-name">AI Design Copilot</span>
+                <span class="bento-desc">Generate screens inside your own design system, not somebody else&apos;s idea of a button.</span>
+              </div>
+            </a>
           </div>
         </section>
 
@@ -294,24 +318,30 @@
 
           <div class="about-layout">
             <div class="about-copy glass-panel">
-              <h2>Designing for fintech and healthtech. Five years in, still figuring out what people actually need.</h2>
+              <h3>Hello, I&apos;m Siddharth!</h3>
               <p>
-                I&apos;m a product designer based in Bengaluru. Most of my work
-                sits inside fintech and healthtech, on the kind of end-to-end
-                problems where an idea has to survive a PM, an engineering
-                team, a research round, and a live experiment before anyone
-                calls it a design.
+                I&apos;m a product designer based in Bengaluru, India and I am
+                constantly looking for ground-breaking solutions to issues that
+                arise in daily life. In my work, I spend most of my time coming
+                up with innovative solutions to user problems. (That&apos;s not
+                entirely true, I just enjoy creating fun experiences on digital
+                platforms but let&apos;s keep it professional 🙂).
               </p>
               <p>
-                I found design by accident at NIFT Mumbai. Stayed for the moment
-                a sketch turns into something a stranger opens on a Tuesday
-                morning. Most projects are just me hunting for the version that
-                feels obvious in hindsight, usually after four versions that
-                weren&apos;t.
+                I stumbled into NIFT Mumbai by accident, and it turned into the
+                thing I love most. Maybe the best things arrive without a plan.
+                What still feels like magic is watching an idea evolve into
+                something real, something people use, rely on, and enjoy.
               </p>
               <p>
-                Open to full-time roles and freelance work, wherever there&apos;s
-                a problem worth doing well.
+                These days, I design for fintech, with a growing focus on
+                scalable design systems and products that balance business goals
+                with genuinely good user experiences.
+              </p>
+              <p>
+                I&apos;m always open to meaningful conversations, full-time
+                opportunities, and freelance projects where there&apos;s a
+                problem worth solving.
               </p>
             </div>
 
@@ -335,50 +365,51 @@
             </div>
           </div>
 
-          <div class="memory-strip glass-panel" aria-label="A looping gallery of Siddharth moments">
-            <div class="memory-strip-head">
-              <p class="eyebrow">Off Screen</p>
-              <p class="memory-strip-text">
-                Field notes, half-finished ideas, and the odd photograph. The
-                stuff that sits behind the work but doesn&apos;t make it in.
-              </p>
-            </div>
+          <div class="memory-strip" aria-label="A looping gallery of Siddharth moments">
             <div class="memory-window">
               <div class="memory-rail">
                 <div class="memory-track">
                   <figure class="memory-card tilt-left">
-                    <div class="memory-photo photo-scene-1"></div>
-                    <figcaption>Field Notes / Mountain Air</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-1.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Campus / Spaceframe</figcaption>
                   </figure>
                   <figure class="memory-card tilt-right">
-                    <div class="memory-photo photo-scene-2"></div>
-                    <figcaption>Late Nights / Social Glow</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-2.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Heritage Atrium</figcaption>
                   </figure>
                   <figure class="memory-card tilt-left-soft">
-                    <div class="memory-photo photo-scene-3"></div>
-                    <figcaption>Mirror Check / Everyday Texture</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-3.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Taj Palace / Colaba</figcaption>
                   </figure>
                   <figure class="memory-card tilt-right-soft">
-                    <div class="memory-photo photo-scene-4"></div>
-                    <figcaption>City Quiet / Dusk Framing</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-4.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Gateway of India</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-left">
+                    <div class="memory-photo"><img src="./assets/gallery/mem-5.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Lakeside / Dusk</figcaption>
                   </figure>
                 </div>
                 <div class="memory-track" aria-hidden="true">
                   <figure class="memory-card tilt-left">
-                    <div class="memory-photo photo-scene-1"></div>
-                    <figcaption>Field Notes / Mountain Air</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-1.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Campus / Spaceframe</figcaption>
                   </figure>
                   <figure class="memory-card tilt-right">
-                    <div class="memory-photo photo-scene-2"></div>
-                    <figcaption>Late Nights / Social Glow</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-2.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Heritage Atrium</figcaption>
                   </figure>
                   <figure class="memory-card tilt-left-soft">
-                    <div class="memory-photo photo-scene-3"></div>
-                    <figcaption>Mirror Check / Everyday Texture</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-3.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Taj Palace / Colaba</figcaption>
                   </figure>
                   <figure class="memory-card tilt-right-soft">
-                    <div class="memory-photo photo-scene-4"></div>
-                    <figcaption>City Quiet / Dusk Framing</figcaption>
+                    <div class="memory-photo"><img src="./assets/gallery/mem-4.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Gateway of India</figcaption>
+                  </figure>
+                  <figure class="memory-card tilt-left">
+                    <div class="memory-photo"><img src="./assets/gallery/mem-5.webp" alt="" loading="lazy" decoding="async" /></div>
+                    <figcaption>Lakeside / Dusk</figcaption>
                   </figure>
                 </div>
               </div>
@@ -396,30 +427,37 @@
           <div class="testimonial-grid" data-stagger>
             <article class="testimonial-card glass-panel">
               <p>
-                "Siddharth brings rare clarity to complex AI products. Clean
-                thinking, world-class execution."
+                "Siddharth brings a great balance of user empathy and business
+                thinking to every problem he works on. He's thoughtful,
+                dependable, and someone who genuinely cares about building
+                products that create value."
               </p>
-              <span>Founder, AI Workflow Platform</span>
+              <span>Prakarsh Gagdani (CEO)</span>
             </article>
             <article class="testimonial-card glass-panel">
               <p>
-                "One of the strongest product designers we've worked with."
+                "Siddharth is a designer who is always willing to learn,
+                collaborate, and improve. He has a strong eye for detail, thinks
+                deeply about the user experience, and is someone you can rely on
+                to deliver quality work."
               </p>
-              <span>VP Product, SaaS Team</span>
+              <span>Sapna Krishnanagar (Design Lead)</span>
             </article>
             <article class="testimonial-card glass-panel">
               <p>
-                "He turns half-formed product ideas into interfaces
-                you can actually ship."
+                "Siddharth has a strong product mindset and approaches problems
+                with clarity and curiosity. He works well with cross-functional
+                teams and consistently focuses on building experiences that are
+                simple, thoughtful, and impactful."
               </p>
-              <span>Head of Design, Future Tech Studio</span>
+              <span>Mehul Jain (Product Head)</span>
             </article>
           </div>
         </section>
 
         <section class="section closing-section" id="contact" data-reveal>
           <div class="closing-panel glass-panel">
-            <h2>Working on something worth doing well?<br/>Let&apos;s talk.</h2>
+            <h2>Let&apos;s connect!</h2>
             <p>
               I take on freelance work and full-time roles. Fintech, healthtech,
               and messy product problems especially welcome.
@@ -502,7 +540,7 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://dribbble.com/Siddharth_Singawne" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

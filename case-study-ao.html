@@ -8,12 +8,20 @@
       content="Case study on Simplifying Account Opening at Upstox: taking a 24-step onboarding flow down to 16 without dropping compliance."
     />
     <meta name="theme-color" content="#050505" />
-    <title>Simplifying Account Opening — Upstox | Siddharth</title>
+    <title>Simplifying Account Opening · Upstox | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-light.svg"
+      media="(prefers-color-scheme: light)"
+    />
     <link
       rel="icon"
       type="image/svg+xml"
       href="./assets/favicons/fav-dark.svg"
+      media="(prefers-color-scheme: dark)"
     />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicons/fav-dark.svg" />
     <script>
       (function () {
         try {
@@ -34,9 +42,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      href="./assets/fonts/tiempos/TiemposHeadline-Bold.otf"
       as="font"
-      type="font/woff2"
+      type="font/otf"
       crossorigin
     />
     <link
@@ -51,9 +59,9 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=50" />
-    <link rel="stylesheet" href="case-study.css?v=13" />
-    <script defer src="script.js?v=16"></script>
+    <link rel="stylesheet" href="styles.css?v=98" />
+    <link rel="stylesheet" href="case-study.css?v=19" />
+    <script defer src="script.js?v=31"></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -70,6 +78,7 @@
             <a href="index.html#work"><span data-text="Work">Work</span></a>
             <a href="index.html#ai-work"><span data-text="Highlights">Highlights</span></a>
             <a href="index.html#about"><span data-text="About">About</span></a>
+            <a href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener"><span data-text="Resume">Resume</span></a>
           </div>
           <div class="nav-actions">
             <button class="theme-toggle" type="button" aria-label="Switch to light theme">
@@ -116,6 +125,7 @@
             <a class="mobile-drawer-link" href="index.html#work">Work</a>
             <a class="mobile-drawer-link" href="index.html#ai-work">Highlights</a>
             <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="mobile-drawer-link" href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
             <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
           </div>
         </div>
@@ -129,7 +139,23 @@
           <span class="cs-hero__badge">Fintech &middot; Upstox</span>
           <h1 class="cs-hero__title">Simplifying Account Opening</h1>
           <p class="cs-hero__intro">The Upstox account opening flow was 24 screens. We got it to 16 without dropping a single compliance check. This is how.</p>
-          <div class="cs-hero__image"></div>
+          <div class="cs-hero__image cs-hero__image--media">
+            <img class="cs-hero__media" src="./assets/covers/Account%20opening.png" alt="Simplifying Account Opening preview" decoding="async" onerror="this.style.display='none'" />
+          </div>
+        </section>
+
+        <!-- ===== TL;DR ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-tldr">
+              <span class="cs-tldr__key">Challenge</span>
+              <p class="cs-tldr__val">A 24-step KYC flow was losing roughly a quarter of starters before their first trade, with the biggest cliffs at the identity steps.</p>
+              <span class="cs-tldr__key">Move</span>
+              <p class="cs-tldr__val">Cut only the steps we&apos;d added on top of the regulator&apos;s, fold three identity asks into one, and rebuild the ending so it feels like the app you signed up for.</p>
+              <span class="cs-tldr__key">Result</span>
+              <p class="cs-tldr__val">24 steps &rarr; 16, three identity touchpoints &rarr; one, with every mandated compliance capture intact.</p>
+            </div>
+          </div>
         </section>
 
         <!-- ===== 2. Project Overview ===== -->
@@ -143,7 +169,7 @@
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Role</div>
-                  <div class="cs-meta__value">Senior Product Designer</div>
+                  <div class="cs-meta__value">Product Designer II</div>
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Timeline</div>
@@ -187,16 +213,16 @@
             <p class="cs-section-subtitle">New flow vs the 24-step one we started with.</p>
             <div class="cs-metrics" data-stagger>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">33%</div>
-                <div class="cs-metric-card__label">Shorter flow, 24 steps down to 16</div>
+                <div class="cs-metric-card__number">41%</div>
+                <div class="cs-metric-card__label">Shorter median onboarding time</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">60%</div>
+                <div class="cs-metric-card__label">Faster completion time at P90</div>
               </div>
               <div class="cs-metric-card">
                 <div class="cs-metric-card__number">10</div>
                 <div class="cs-metric-card__label">Competitor flows we walked through end to end</div>
-              </div>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">8</div>
-                <div class="cs-metric-card__label">Places in the funnel we redesigned to stop the bleeding</div>
               </div>
             </div>
           </div>
@@ -426,6 +452,11 @@
             <h2 class="cs-section-title">Design Solutions</h2>
             <p class="cs-section-subtitle">Six decisions that did most of the work.</p>
 
+            <div class="cs-constraints">
+              <span class="cs-constraints__key">Constraints we designed inside</span>
+              <p>SEBI, NSDL, KRA and the depository each mandate specific captures. Those steps were fixed and non-negotiable. The Digilocker and account-aggregator handshakes were third-party flows we couldn&apos;t restyle. So the only steps on the table were the ones we&apos;d added on top: redundant asks, decision-fatigue mid-screens, and explainer pages that could become inline copy.</p>
+            </div>
+
             <div class="cs-solution-block" data-reveal>
               <div class="cs-solution-block__label">
                 <div class="cs-solution-block__number">01</div>
@@ -434,6 +465,11 @@
               <div class="cs-solution-block__body">
                 <h3>One identity moment instead of three</h3>
                 <p>The NSDL PAN check runs quietly in the background. Users go straight into Digilocker. PAN and DOB don&apos;t need their own screen anymore. If the check fails, we ask inline. Three screens down to one.</p>
+                <div class="cs-decision">
+                  <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Run the PAN check in the background and send people straight to Digilocker, collapsing PAN + DOB + Digilocker into one identity step.</p></div>
+                  <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>The drop-off data put the single biggest cliff (22%) at the PAN/DOB screen. The root cause was repetition, not any one field. We were asking for identity three separate times. Checking once and reusing it removes two of the three chances to fail.</p></div>
+                  <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>Pre-filling everything from PAN alone. It couldn&apos;t satisfy the KRA address and photo requirements, so Digilocker still had to happen.</p></div>
+                </div>
                 <div class="cs-solution-block__visual"></div>
               </div>
             </div>
@@ -679,32 +715,75 @@
           </div>
         </section>
 
-        <!-- ===== 18. Reflection ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <div class="cs-reflection">
-              <h2 class="cs-reflection__title">Reflection</h2>
-              <p class="cs-reflection__text">Account opening isn&apos;t glamorous. It&apos;s also the flow every other flow at Upstox depends on. This project taught me that the UX problems that matter most often look like compliance problems from the outside, until you sit with the drop-off data for a while.</p>
-              <p class="cs-reflection__text">We didn&apos;t invent anything. We removed the parts we&apos;d added on top of the regulator&apos;s requirements, put brand voice back into a stretch of product that had quietly lost it, and stopped treating identity like a series of suspicions.</p>
-              <p class="cs-reflection__text">If someone finishes the flow and feels like they&apos;re already inside the app they signed up for, we did the job.</p>
+
+        <!-- ===== Project Nav ===== -->
+        <div class="cs-project-nav" data-reveal>
+          <a class="cs-back-link" href="case-study-arc.html">
+            <span aria-hidden="true">&larr;</span>
+            <span>Previous project: Arc Design System</span>
+          </a>
+          <a class="cs-back-link" href="index.html#work">
+            <span>Back to all projects</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <!-- ===== Closing ===== -->
+        <section class="section closing-section cs-closing" id="contact" data-reveal>
+          <div class="closing-panel glass-panel">
+            <h2>Let&apos;s connect!</h2>
+            <p>
+              I take on freelance work and full-time roles. Fintech, healthtech,
+              and messy product problems especially welcome.
+            </p>
+            <div class="closing-actions">
+              <a class="button button-primary magnetic" href="mailto:siddharthsingawne@gmail.com">
+                siddharthsingawne@gmail.com
+              </a>
+              <button
+                class="button button-icon copy-button"
+                type="button"
+                data-copy="siddharthsingawne@gmail.com"
+                aria-label="Copy email to clipboard"
+              >
+                <svg
+                  class="copy-icon copy-icon-default"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+                  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                </svg>
+                <svg
+                  class="copy-icon copy-icon-check"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 12l5 5l10 -10" />
+                </svg>
+                <span class="sr-only copy-live" aria-live="polite"></span>
+              </button>
             </div>
           </div>
         </section>
 
-        <!-- ===== Project Nav ===== -->
-        <div class="cs-project-nav" data-reveal>
-          <a class="cs-back-link" href="index.html#work">
-            <span aria-hidden="true">&larr;</span>
-            <span>Back to all projects</span>
-          </a>
-          <a class="cs-back-link" href="case-study-options.html">
-            <span>Next project: Options Strategy Builder</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-          <a class="button button-primary magnetic cs-contact-cta" href="index.html#contact">
-            Discuss a project like this
-          </a>
-        </div>
 
       </main>
 
@@ -737,7 +816,7 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://dribbble.com/Siddharth_Singawne" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

@@ -118,6 +118,25 @@
   aspect-ratio: 16 / 9;
 }
 
+/* Filled hero: real cover image on black, no placeholder glyph. Matches
+   the homepage card cover for the same project. */
+.cs-hero__image--media {
+  background: #000;
+}
+
+.cs-hero__image--media::after {
+  display: none;
+}
+
+.cs-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* ===== Project Overview ===== */
 
 .cs-overview {
@@ -318,6 +337,84 @@
   color: var(--text-muted);
   max-width: var(--measure);
   margin: 0 0 var(--space-xl);
+}
+
+/* ===== TL;DR scan block ===== */
+.cs-tldr {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-xs) var(--space-lg);
+  align-items: baseline;
+  padding: var(--space-lg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.cs-tldr__key {
+  font-size: var(--text-overline);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-top: 0.25em;
+}
+
+.cs-tldr__val {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: var(--leading-body);
+  color: var(--text);
+}
+
+/* ===== Constraints + Decision/Why ===== */
+.cs-constraints {
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md) var(--space-lg);
+  border-left: 2px solid var(--border-strong);
+  background: var(--hover-wash);
+  border-radius: 0 14px 14px 0;
+}
+
+.cs-constraints__key {
+  display: block;
+  font-size: var(--text-overline);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2xs);
+}
+
+.cs-constraints p {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: var(--leading-body);
+  color: var(--text-soft);
+}
+
+.cs-decision {
+  margin-top: var(--space-md);
+}
+
+.cs-decision__row {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-2xs) var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.cs-decision__key {
+  /* Match the row paragraph's size so the label and body read as one row */
+  font-size: 1.125rem;
+  line-height: var(--leading-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+}
+
+.cs-decision__row p {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: var(--leading-body);
+  color: var(--text-soft);
 }
 
 /* ===== Research Cards ===== */
@@ -822,12 +919,21 @@
 /* ===== Back to Top / Project Nav ===== */
 
 .cs-project-nav {
-  padding: var(--space-fluid-lg) 0;
+  /* Match the content column used by the rest of the layout */
+  width: min(var(--max-width), calc(100% - var(--gutter) * 2));
+  margin: 0 auto;
+  padding: var(--space-fluid-lg) 0 var(--space-md);
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   gap: var(--space-md);
-  text-align: center;
+}
+
+/* Tighten the gap to the Let's connect panel — the nav's bottom
+   padding already provides the breathing room. */
+.cs-closing {
+  padding-top: 0;
 }
 
 .cs-back-link {

@@ -33,6 +33,20 @@ const finePointerMedia = window.matchMedia("(pointer: fine)");
       );
     }
 
+    // Each theme has its own hero iceberg art (same composition and
+    // waterline, different grade). Swap before dispatching so the
+    // water shader's themechange listener sees the new src.
+    const heroIceberg = document.querySelector(".hero-iceberg");
+    if (heroIceberg) {
+      const nextSrc =
+        theme === "light"
+          ? "./assets/iceberg-light.webp?v=1"
+          : "./assets/iceberg-dark.webp?v=1";
+      if (heroIceberg.getAttribute("src") !== nextSrc) {
+        heroIceberg.setAttribute("src", nextSrc);
+      }
+    }
+
     document.dispatchEvent(new CustomEvent("themechange", { detail: { theme } }));
   };
 
@@ -309,7 +323,9 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
    Depth gauge — scroll progress as metres below the surface
    ============================================================ */
 (() => {
-  const gaugeAnchor = hero || document.querySelector(".cs-hero");
+  // Homepage only — the depth gauge is part of the iceberg story there.
+  // Case-study pages (which have .cs-hero, not .hero) opt out.
+  const gaugeAnchor = hero;
   if (!gaugeAnchor) {
     return;
   }
@@ -495,7 +511,7 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
   const TARGETS = [
     ".hero h1",
     ".section-heading h2",
-    ".about-copy h2",
+    ".about-copy h3",
     ".closing-panel h2",
   ];
 
@@ -595,6 +611,20 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
       }
     }
   });
+
+  // Mirror the hero headline into the water as a faint reflection.
+  // Cloning the split markup keeps the copy, line breaks, and word
+  // gradient in sync with the real heading automatically.
+  const heroTitle = document.querySelector(".hero-copy h1");
+  const heroVisual = document.querySelector(".hero-visual");
+  if (heroTitle && heroVisual) {
+    const mirror = heroTitle.cloneNode(true);
+    mirror.className = "hero-text-reflection";
+    mirror.removeAttribute("aria-label");
+    mirror.setAttribute("aria-hidden", "true");
+    mirror.querySelector(".sr-only")?.remove();
+    heroVisual.insertAdjacentElement("afterend", mirror);
+  }
 })();
 
 /* ============================================================
@@ -668,7 +698,9 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
   };
   requestAnimationFrame(tick);
 
-  // Interactive hover states — delegated to avoid per-element listeners
+  // Interactive hover states — delegated to avoid per-element listeners.
+  // Project images / bento tiles use the same dot + ring as links/CTAs
+  // (no separate "View" pill).
   const LINK_SELECTOR =
     "a, button, [role='button'], .magnetic, input, textarea, select, label[for]";
   const VIEW_SELECTOR = ".project-image, .bento-item, .image-placeholder";
@@ -676,10 +708,9 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
   document.addEventListener(
     "pointerover",
     (event) => {
-      const view = event.target.closest(VIEW_SELECTOR);
-      const link = event.target.closest(LINK_SELECTOR);
-      ring.classList.toggle("is-view", !!view);
-      ring.classList.toggle("is-hover", !view && !!link);
+      const interactive =
+        event.target.closest(LINK_SELECTOR) || event.target.closest(VIEW_SELECTOR);
+      ring.classList.toggle("is-hover", !!interactive);
     },
     { passive: true }
   );
@@ -688,7 +719,7 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
     "pointerout",
     (event) => {
       if (!event.relatedTarget) {
-        ring.classList.remove("is-hover", "is-view");
+        ring.classList.remove("is-hover");
       }
     },
     { passive: true }
@@ -1077,14 +1108,27 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
     precision mediump float;
     varying vec2 vUv;
     uniform sampler2D uTex;
+    uniform sampler2D uText;
     uniform float uTime;
     uniform float uWater;
     uniform float uAmp;
     uniform float uAspect;
+    // The canvas extends below the visual so the headline's reflection
+    // rides the same water. uExt = fraction of canvas height that is
+    // extension; uTextTop/uTextBottom = the text band in visual space.
+    uniform float uExt;
+    uniform float uTextTop;
+    uniform float uTextBottom;
+    // The canvas is wider than the berg so the mirrored headline can match
+    // the real headline's width. uTexScaleX = berg width / canvas width, so
+    // the berg texture stays centred at natural size instead of stretching.
+    uniform float uTexScaleX;
     uniform vec4 uRipples[${MAX_RIPPLES}];
 
     void main() {
-      vec2 uv = vUv;
+      // Visual-space uv: y continues negative into the extension zone,
+      // so depth/chop/ripple formulas extrapolate seamlessly below.
+      vec2 uv = vec2(vUv.x, (vUv.y - uExt) / (1.0 - uExt));
       float crestEnergy = 0.0;
 
       if (uv.y < uWater) {
@@ -1092,13 +1136,14 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
         float depth = (uWater - uv.y) / uWater;
         float fade = smoothstep(0.0, 0.10, uWater - uv.y);
 
-        // Calm ambient surface chop — three superposed long-wavelength
-        // waves, perspective-foreshortened toward the horizon. Slightly
-        // taller now so the surface always looks alive by default.
+        // Ambient surface chop — four superposed waves, perspective-
+        // foreshortened toward the horizon. The slow fourth term drifts
+        // diagonally (x + depth coupling) and reads as a lazy swirl.
         float chop =
-          sin(uv.x * 22.0 + uTime * 0.70) * 0.0028 +
-          sin(uv.x * 11.0 - uTime * 0.45 + depth * 5.0) * 0.0036 +
-          sin(uv.x * 42.0 + uTime * 1.10) * 0.0014;
+          sin(uv.x * 22.0 + uTime * 0.70) * 0.0050 +
+          sin(uv.x * 11.0 - uTime * 0.45 + depth * 5.0) * 0.0065 +
+          sin(uv.x * 42.0 + uTime * 1.10) * 0.0026 +
+          sin(uv.x * 6.0 + uTime * 0.30 + depth * 8.0) * 0.0044;
         chop *= (0.30 + depth * 0.70) * uAmp * fade;
 
         vec2 offset = vec2(0.0, chop);
@@ -1132,23 +1177,43 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
 
           // Pure vertical displacement — surface rising and falling
           float perspective = 0.50 + depth * 0.50;
-          float dy = carrier * envelope * decay * 0.013 * horizBand * perspective;
+          float dy = carrier * envelope * decay * 0.017 * horizBand * perspective;
 
           offset += vec2(0.0, dy);
           crestEnergy += envelope * decay * horizBand;
         }
 
-        uv = clamp(uv + offset, 0.001, 0.999);
-        vec4 color = texture2D(uTex, uv);
+        vec2 disp = uv + offset;
+        // Berg sits centred at natural width inside the wider canvas; the
+        // spread-out sides are open water (transparent → text reflection).
+        vec2 dispBerg = vec2((disp.x - 0.5) / uTexScaleX + 0.5, disp.y);
+        vec4 color = (dispBerg.x < 0.0 || dispBerg.x > 1.0)
+          ? vec4(0.0)
+          : texture2D(uTex, clamp(dispBerg, 0.001, 0.999));
 
         // Subtle crest brightening and cool tint — kept gentle for calm
         float shimmer = (chop * 28.0 + crestEnergy * 0.35) * depth;
         color.rgb *= 1.0 + shimmer;
         color.rgb += vec3(0.78, 0.88, 1.00) * crestEnergy * 0.08 * color.a;
         color.rgb = min(color.rgb, vec3(color.a));
+
+        // Headline reflection: sampled through the same displaced
+        // coordinate, so it deforms with the identical wave field.
+        // Water composites over the text (premultiplied alpha).
+        if (uTextBottom < uTextTop) {
+          float tV = (disp.y - uTextBottom) / (uTextTop - uTextBottom);
+          if (tV > 0.0 && tV < 1.0) {
+            vec4 txt = texture2D(uText, vec2(disp.x, tV));
+            color.rgb += txt.rgb * (1.0 - color.a);
+            color.a += txt.a * (1.0 - color.a);
+          }
+        }
         gl_FragColor = color;
       } else {
-        gl_FragColor = texture2D(uTex, uv);
+        vec2 uvBerg = vec2((uv.x - 0.5) / uTexScaleX + 0.5, uv.y);
+        gl_FragColor = (uvBerg.x < 0.0 || uvBerg.x > 1.0)
+          ? vec4(0.0)
+          : texture2D(uTex, clamp(uvBerg, 0.001, 0.999));
       }
     }
   `;
@@ -1196,9 +1261,22 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
     amp: gl.getUniformLocation(program, "uAmp"),
     aspect: gl.getUniformLocation(program, "uAspect"),
     ripples: gl.getUniformLocation(program, "uRipples"),
+    tex: gl.getUniformLocation(program, "uTex"),
+    text: gl.getUniformLocation(program, "uText"),
+    ext: gl.getUniformLocation(program, "uExt"),
+    textTop: gl.getUniformLocation(program, "uTextTop"),
+    textBottom: gl.getUniformLocation(program, "uTextBottom"),
+    texScaleX: gl.getUniformLocation(program, "uTexScaleX"),
   };
 
   gl.uniform1f(uniforms.water, 1.0 - WATERLINE);
+  gl.uniform1i(uniforms.tex, 0);
+  gl.uniform1i(uniforms.text, 1);
+  gl.uniform1f(uniforms.ext, 0);
+  gl.uniform1f(uniforms.texScaleX, 1);
+  // textBottom >= textTop disables the text sample until it's built
+  gl.uniform1f(uniforms.textTop, 0);
+  gl.uniform1f(uniforms.textBottom, 0);
 
   const ripples = new Float32Array(MAX_RIPPLES * 4);
   let rippleIndex = 0;
@@ -1218,19 +1296,55 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
   let ready = false;
   const startTime = performance.now() / 1000;
 
+  // The canvas covers the visual plus the headline-reflection band
+  // below it, so the text rides the same simulated water surface.
+  const reflectionEl = () => document.querySelector(".hero-text-reflection");
+
+  // Water/reflection canvas spreads wider than the berg so the mirrored
+  // headline can match the real headline's width. Never narrower than the
+  // berg; capped at 1.7x so the ripple field doesn't over-stretch.
+  const canvasWidth = (visualW) => {
+    const h1 = document.querySelector(".hero-copy h1");
+    const h1W = h1 ? h1.getBoundingClientRect().width : visualW;
+    return Math.max(visualW, Math.min(h1W, visualW * 1.7));
+  };
+
   const resizeCanvas = () => {
     const rect = visual.getBoundingClientRect();
     if (!rect.width || !rect.height) {
       return;
     }
+    const clone = reflectionEl();
+    const cloneRect = clone?.getBoundingClientRect();
+    const ext = cloneRect ? Math.max(0, cloneRect.bottom - rect.bottom) : 0;
     const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
-    const w = Math.round(rect.width * dpr);
-    const h = Math.round(rect.height * dpr);
+    const cssW = canvasWidth(rect.width);
+    const w = Math.round(cssW * dpr);
+    const h = Math.round((rect.height + ext) * dpr);
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w;
       canvas.height = h;
+      canvas.style.bottom = "auto";
+      canvas.style.height = `${rect.height + ext}px`;
+      // Wider than the berg and centred over it, so the reflection can
+      // span the headline width without stretching the berg.
+      canvas.style.width = `${cssW}px`;
+      canvas.style.left = "50%";
+      canvas.style.right = "auto";
+      canvas.style.transform = "translateX(-50%)";
       gl.viewport(0, 0, w, h);
-      gl.uniform1f(uniforms.aspect, w / h);
+      // Aspect spans the full (wider) canvas; texScaleX keeps the berg at
+      // its natural width, centred, so only the water/text spread out.
+      gl.uniform1f(uniforms.aspect, cssW / rect.height);
+      gl.uniform1f(uniforms.texScaleX, rect.width / cssW);
+      gl.uniform1f(uniforms.ext, ext / (rect.height + ext));
+    }
+    if (cloneRect && cloneRect.height > 0) {
+      // Text band in visual space (uv y runs bottom→top of the visual)
+      const top = 1 - (cloneRect.top - rect.top) / rect.height;
+      const bottom = 1 - (cloneRect.bottom - rect.top) / rect.height;
+      gl.uniform1f(uniforms.textTop, top);
+      gl.uniform1f(uniforms.textBottom, bottom);
     }
   };
 
@@ -1298,11 +1412,162 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
     ready = true;
     visual.classList.add("water-ready");
     start();
+    buildTextTexture();
   };
 
   source.onerror = () => {
     /* image failed — static <img> remains the experience */
   };
+
+  // ---- Headline reflection texture -------------------------------
+  // The static DOM clone (.hero-text-reflection) keeps reserving the
+  // layout space and remains the reduced-motion / no-WebGL fallback;
+  // once the shader owns the effect we hide it and draw the same text
+  // into the water via texture unit 1.
+  const textTexture = gl.createTexture();
+  let textStage = null;
+  let textBlock = null;
+
+  const buildTextTexture = () => {
+    const clone = reflectionEl();
+    const title = document.querySelector(".hero-copy h1");
+    if (!clone || !title || !ready) return;
+    const rect = visual.getBoundingClientRect();
+    const cloneRect = clone.getBoundingClientRect();
+    if (!rect.width || cloneRect.height < 4) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+    // Match the (wider) canvas so the mirrored type renders at the
+    // headline's width instead of being squeezed to the berg's.
+    const w = Math.max(2, Math.round(canvasWidth(rect.width) * dpr));
+    const h = Math.max(2, Math.round(cloneRect.height * dpr));
+
+    // Lines exactly as the heading breaks them (split at <br>)
+    const lines = [];
+    let current = [];
+    title.querySelectorAll(".split-line > *").forEach((n) => {
+      if (n.tagName === "BR") {
+        lines.push(current.join(" "));
+        current = [];
+      } else if (n.classList?.contains("split-word")) {
+        current.push(n.textContent);
+      }
+    });
+    if (current.length) lines.push(current.join(" "));
+    if (!lines.length) {
+      lines.push(title.getAttribute("aria-label") || title.textContent.trim());
+    }
+
+    const cs = getComputedStyle(title);
+    const rootCs = getComputedStyle(document.documentElement);
+    const gradTop = rootCs.getPropertyValue("--display-grad-top").trim() || "#ffffff";
+    const gradBottom = rootCs.getPropertyValue("--display-grad-bottom").trim() || "#a0a0a0";
+    const alpha = parseFloat(getComputedStyle(clone).opacity) || 0.22;
+
+    // Draw the block upright first, then stamp it flipped — that gives
+    // reversed line order plus mirrored glyphs, same as the CSS clone.
+    textBlock = textBlock || document.createElement("canvas");
+    textBlock.width = w;
+    textBlock.height = h;
+    const bctx = textBlock.getContext("2d");
+    bctx.clearRect(0, 0, w, h);
+    let fontSize = parseFloat(cs.fontSize) * dpr;
+    bctx.font = `${cs.fontWeight} ${fontSize}px ${cs.fontFamily}`;
+    const widest = Math.max(...lines.map((l) => bctx.measureText(l).width));
+    if (widest > w * 0.96) fontSize *= (w * 0.96) / widest;
+    bctx.font = `${cs.fontWeight} ${fontSize}px ${cs.fontFamily}`;
+    const lineH = fontSize * 1.14;
+    bctx.textAlign = "center";
+    bctx.textBaseline = "alphabetic";
+    if (typeof bctx.filter === "string") bctx.filter = `blur(${1.5 * dpr}px)`;
+    lines.forEach((line, i) => {
+      const baseline = fontSize * 0.94 + i * lineH;
+      const g = bctx.createLinearGradient(0, baseline - fontSize * 0.72, 0, baseline + fontSize * 0.22);
+      g.addColorStop(0, gradTop);
+      g.addColorStop(1, gradBottom);
+      bctx.fillStyle = g;
+      bctx.fillText(line, w / 2, baseline);
+    });
+
+    textStage = textStage || document.createElement("canvas");
+    textStage.width = w;
+    textStage.height = h;
+    const ctx = textStage.getContext("2d");
+    ctx.clearRect(0, 0, w, h);
+
+    // Low-angle mirror: the block is stamped upside down row by row,
+    // squeezed to SQUEEZE of its height overall, and compressed
+    // progressively (GAMMA) the farther a row sits from the waterline
+    // — like a mountain reflected across a lake seen from the shore.
+    const SQUEEZE = 0.62;
+    const GAMMA = 1.7;
+    const blockH = Math.ceil(lines.length * lineH + fontSize * 0.5);
+    const destH = Math.min(h, Math.round(blockH * SQUEEZE));
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    for (let d = 0; d < destH; d++) {
+      const p0 = Math.pow(d / destH, GAMMA);
+      const p1 = Math.pow((d + 1) / destH, GAMMA);
+      const srcTop = blockH * (1 - p1);
+      const srcH = Math.max(blockH * (p1 - p0), 0.5);
+      ctx.drawImage(textBlock, 0, srcTop, w, srcH, 0, d, w, 1);
+    }
+    ctx.restore();
+
+    // Fade downwards on screen: erase progressively toward the tail
+    // of the squeezed block. White-on-black needs more surviving ink
+    // than ink-on-paper, so the dark theme fades more gently.
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
+    const fadeMid = isLight ? 0.4 : 0.28;
+    const fadeTail = isLight ? 0.92 : 0.8;
+    ctx.save();
+    ctx.globalCompositeOperation = "destination-out";
+    const fadeEnd = Math.min(1, destH / h);
+    const fade = ctx.createLinearGradient(0, 0, 0, h);
+    fade.addColorStop(0, "rgba(0, 0, 0, 0)");
+    fade.addColorStop(fadeEnd * 0.55, `rgba(0, 0, 0, ${fadeMid})`);
+    fade.addColorStop(fadeEnd, `rgba(0, 0, 0, ${fadeTail})`);
+    fade.addColorStop(1, "rgba(0, 0, 0, 1)");
+    ctx.fillStyle = fade;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+
+    try {
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, textTexture);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textStage);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.activeTexture(gl.TEXTURE0);
+    } catch (error) {
+      return;
+    }
+
+    resizeCanvas();
+    clone.style.visibility = "hidden";
+  };
+
+  const rebuildTextReflection = () => {
+    if (!ready) return;
+    resizeCanvas();
+    buildTextTexture();
+  };
+
+  document.fonts?.ready?.then(() => rebuildTextReflection());
+  document.addEventListener("themechange", () => {
+    // Theme swap changes the berg art — reload the texture from the
+    // swapped <img> src; its onload re-uploads and rebuilds the text.
+    const src = image.currentSrc || image.src;
+    if (ready && src && source.src !== new URL(src, location.href).href) {
+      source.src = src;
+    } else {
+      rebuildTextReflection();
+    }
+  });
 
   // Pointer → ripples. In side-on view every wave originates at the
   // waterline, so we keep the x of the cursor but lock y to the surface.
@@ -1356,18 +1621,19 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
   const autoRipple = () => {
     if (!ready || !inView || document.hidden) return;
     const u = 0.12 + Math.random() * 0.76; // stay away from the edges
-    addRipple(u, 1 - WATERLINE, 0.22);
+    addRipple(u, 1 - WATERLINE, 0.34);
   };
-  // First one shortly after the shader is ready, then on a loose cadence
-  // with a bit of jitter so the rhythm doesn't feel mechanical.
+  // First one shortly after the shader is ready, then on a brisk cadence
+  // with a bit of jitter so the rhythm doesn't feel mechanical. Kept
+  // below pointer strength (0.4/0.55) so interaction still stands out.
   let autoRippleTimer = 0;
   const scheduleAutoRipple = () => {
     autoRippleTimer = window.setTimeout(() => {
       autoRipple();
       scheduleAutoRipple();
-    }, 1800 + Math.random() * 1600);
+    }, 1000 + Math.random() * 1100);
   };
-  window.setTimeout(scheduleAutoRipple, 900);
+  window.setTimeout(scheduleAutoRipple, 500);
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) stop();
@@ -1375,14 +1641,318 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
   });
 
   if ("ResizeObserver" in window) {
-    new ResizeObserver(() => resizeCanvas()).observe(visual);
+    new ResizeObserver(() => rebuildTextReflection()).observe(visual);
   } else {
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("resize", rebuildTextReflection);
   }
 
   canvas.addEventListener("webglcontextlost", (event) => {
     event.preventDefault();
     stop();
     visual.classList.remove("water-ready");
+    // Bring the static DOM reflection back as the fallback
+    reflectionEl()?.style.removeProperty("visibility");
+  });
+})();
+
+/* ============================================================
+   SideRays — corner light-ray accent for the hero.
+   Ported from the React Bits "SideRays" component to a
+   self-mounting vanilla module on raw WebGL (no ogl / no React),
+   matching the hero water shader above. The GLSL is unchanged.
+   Progressive enhancement: any failure leaves the hero intact.
+   ============================================================ */
+(() => {
+  const container = document.querySelector("[data-side-rays]");
+  if (!container || reducedMotionMedia.matches) {
+    return;
+  }
+
+  const hexToRgb = (hex) => {
+    const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return m
+      ? [
+          parseInt(m[1], 16) / 255,
+          parseInt(m[2], 16) / 255,
+          parseInt(m[3], 16) / 255,
+        ]
+      : [1, 1, 1];
+  };
+
+  const originToFlip = (origin) => {
+    switch (origin) {
+      case "top-left":
+        return [1, 0];
+      case "bottom-right":
+        return [0, 1];
+      case "bottom-left":
+        return [1, 1];
+      default:
+        return [0, 0]; // top-right
+    }
+  };
+
+  // Hero accent defaults — icy palette tuned to the iceberg scene.
+  // Overridable per-instance via data-* attributes on the container.
+  const num = (name, fallback) => {
+    const v = parseFloat(container.dataset[name]);
+    return Number.isFinite(v) ? v : fallback;
+  };
+  const cfg = {
+    speed: num("speed", 2.2),
+    rayColor1: container.dataset.rayColor1 || "#ffffff",
+    rayColor2: container.dataset.rayColor2 || "#75b7ff",
+    intensity: num("intensity", 1.4),
+    spread: num("spread", 2),
+    origin: container.dataset.origin || "top-right",
+    tilt: num("tilt", 0),
+    saturation: num("saturation", 1.4),
+    blend: num("blend", 0.75),
+    falloff: num("falloff", 1.6),
+    opacity: num("opacity", 1.0),
+  };
+
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("aria-hidden", "true");
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.display = "block";
+
+  // premultipliedAlpha:false so the browser composites the canvas over
+  // the page using the shader's straight (non-premultiplied) RGBA.
+  const gl =
+    canvas.getContext("webgl", {
+      alpha: true,
+      premultipliedAlpha: false,
+      antialias: false,
+    }) ||
+    canvas.getContext("experimental-webgl", {
+      alpha: true,
+      premultipliedAlpha: false,
+      antialias: false,
+    });
+  if (!gl) {
+    return;
+  }
+
+  const VERT = `
+attribute vec2 position;
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}`;
+
+  const FRAG = `precision highp float;
+
+uniform float iTime;
+uniform vec2 iResolution;
+uniform float iSpeed;
+uniform vec3 iRayColor1;
+uniform vec3 iRayColor2;
+uniform float iIntensity;
+uniform float iSpread;
+uniform float iFlipX;
+uniform float iFlipY;
+uniform float iTilt;
+uniform float iSaturation;
+uniform float iBlend;
+uniform float iFalloff;
+uniform float iOpacity;
+
+float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) {
+  vec2 sourceToCoord = coord - raySource;
+  float cosAngle = dot(normalize(sourceToCoord), rayRefDirection);
+  return clamp(
+    (0.45 + 0.15 * sin(cosAngle * seedA + iTime * speed)) +
+    (0.3 + 0.2 * cos(-cosAngle * seedB + iTime * speed)),
+    0.0, 1.0) *
+    clamp((iResolution.x - length(sourceToCoord)) / iResolution.x, 0.5, 1.0);
+}
+
+void main() {
+  vec2 fragCoord = gl_FragCoord.xy;
+  if (iFlipX > 0.5) fragCoord.x = iResolution.x - fragCoord.x;
+  if (iFlipY > 0.5) fragCoord.y = iResolution.y - fragCoord.y;
+
+  vec2 coord = vec2(fragCoord.x, iResolution.y - fragCoord.y);
+  vec2 rayPos = vec2(iResolution.x * 1.1, -0.5 * iResolution.y);
+
+  float tiltRad = iTilt * 3.14159265 / 180.0;
+  float cs = cos(tiltRad);
+  float sn = sin(tiltRad);
+  vec2 rel = coord - rayPos;
+  vec2 tiltedCoord = vec2(rel.x * cs - rel.y * sn, rel.x * sn + rel.y * cs) + rayPos;
+
+  float halfSpread = iSpread * 0.275;
+  vec2 rayRefDir1 = normalize(vec2(cos(0.785398 + halfSpread), sin(0.785398 + halfSpread)));
+  vec2 rayRefDir2 = normalize(vec2(cos(0.785398 - halfSpread), sin(0.785398 - halfSpread)));
+
+  vec4 rays1 = vec4(iRayColor1, 1.0) * rayStrength(rayPos, rayRefDir1, tiltedCoord, 36.2214, 21.11349, iSpeed);
+  vec4 rays2 = vec4(iRayColor2, 1.0) * rayStrength(rayPos, rayRefDir2, tiltedCoord, 22.3991, 18.0234, iSpeed * 0.2);
+
+  vec4 color = rays1 * (1.0 - iBlend) * 0.9 + rays2 * iBlend * 0.9;
+
+  float distanceToLight = length(fragCoord.xy - vec2(rayPos.x, iResolution.y - rayPos.y)) / iResolution.y;
+  float brightness = iIntensity * 0.4 / pow(max(distanceToLight, 0.001), iFalloff);
+  color.rgb *= brightness;
+
+  float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+  color.rgb = mix(vec3(gray), color.rgb, iSaturation);
+
+  color.a = max(color.r, max(color.g, color.b)) * iOpacity;
+  gl_FragColor = color;
+}`;
+
+  const compile = (type, source) => {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      throw new Error(gl.getShaderInfoLog(shader) || "shader compile failed");
+    }
+    return shader;
+  };
+
+  let program;
+  try {
+    program = gl.createProgram();
+    gl.attachShader(program, compile(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(program, compile(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      throw new Error(gl.getProgramInfoLog(program) || "program link failed");
+    }
+  } catch (error) {
+    console.warn("SideRays effect unavailable:", error.message);
+    return;
+  }
+
+  gl.useProgram(program);
+
+  const quad = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 3, -1, -1, 3]),
+    gl.STATIC_DRAW
+  );
+  const aPos = gl.getAttribLocation(program, "position");
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  const U = {};
+  [
+    "iTime",
+    "iResolution",
+    "iSpeed",
+    "iRayColor1",
+    "iRayColor2",
+    "iIntensity",
+    "iSpread",
+    "iFlipX",
+    "iFlipY",
+    "iTilt",
+    "iSaturation",
+    "iBlend",
+    "iFalloff",
+    "iOpacity",
+  ].forEach((n) => {
+    U[n] = gl.getUniformLocation(program, n);
+  });
+
+  const [flipX, flipY] = originToFlip(cfg.origin);
+  gl.uniform1f(U.iSpeed, cfg.speed);
+  gl.uniform1f(U.iSpread, cfg.spread);
+  gl.uniform1f(U.iFlipX, flipX);
+  gl.uniform1f(U.iFlipY, flipY);
+  gl.uniform1f(U.iTilt, cfg.tilt);
+  gl.uniform1f(U.iSaturation, cfg.saturation);
+  gl.uniform1f(U.iBlend, cfg.blend);
+  gl.uniform1f(U.iFalloff, cfg.falloff);
+  gl.uniform1f(U.iOpacity, cfg.opacity);
+
+  // Colour + intensity are theme-aware: bright whites/blues that glow
+  // over the dark hero (screen blend), and saturated blues that tint
+  // the light paper (multiply blend). Re-applied on theme change.
+  const PALETTES = {
+    dark: { c1: "#ffffff", c2: "#75b7ff", intensity: 2.2 },
+    light: { c1: "#ffffff", c2: "#75b7ff", intensity: 2.2 },
+  };
+  const applyPalette = () => {
+    const p =
+      document.documentElement.getAttribute("data-theme") === "light"
+        ? PALETTES.light
+        : PALETTES.dark;
+    gl.uniform3fv(U.iRayColor1, hexToRgb(cfg.rayColor1 !== "#ffffff" ? cfg.rayColor1 : p.c1));
+    gl.uniform3fv(U.iRayColor2, hexToRgb(cfg.rayColor2 !== "#75b7ff" ? cfg.rayColor2 : p.c2));
+    gl.uniform1f(U.iIntensity, p.intensity);
+  };
+  applyPalette();
+  document.addEventListener("themechange", applyPalette);
+
+  const DPR_CAP = 2;
+  const resize = () => {
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+    const cw = Math.round(w * dpr);
+    const ch = Math.round(h * dpr);
+    if (canvas.width !== cw || canvas.height !== ch) {
+      canvas.width = cw;
+      canvas.height = ch;
+      gl.viewport(0, 0, cw, ch);
+      gl.uniform2f(U.iResolution, cw, ch);
+    }
+  };
+
+  let rafId = 0;
+  let running = false;
+  let inView = true;
+
+  const render = (t) => {
+    if (!running) return;
+    gl.uniform1f(U.iTime, t * 0.001);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    rafId = requestAnimationFrame(render);
+  };
+
+  const start = () => {
+    if (running || !inView || document.hidden) return;
+    running = true;
+    rafId = requestAnimationFrame(render);
+  };
+
+  const stop = () => {
+    running = false;
+    cancelAnimationFrame(rafId);
+  };
+
+  container.appendChild(canvas);
+  resize();
+  start();
+
+  window.addEventListener("resize", resize);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) start();
+        else stop();
+      },
+      { threshold: 0 }
+    ).observe(container);
+  }
+
+  canvas.addEventListener("webglcontextlost", (event) => {
+    event.preventDefault();
+    stop();
   });
 })();

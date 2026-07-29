@@ -8,12 +8,20 @@
       content="Case study on the Options Strategy Builder at Upstox: a decision tool for retail options traders that gets built inside the trading flow, not next to it."
     />
     <meta name="theme-color" content="#050505" />
-    <title>Options Strategy Builder — Upstox | Siddharth</title>
+    <title>Options Strategy Builder · Upstox | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-light.svg"
+      media="(prefers-color-scheme: light)"
+    />
     <link
       rel="icon"
       type="image/svg+xml"
       href="./assets/favicons/fav-dark.svg"
+      media="(prefers-color-scheme: dark)"
     />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicons/fav-dark.svg" />
     <script>
       (function () {
         try {
@@ -34,9 +42,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      href="./assets/fonts/tiempos/TiemposHeadline-Bold.otf"
       as="font"
-      type="font/woff2"
+      type="font/otf"
       crossorigin
     />
     <link
@@ -51,9 +59,9 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=50" />
-    <link rel="stylesheet" href="case-study.css?v=13" />
-    <script defer src="script.js?v=16"></script>
+    <link rel="stylesheet" href="styles.css?v=98" />
+    <link rel="stylesheet" href="case-study.css?v=19" />
+    <script defer src="script.js?v=31"></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -70,6 +78,7 @@
             <a href="index.html#work"><span data-text="Work">Work</span></a>
             <a href="index.html#ai-work"><span data-text="Highlights">Highlights</span></a>
             <a href="index.html#about"><span data-text="About">About</span></a>
+            <a href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener"><span data-text="Resume">Resume</span></a>
           </div>
           <div class="nav-actions">
             <button class="theme-toggle" type="button" aria-label="Switch to light theme">
@@ -116,6 +125,7 @@
             <a class="mobile-drawer-link" href="index.html#work">Work</a>
             <a class="mobile-drawer-link" href="index.html#ai-work">Highlights</a>
             <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="mobile-drawer-link" href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
             <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
           </div>
         </div>
@@ -129,7 +139,23 @@
           <span class="cs-hero__badge">Fintech</span>
           <h1 class="cs-hero__title">Options Strategy Builder</h1>
           <p class="cs-hero__intro">A place inside Upstox where options traders can put a strategy together, see what it&apos;s risking, and place the order. All on one screen.</p>
-          <div class="cs-hero__image"></div>
+          <div class="cs-hero__image cs-hero__image--media">
+            <img class="cs-hero__media" src="./assets/covers/Strategy.svg" alt="Options Strategy Builder preview" decoding="async" onerror="this.style.display='none'" />
+          </div>
+        </section>
+
+        <!-- ===== TL;DR ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-tldr">
+              <span class="cs-tldr__key">Challenge</span>
+              <p class="cs-tldr__val">Options traders analysed a strategy in Sensibull, then switched apps to place it. Two tools, one decision, a lot of tab-switching.</p>
+              <span class="cs-tldr__key">Move</span>
+              <p class="cs-tldr__val">Bring analysis and execution onto one screen: build the strategy, read the risk, place the order in place.</p>
+              <span class="cs-tldr__key">Result</span>
+              <p class="cs-tldr__val">Plan-and-place collapsed from two tabs to one; zero other apps needed to execute.</p>
+            </div>
+          </div>
         </section>
 
         <!-- ===== 2. Project Overview ===== -->
@@ -143,7 +169,7 @@
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Role</div>
-                  <div class="cs-meta__value">Senior Product Designer</div>
+                  <div class="cs-meta__value">Product Designer II</div>
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Timeline</div>
@@ -183,19 +209,19 @@
         <section class="cs-section" data-reveal>
           <div class="cs-container">
             <h2 class="cs-section-title">Impact</h2>
-            <p class="cs-section-subtitle">Numbers from the first quarter after we shipped.</p>
+            <p class="cs-section-subtitle">First quarter after launch, measured on the active F&amp;O cohort. The builder shipped alongside an in-app education push, so it was a necessary part of these moves, not the sole cause.</p>
             <div class="cs-metrics" data-stagger>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">35%</div>
-                <div class="cs-metric-card__label">Faster Strategy Creation</div>
+                <div class="cs-metric-card__number">228K+</div>
+                <div class="cs-metric-card__label">Orders placed through the Strategy Builder</div>
               </div>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">28%</div>
-                <div class="cs-metric-card__label">Reduction in User Drop-offs</div>
+                <div class="cs-metric-card__number">84%</div>
+                <div class="cs-metric-card__label">New-user adoption among traders who tried the builder</div>
               </div>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">42%</div>
-                <div class="cs-metric-card__label">Increase in Feature Engagement</div>
+                <div class="cs-metric-card__number">3&times;</div>
+                <div class="cs-metric-card__label">Weekly trading activity among strategy users</div>
               </div>
             </div>
           </div>
@@ -440,6 +466,11 @@
             <h2 class="cs-section-title">Design Solutions</h2>
             <p class="cs-section-subtitle">Six things that took the builder from &ldquo;fine&rdquo; to &ldquo;this is where I trade now&rdquo;.</p>
 
+            <div class="cs-constraints">
+              <span class="cs-constraints__key">Constraints we designed inside</span>
+              <p>Order placement had to run through the existing F&amp;O execution stack, with no new order types. Live option chains meant the screen re-rendered constantly, so nothing could depend on layout staying still. And it had to stay legible to first-time options traders without slowing down the pros who place ten trades a day.</p>
+            </div>
+
             <div class="cs-solution-block" data-reveal>
               <div class="cs-solution-block__label">
                 <div class="cs-solution-block__number">01</div>
@@ -448,6 +479,11 @@
               <div class="cs-solution-block__body">
                 <h3>A Screen Just for Building</h3>
                 <p>Full screen, one job. Traders add legs one at a time and the layout tightens as they go. What starts out with plenty of room turns into a working cockpit by leg four.</p>
+                <div class="cs-decision">
+                  <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Give the builder its own full screen instead of a modal over the option chain.</p></div>
+                  <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>In testing, a modal kept traders anchored to the chain and they treated the builder as a lookup, not a workspace. A dedicated screen was the only version where people committed to constructing a multi-leg strategy.</p></div>
+                  <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>A bottom sheet. It capped at two legs before the payoff graph got squeezed off-screen.</p></div>
+                </div>
                 <div class="cs-solution-block__visual"></div>
               </div>
             </div>
@@ -564,7 +600,7 @@
                 <div class="cs-timeline__label">What broke</div>
                 <p class="cs-timeline__text">Confirmation screen felt cold. Users hesitated to hit the final button because they weren&apos;t sure what they were about to lose.</p>
                 <div class="cs-timeline__label">What we did</div>
-                <p class="cs-timeline__text">Added a card at the top showing worst case, best case, and where you break even. Hesitation dropped by 28%.</p>
+                <p class="cs-timeline__text">Added a card at the top showing worst case, best case, and where you break even &mdash; so the risk is felt before the order, not after.</p>
               </div>
             </div>
           </div>
@@ -614,20 +650,20 @@
         <section class="cs-section" data-reveal>
           <div class="cs-container">
             <h2 class="cs-section-title">Final Outcome</h2>
-            <p class="cs-section-subtitle">What actually happened after the feature went live.</p>
+            <p class="cs-section-subtitle">The structural change, and what the trader&apos;s flow looks like now versus before. (Adoption numbers are in the Impact section up top.)</p>
 
             <div class="cs-metrics" data-stagger>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">35%</div>
-                <div class="cs-metric-card__label">Faster to build a trade than doing it on Sensibull first</div>
-              </div>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">3x</div>
-                <div class="cs-metric-card__label">More users said they knew what they were risking before hitting buy</div>
+                <div class="cs-metric-card__number">2 &rarr; 1</div>
+                <div class="cs-metric-card__label">Tabs to plan and place a trade, now that analysis and execution live on one screen</div>
               </div>
               <div class="cs-metric-card">
                 <div class="cs-metric-card__number">0</div>
-                <div class="cs-metric-card__label">Other apps needed. Plan and place happen in the same tab now</div>
+                <div class="cs-metric-card__label">Other apps needed, now that the Sensibull-in-a-second-tab habit goes away</div>
+              </div>
+              <div class="cs-metric-card">
+                <div class="cs-metric-card__number">1</div>
+                <div class="cs-metric-card__label">Payoff graph that stays put and redraws live, so risk is felt before the order</div>
               </div>
             </div>
           </div>
@@ -708,17 +744,6 @@
           </div>
         </section>
 
-        <!-- ===== 18. Reflection ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <div class="cs-reflection">
-              <h2 class="cs-reflection__title">Reflection</h2>
-              <p class="cs-reflection__text">Working on this taught me that fintech design is really about trust. Not the trust you build with a nice logo and a testimonial page, but the trust that lives in the second between someone looking at a number and clicking a button.</p>
-              <p class="cs-reflection__text">The strategy builder shipped, but the more useful thing was watching how a trader&apos;s posture changes when the payoff graph updates in real time. That moment is what the whole project was about.</p>
-              <p class="cs-reflection__text">Fintech design isn&apos;t about making the complex simple. It&apos;s about making the complex feel like the person using it is still in charge.</p>
-            </div>
-          </div>
-        </section>
 
         <!-- ===== Project Nav ===== -->
         <div class="cs-project-nav" data-reveal>
@@ -730,10 +755,64 @@
             <span>Next project: Homepage Reimagined</span>
             <span aria-hidden="true">&rarr;</span>
           </a>
-          <a class="button button-primary magnetic cs-contact-cta" href="index.html#contact">
-            Discuss a project like this
-          </a>
         </div>
+        <!-- ===== Closing ===== -->
+        <section class="section closing-section cs-closing" id="contact" data-reveal>
+          <div class="closing-panel glass-panel">
+            <h2>Let&apos;s connect!</h2>
+            <p>
+              I take on freelance work and full-time roles. Fintech, healthtech,
+              and messy product problems especially welcome.
+            </p>
+            <div class="closing-actions">
+              <a class="button button-primary magnetic" href="mailto:siddharthsingawne@gmail.com">
+                siddharthsingawne@gmail.com
+              </a>
+              <button
+                class="button button-icon copy-button"
+                type="button"
+                data-copy="siddharthsingawne@gmail.com"
+                aria-label="Copy email to clipboard"
+              >
+                <svg
+                  class="copy-icon copy-icon-default"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+                  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                </svg>
+                <svg
+                  class="copy-icon copy-icon-check"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 12l5 5l10 -10" />
+                </svg>
+                <span class="sr-only copy-live" aria-live="polite"></span>
+              </button>
+            </div>
+          </div>
+        </section>
+
 
       </main>
 
@@ -766,7 +845,7 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://dribbble.com/Siddharth_Singawne" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

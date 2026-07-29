@@ -8,12 +8,20 @@
       content="Case study on a transcript-to-content workflow: one recording in, six formats out, without losing the speaker's voice."
     />
     <meta name="theme-color" content="#050505" />
-    <title>Transcript to Content Engine — Case Study | Siddharth</title>
+    <title>Transcript to Content Engine · Case Study | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-light.svg"
+      media="(prefers-color-scheme: light)"
+    />
     <link
       rel="icon"
       type="image/svg+xml"
       href="./assets/favicons/fav-dark.svg"
+      media="(prefers-color-scheme: dark)"
     />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicons/fav-dark.svg" />
     <script>
       (function () {
         try {
@@ -34,9 +42,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      href="./assets/fonts/tiempos/TiemposHeadline-Bold.otf"
       as="font"
-      type="font/woff2"
+      type="font/otf"
       crossorigin
     />
     <link
@@ -51,9 +59,9 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=50" />
-    <link rel="stylesheet" href="case-study.css?v=13" />
-    <script defer src="script.js?v=16"></script>
+    <link rel="stylesheet" href="styles.css?v=98" />
+    <link rel="stylesheet" href="case-study.css?v=19" />
+    <script defer src="script.js?v=31"></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -70,6 +78,7 @@
             <a href="index.html#work"><span data-text="Work">Work</span></a>
             <a href="index.html#ai-work"><span data-text="Highlights">Highlights</span></a>
             <a href="index.html#about"><span data-text="About">About</span></a>
+            <a href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener"><span data-text="Resume">Resume</span></a>
           </div>
           <div class="nav-actions">
             <button class="theme-toggle" type="button" aria-label="Switch to light theme">
@@ -150,6 +159,7 @@
             <a class="mobile-drawer-link" href="index.html#work">Work</a>
             <a class="mobile-drawer-link" href="index.html#ai-work">Highlights</a>
             <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="mobile-drawer-link" href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
             <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
           </div>
         </div>
@@ -160,7 +170,7 @@
 
         <!-- ===== Hero ===== -->
         <section class="cs-hero cs-container" data-reveal>
-          <span class="cs-hero__badge">Content &middot; AI</span>
+          <span class="cs-hero__badge">Content &middot; AI &middot; Concept</span>
           <h1 class="cs-hero__title">Transcript to Content Engine</h1>
           <p class="cs-hero__intro">One recorded conversation, six formats out the other side, still sounding like the person who said it. A tool for people who talk faster than they type.</p>
           <div class="cs-hero__image"></div>
@@ -212,20 +222,20 @@
         <!-- ===== Impact Metrics ===== -->
         <section class="cs-section" data-reveal>
           <div class="cs-container">
-            <h2 class="cs-section-title">Impact</h2>
-            <p class="cs-section-subtitle">Against how long the same person used to spend doing this by hand.</p>
+            <h2 class="cs-section-title">How I&apos;d measure it</h2>
+            <p class="cs-section-subtitle">This is a self-initiated concept, not a shipped product, so there are no live numbers to quote. If it shipped, here&apos;s what I&apos;d instrument and what &ldquo;working&rdquo; would look like.</p>
             <div class="cs-metrics" data-stagger>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">4x</div>
-                <div class="cs-metric-card__label">Content pieces from the same one-hour recording</div>
+                <div class="cs-metric-card__number">Yield</div>
+                <div class="cs-metric-card__label">Publish-ready pieces per recording vs the same person&apos;s manual baseline</div>
               </div>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">6</div>
-                <div class="cs-metric-card__label">Formats generated from one source transcript</div>
+                <div class="cs-metric-card__number">Edit distance</div>
+                <div class="cs-metric-card__label">How much a draft is changed before publish, the real proxy for output quality</div>
               </div>
               <div class="cs-metric-card">
-                <div class="cs-metric-card__number">70%</div>
-                <div class="cs-metric-card__label">Less time editing before it&apos;s ready to post</div>
+                <div class="cs-metric-card__number">Voice drift</div>
+                <div class="cs-metric-card__label">Blind test: can readers tell the generated piece from the speaker&apos;s own writing</div>
               </div>
             </div>
           </div>
@@ -350,16 +360,6 @@
           </div>
         </section>
 
-        <!-- ===== Reflection ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <div class="cs-reflection">
-              <h2 class="cs-reflection__title">Reflection</h2>
-              <p class="cs-reflection__text">Most of the design effort in an AI product should probably go into making the checking easy, not making the generation impressive. Generation is a solved problem for most tasks now. Verification is the thing that&apos;s still hard, and it&apos;s where the design lives.</p>
-              <p class="cs-reflection__text">The other realisation was that voice is data. Once we started treating it like something to extract and hold onto, rather than something to hope for on the output side, the whole pipeline got calmer.</p>
-            </div>
-          </div>
-        </section>
 
         <!-- ===== Project Nav ===== -->
         <div class="cs-project-nav" data-reveal>
@@ -367,14 +367,64 @@
             <span aria-hidden="true">&larr;</span>
             <span>Back to all projects</span>
           </a>
-          <a class="cs-back-link" href="case-study-ao.html">
-            <span>Next project: Simplifying Account Opening</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-          <a class="button button-primary magnetic cs-contact-cta" href="index.html#contact">
-            Discuss a project like this
-          </a>
         </div>
+        <!-- ===== Closing ===== -->
+        <section class="section closing-section cs-closing" id="contact" data-reveal>
+          <div class="closing-panel glass-panel">
+            <h2>Let&apos;s connect!</h2>
+            <p>
+              I take on freelance work and full-time roles. Fintech, healthtech,
+              and messy product problems especially welcome.
+            </p>
+            <div class="closing-actions">
+              <a class="button button-primary magnetic" href="mailto:siddharthsingawne@gmail.com">
+                siddharthsingawne@gmail.com
+              </a>
+              <button
+                class="button button-icon copy-button"
+                type="button"
+                data-copy="siddharthsingawne@gmail.com"
+                aria-label="Copy email to clipboard"
+              >
+                <svg
+                  class="copy-icon copy-icon-default"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+                  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                </svg>
+                <svg
+                  class="copy-icon copy-icon-check"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 12l5 5l10 -10" />
+                </svg>
+                <span class="sr-only copy-live" aria-live="polite"></span>
+              </button>
+            </div>
+          </div>
+        </section>
+
 
       </main>
 
@@ -407,7 +457,7 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://dribbble.com/Siddharth_Singawne" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

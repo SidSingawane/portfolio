@@ -8,12 +8,20 @@
       content="Case study on Homepage Reimagined at Upstox: rebuilding the home screen so different traders see the right widgets at the right time."
     />
     <meta name="theme-color" content="#050505" />
-    <title>Homepage Reimagined — Upstox | Siddharth</title>
+    <title>Homepage Reimagined · Upstox | Siddharth</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./assets/favicons/fav-light.svg"
+      media="(prefers-color-scheme: light)"
+    />
     <link
       rel="icon"
       type="image/svg+xml"
       href="./assets/favicons/fav-dark.svg"
+      media="(prefers-color-scheme: dark)"
     />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicons/fav-dark.svg" />
     <script>
       (function () {
         try {
@@ -34,9 +42,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      href="./assets/fonts/SourceSerif4Display-Bold-subset.woff2"
+      href="./assets/fonts/tiempos/TiemposHeadline-Bold.otf"
       as="font"
-      type="font/woff2"
+      type="font/otf"
       crossorigin
     />
     <link
@@ -51,9 +59,9 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=50" />
-    <link rel="stylesheet" href="case-study.css?v=13" />
-    <script defer src="script.js?v=16"></script>
+    <link rel="stylesheet" href="styles.css?v=98" />
+    <link rel="stylesheet" href="case-study.css?v=19" />
+    <script defer src="script.js?v=31"></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -70,6 +78,7 @@
             <a href="index.html#work"><span data-text="Work">Work</span></a>
             <a href="index.html#ai-work"><span data-text="Highlights">Highlights</span></a>
             <a href="index.html#about"><span data-text="About">About</span></a>
+            <a href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener"><span data-text="Resume">Resume</span></a>
           </div>
           <div class="nav-actions">
             <button class="theme-toggle" type="button" aria-label="Switch to light theme">
@@ -116,6 +125,7 @@
             <a class="mobile-drawer-link" href="index.html#work">Work</a>
             <a class="mobile-drawer-link" href="index.html#ai-work">Highlights</a>
             <a class="mobile-drawer-link" href="index.html#about">About</a>
+            <a class="mobile-drawer-link" href="https://drive.google.com/file/d/1RSXbeazi6P-QA56sXTASq94Y1kBnXhX2/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
             <a class="button button-primary mobile-drawer-cta" href="index.html#contact">Get in touch</a>
           </div>
         </div>
@@ -129,7 +139,23 @@
           <span class="cs-hero__badge">Fintech &middot; Upstox</span>
           <h1 class="cs-hero__title">Homepage Reimagined</h1>
           <p class="cs-hero__intro">Rebuilding the Upstox home screen after it had quietly turned into a parking lot for every feature launch of the year. Three very different traders, one very crowded screen.</p>
-          <div class="cs-hero__image"></div>
+          <div class="cs-hero__image cs-hero__image--media">
+            <img class="cs-hero__media" src="./assets/covers/Home%20page.svg" alt="Homepage Reimagined preview" decoding="async" onerror="this.style.display='none'" />
+          </div>
+        </section>
+
+        <!-- ===== TL;DR ===== -->
+        <section class="cs-section" data-reveal>
+          <div class="cs-container">
+            <div class="cs-tldr">
+              <span class="cs-tldr__key">Challenge</span>
+              <p class="cs-tldr__val">Every launch bolted another widget onto the home screen. Three very different trader types were all landing on the same overloaded page.</p>
+              <span class="cs-tldr__key">Move</span>
+              <p class="cs-tldr__val">Stop adding. Re-order the same widgets around what each cohort actually opens the app to do, and give the page a hierarchy instead of a pile.</p>
+              <span class="cs-tldr__key">Result</span>
+              <p class="cs-tldr__val">3&times; impressions and 2.3&times; orders period-over-period on Android, with zero new widgets added.</p>
+            </div>
+          </div>
         </section>
 
         <!-- ===== 2. Project Overview ===== -->
@@ -143,7 +169,7 @@
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Role</div>
-                  <div class="cs-meta__value">Senior Product Designer</div>
+                  <div class="cs-meta__value">Product Designer II</div>
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Timeline</div>
@@ -437,6 +463,11 @@
             <h2 class="cs-section-title">Design Solutions</h2>
             <p class="cs-section-subtitle">Six decisions that changed how the page felt.</p>
 
+            <div class="cs-constraints">
+              <span class="cs-constraints__key">Constraints we designed inside</span>
+              <p>No new widgets. Leadership had to see that hierarchy alone could move the numbers before anyone would fund more real estate. The re-order had to work for all three cohorts from a single layout (no per-cohort forks to maintain). And every promo team still needed a home for launches, so &ldquo;just delete the banners&rdquo; was never on the table.</p>
+            </div>
+
             <div class="cs-solution-block" data-reveal>
               <div class="cs-solution-block__label">
                 <div class="cs-solution-block__number">01</div>
@@ -445,6 +476,11 @@
               <div class="cs-solution-block__body">
                 <h3>Asset Grid as the anchor</h3>
                 <p>A small grid of quick actions sits right at the top. Its shape never changes, but its contents shift depending on what you actually use. New product launches (IPO, NCD) get a small tag on the grid instead of a full banner across the screen.</p>
+                <div class="cs-decision">
+                  <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Give launches a tag on the existing grid instead of their own banner.</p></div>
+                  <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>Banners were the root of the banner-blindness problem. Each new one trained people to ignore the top of the page faster. A tag on a widget people already scan rides the attention that&apos;s there instead of fighting for new attention.</p></div>
+                  <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>A rotating banner carousel. It tested worst of all; people learned to scroll past the whole strip within a session.</p></div>
+                </div>
                 <div class="cs-solution-block__visual"></div>
               </div>
             </div>
@@ -698,32 +734,75 @@
           </div>
         </section>
 
-        <!-- ===== 18. Reflection ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <div class="cs-reflection">
-              <h2 class="cs-reflection__title">Reflection</h2>
-              <p class="cs-reflection__text">A fintech homepage isn&apos;t decoration. It&apos;s the room people make decisions in. Every visual call is also a behavioural one, whether you meant it or not.</p>
-              <p class="cs-reflection__text">The redesign shipped a calmer screen. But the more useful thing it left behind was a shared vocabulary. Now the team argues about widgets in the same terms. Hierarchy isn&apos;t someone&apos;s opinion anymore, it&apos;s the shape of the page.</p>
-              <p class="cs-reflection__text">The best feedback came about six months later. A PM pitching a new widget opened the meeting with &ldquo;is this an anchor or a hero?&rdquo; I&apos;m still proud of that.</p>
+
+        <!-- ===== Project Nav ===== -->
+        <div class="cs-project-nav" data-reveal>
+          <a class="cs-back-link" href="case-study-options.html">
+            <span aria-hidden="true">&larr;</span>
+            <span>Previous project: Options Strategy Builder</span>
+          </a>
+          <a class="cs-back-link" href="case-study-arc.html">
+            <span>Next project: Arc Design System</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <!-- ===== Closing ===== -->
+        <section class="section closing-section cs-closing" id="contact" data-reveal>
+          <div class="closing-panel glass-panel">
+            <h2>Let&apos;s connect!</h2>
+            <p>
+              I take on freelance work and full-time roles. Fintech, healthtech,
+              and messy product problems especially welcome.
+            </p>
+            <div class="closing-actions">
+              <a class="button button-primary magnetic" href="mailto:siddharthsingawne@gmail.com">
+                siddharthsingawne@gmail.com
+              </a>
+              <button
+                class="button button-icon copy-button"
+                type="button"
+                data-copy="siddharthsingawne@gmail.com"
+                aria-label="Copy email to clipboard"
+              >
+                <svg
+                  class="copy-icon copy-icon-default"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+                  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                </svg>
+                <svg
+                  class="copy-icon copy-icon-check"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 12l5 5l10 -10" />
+                </svg>
+                <span class="sr-only copy-live" aria-live="polite"></span>
+              </button>
             </div>
           </div>
         </section>
 
-        <!-- ===== Project Nav ===== -->
-        <div class="cs-project-nav" data-reveal>
-          <a class="cs-back-link" href="index.html#work">
-            <span aria-hidden="true">&larr;</span>
-            <span>Back to all projects</span>
-          </a>
-          <a class="cs-back-link" href="case-study-transcript.html">
-            <span>Next project: Arc Design System</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-          <a class="button button-primary magnetic cs-contact-cta" href="index.html#contact">
-            Discuss a project like this
-          </a>
-        </div>
 
       </main>
 
@@ -756,7 +835,7 @@
             </span>
             <span class="footer-arrow" aria-hidden="true"></span>
           </a>
-          <a class="footer-social-link" href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://dribbble.com/Siddharth_Singawne" target="_blank" rel="noopener noreferrer">
             <span class="footer-social-label">
               <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

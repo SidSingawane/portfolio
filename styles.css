@@ -1,10 +1,43 @@
 @font-face {
-  font-family: "Canela Fallback";
-  src:
-    url("./assets/fonts/SourceSerif4Display-Bold-subset.woff2") format("woff2"),
-    url("./assets/fonts/SourceSerif4Display-Bold.otf") format("opentype");
+  font-family: "Tiempos Headline";
+  src: url("./assets/fonts/tiempos/TiemposHeadline-Regular.otf") format("opentype");
   font-style: normal;
   font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tiempos Headline";
+  src: url("./assets/fonts/tiempos/TiemposHeadline-RegularItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tiempos Headline";
+  src: url("./assets/fonts/tiempos/TiemposHeadline-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tiempos Text";
+  src: url("./assets/fonts/tiempos/TiemposText-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tiempos Text";
+  src: url("./assets/fonts/tiempos/TiemposText-RegularItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tiempos Text";
+  src: url("./assets/fonts/tiempos/TiemposText-Semibold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 600;
   font-display: swap;
 }
 
@@ -85,7 +118,7 @@
 
   /* ---- Typography ----
      Families */
-  --heading-font: "Canela", "Canela Deck", "Canela Text", "Canela Fallback", Georgia, serif;
+  --heading-font: "Tiempos Headline", "Tiempos Text", Georgia, serif;
   --body-font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Type scale — fluid, rem-based. One ramp, no one-offs. */
@@ -365,14 +398,14 @@ main#main,
   color: var(--text-muted);
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-caps-wide);
+  letter-spacing: -0.01em;
   line-height: var(--leading-heading);
   text-transform: uppercase;
 }
 
 .hero h1,
 .section-heading h2,
-.about-copy h2,
+.about-copy h3,
 .closing-panel h2 {
   margin: 0;
   font-family: var(--heading-font);
@@ -382,11 +415,18 @@ main#main,
 }
 
 .section-heading h2,
-.about-copy h2,
 .closing-panel h2 {
   /* Section heads share the hero's display step for a single,
      coherent voice across the page — no two competing top-level sizes. */
   font-size: var(--display-md);
+  max-width: none;
+}
+
+.about-copy h3 {
+  /* Same visual weight as the project-card titles — reads as a
+     block subhead inside a card, not a competing display heading. */
+  font-size: var(--heading-lg);
+  color: var(--text);
   max-width: none;
 }
 
@@ -426,13 +466,13 @@ main#main,
   transform: translateY(18px);
   border-top-width: 1px;
   border-radius: 999px;
-  padding: 14px 18px;
+  padding: 12px 20px;
 }
 
 .floating-nav {
   width: 100%;
   margin: 0 auto;
-  padding: 18px var(--gutter);
+  padding: 12px var(--gutter);
   border-radius: 0;
   border-top-width: 0;
   /* 1fr / auto / 1fr puts the link cluster in the true horizontal
@@ -441,7 +481,9 @@ main#main,
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: var(--space-md);
-  background: var(--nav-bar-grad);
+  /* Default (top of page) is transparent so the hero shows through;
+     the pill background only appears once scrolled (.is-scrolled). */
+  background: transparent;
   border-color: transparent;
   box-shadow: none;
   backdrop-filter: none;
@@ -464,7 +506,7 @@ main#main,
 .logo-mark {
   display: block;
   width: auto;
-  height: 40px;
+  height: 34px;
   transition: transform 200ms var(--ease-spring), filter 200ms ease;
 }
 
@@ -485,7 +527,9 @@ main#main,
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-md);
+  /* 50% wider than --space-md; desktop-only since .nav-links is hidden
+     below 820px. */
+  gap: calc(var(--space-md) * 1.5);
   font-size: var(--text-base);
   color: var(--text-soft);
 }
@@ -496,6 +540,7 @@ main#main,
   overflow: hidden;
   perspective: 600px;
   padding-bottom: 2px;
+  font-weight: var(--weight-medium);
 }
 
 .nav-links a span {
@@ -518,17 +563,23 @@ main#main,
   transform: translateY(-100%);
 }
 
-/* Scroll-spy active state */
+/* Scroll-spy active state — dashed rule under the word */
 .nav-links a::before {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-  transform: translateX(-50%) scale(0);
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0,
+    var(--accent) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  transform: scaleX(0);
+  transform-origin: left;
   transition: transform var(--dur-fast) var(--ease-spring);
 }
 
@@ -537,7 +588,7 @@ main#main,
 }
 
 .nav-links a[aria-current="true"]::before {
-  transform: translateX(-50%) scale(1);
+  transform: scaleX(1);
 }
 
 .nav-actions {
@@ -553,8 +604,8 @@ main#main,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid var(--chip-border);
   border-radius: 999px;
@@ -612,8 +663,8 @@ main#main,
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid var(--chip-border);
   border-radius: 999px;
@@ -774,12 +825,16 @@ main#main,
   color: var(--btn-ink);
   border: 1px solid var(--btn-border);
   border-radius: 36px;
-  box-shadow: var(--btn-ring) 0px 0px 0px 1px, var(--btn-shadow-c) 0px 1px 2px 0px;
+  box-shadow: none;
 }
 
 .nav-cta.button-primary {
   background: var(--cta-bg);
   color: var(--cta-ink);
+  min-height: 40px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: var(--weight-medium);
 }
 
 .button-primary:hover {
@@ -811,7 +866,7 @@ main#main,
   border: 1px solid var(--btn-border);
   background: transparent;
   color: var(--btn-ink);
-  box-shadow: var(--btn-ring) 0px 0px 0px 1px, var(--btn-shadow-c) 0px 1px 2px 0px;
+  box-shadow: none;
   cursor: pointer;
 }
 
@@ -904,20 +959,8 @@ main#main,
   cursor: none;
 }
 
-/* In light mode the hero stays a cinematic dark scene — a framed
-   window into the deep — while the page chrome adapts around it. */
-[data-theme="light"] .hero {
-  width: min(calc(var(--max-width) + 120px), calc(100% - (var(--gutter) * 2)));
-  min-height: 0;
-  margin: 16px auto 0;
-  padding-top: var(--space-hero);
-  padding-bottom: var(--space-fluid-lg);
-  border-radius: 44px;
-  background:
-    radial-gradient(140% 110% at 50% 0%, #0d1119 0%, #05070a 52%, #000000 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 40px 90px rgba(46, 38, 24, 0.22);
-}
+/* Light mode: same full-bleed hero as dark — no framed card. The
+   copy and iceberg adapt via theme tokens and the reworked art. */
 
 .hero-copy {
   position: relative;
@@ -979,7 +1022,7 @@ main#main,
 .hero-visual {
   position: relative;
   z-index: 1;
-  width: min(84%, 816px);
+  width: min(75.6%, 734px);
   margin: -20px auto 0;
   pointer-events: none;
 }
@@ -1018,7 +1061,34 @@ main#main,
   pointer-events: none;
 }
 
-/* Hero copy always sits on the dark scene, in both themes */
+/* SideRays accent — a corner light-ray glow behind the hero content.
+   z-index 0 keeps it under .hero-copy / .hero-visual (z-index 1). The
+   WebGL canvas is mounted into this element by script.js. */
+.hero-rays {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Screen blend makes the bright rays read as real light over the
+     near-black hero without washing the text. */
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+[data-theme="light"] .hero-rays {
+  /* Rays are a dark-theme-only accent. Hiding the layer also pauses
+     its render loop (the IntersectionObserver reports the display:none
+     container as not visible). */
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rays {
+    display: none;
+  }
+}
+
 .hero-kicker {
   margin: 0 auto var(--space-md);
   max-width: none;
@@ -1029,15 +1099,56 @@ main#main,
   line-height: var(--leading-snug);
 }
 
+[data-theme="light"] .hero-kicker {
+  color: rgba(27, 23, 16, 0.72);
+}
+
 .hero h1 {
   max-width: 100%;
   margin: 0 auto;
   font-size: var(--display-md);
   text-wrap: balance;
-  background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
+  background: linear-gradient(
+    180deg,
+    var(--display-grad-top) 0%,
+    var(--display-grad-bottom) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Faint mirror of the headline in the water below the berg — a JS
+   clone of the split h1, so it still matches .hero h1 for size and
+   gradient. Flipped, blurred, and masked out. The mask fades toward
+   the element's TOP because scaleY(-1) paints that edge at the
+   bottom of the screen — the visible fade runs downwards. */
+.hero .hero-text-reflection {
+  position: relative;
+  z-index: 0;
+  width: min(100%, calc(var(--max-width) + 120px));
+  max-width: var(--max-width);
+  /* Negative top pulls the mirror up under the berg. Eased from -8.5vw to
+     -3vw so the reflection settles well below the waterline on desktop,
+     with clear separation from the iceberg. The WebGL reflection band
+     follows this element's rect, so both move together. */
+  margin: clamp(-140px, -3vw, -30px) auto 0;
+  padding: 0 var(--gutter);
+  text-align: center;
+  transform: scaleY(-1);
+  opacity: 0.34;
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+  /* Pre-transform mask: element-top paints at screen-bottom after the
+     flip, so "transparent at element-top" = the on-screen fade tail.
+     The mid stop keeps the second mirrored line legible. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 2%, rgba(0, 0, 0, 0.5) 38%, #000 96%);
+  mask-image: linear-gradient(180deg, transparent 2%, rgba(0, 0, 0, 0.5) 38%, #000 96%);
+}
+
+[data-theme="light"] .hero .hero-text-reflection {
+  opacity: 0.18;
 }
 
 /* ============================================================
@@ -1105,7 +1216,7 @@ main#main,
 .project-copy p {
   margin: 0;
   max-width: var(--measure);
-  font-size: var(--text-base);
+  font-size: 1.125rem;
   line-height: var(--leading-body);
   color: var(--text-soft);
 }
@@ -1183,6 +1294,33 @@ main#main,
   transform: translateY(-6px) scale(1.01);
 }
 
+/* Filled variant: solid black frame with a centered image. The image is
+   contained (not cropped), so any letterboxing reads as intentional black
+   fill. Degrades to plain black if the file is missing (img hides on error). */
+.image-placeholder--media {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-placeholder--media::before {
+  display: none;
+}
+
+.placeholder-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* cover = fill the frame edge-to-edge, cropping overflow (zoomed in),
+     rather than letterboxing on black. The scale() pushes the centre zoom
+     further; the frame's overflow:hidden clips the overspill and the
+     default centre transform-origin keeps it focused on the middle. */
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.35);
+}
+
 .project-link {
   display: inline-flex;
   align-items: center;
@@ -1197,7 +1335,7 @@ main#main,
   color: var(--text);
   font-size: var(--text-base);
   line-height: var(--leading-none);
-  box-shadow: var(--btn-ring) 0px 0px 0px 1px, var(--btn-shadow-c) 0px 1px 2px 0px;
+  box-shadow: none;
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -1250,18 +1388,49 @@ main#main,
 }
 
 .bento-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   border-radius: 24px;
-  overflow: hidden;
+  text-decoration: none;
 }
 
 .bento-item.bento-wide {
   grid-column: span 2;
 }
 
+.bento-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 4px;
+}
+
+.bento-tag {
+  font-size: var(--text-overline);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.bento-name {
+  font-family: var(--heading-font);
+  font-size: var(--heading-sm);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
+  color: var(--text);
+}
+
+.bento-desc {
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--text-soft);
+}
+
 .bento-placeholder {
   position: relative;
   width: 100%;
-  min-height: 320px;
+  min-height: 260px;
   border-radius: 24px;
   overflow: hidden;
   background: linear-gradient(145deg, var(--placeholder-a), var(--placeholder-b));
@@ -1336,7 +1505,7 @@ main#main,
 
 .stat-card strong {
   font-family: var(--heading-font);
-  font-size: var(--display-sm);
+  font-size: var(--heading-lg);
   font-weight: var(--weight-regular);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-none);
@@ -1347,22 +1516,23 @@ main#main,
   color: var(--text-soft);
 }
 
+/* Body-copy step-up to 18px for about, closing, and stat labels */
+.about-copy p,
+.closing-panel p,
+.stat-card span {
+  font-size: 1.125rem;
+}
+
+/* Clipping and the edge fade live here, NOT on .memory-window — the
+   strip's padding box includes its vertical padding, so card shadows
+   get room to spread before the clip instead of cutting off flush at
+   the rail (a visible seam on the light theme). */
 .memory-strip {
   margin-top: var(--space-md);
   padding: var(--space-md) 0 var(--space-lg);
   overflow: hidden;
   position: relative;
-  border-radius: 36px;
-}
-
-.memory-strip::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.08), transparent 22%),
-    radial-gradient(circle at 85% 40%, rgba(201, 184, 156, 0.12), transparent 26%);
-  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent 0, black 8%, black 92%, transparent 100%);
 }
 
 .memory-strip-head {
@@ -1386,10 +1556,8 @@ main#main,
 }
 
 .memory-window {
-  overflow: hidden;
   position: relative;
   z-index: 1;
-  mask-image: linear-gradient(90deg, transparent 0, black 8%, black 92%, transparent 100%);
 }
 
 .memory-rail {
@@ -1397,7 +1565,10 @@ main#main,
   gap: var(--space-md);
   width: max-content;
   animation: memory-loop 34s linear infinite;
-  padding: var(--space-sm) var(--space-lg) var(--space-2xs);
+  /* Extra bottom padding gives the softened polaroid shadows room to
+     render inside the window; without it, .memory-window's overflow
+     clips the shadow flat right below each card. */
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
 }
 
 .memory-window:hover .memory-rail {
@@ -1410,19 +1581,23 @@ main#main,
   flex: none;
 }
 
-/* Polaroids are physical objects — they stay paper-white in both themes */
 .memory-card {
   width: clamp(220px, 22vw, 290px);
   flex: none;
   margin: 0;
   padding: 14px 14px 18px;
   border-radius: 12px;
-  background: #f1ece4;
-  color: #151515;
+  background:
+    linear-gradient(180deg, var(--glass-top), var(--glass-bottom)),
+    var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  /* Two soft, wide passes instead of one dense one — reads as gentle
+     ambient occlusion rather than a hard drop. */
   box-shadow:
-    0 24px 42px rgba(0, 0, 0, 0.28),
-    0 8px 20px rgba(0, 0, 0, 0.12);
-  transition: transform 300ms var(--ease-spring);
+    0 6px 14px rgba(0, 0, 0, 0.08),
+    0 22px 44px rgba(0, 0, 0, 0.10);
+  transition: transform 300ms var(--ease-spring), box-shadow 300ms ease;
 }
 
 .memory-card:hover {
@@ -1448,33 +1623,18 @@ main#main,
 .memory-photo {
   aspect-ratio: 0.82;
   border-radius: 4px;
-  background-color: #d5d5d5;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background-color: var(--bg-soft);
+  box-shadow: inset 0 0 0 1px var(--border);
 }
 
-.photo-scene-1 {
-  background:
-    radial-gradient(circle at 62% 24%, rgba(255, 255, 255, 0.5), transparent 16%),
-    linear-gradient(180deg, #7fa5e8 0%, #87a9e8 35%, #6c86a3 55%, #314047 72%, #172026 100%);
-}
-
-.photo-scene-2 {
-  background:
-    radial-gradient(circle at 78% 16%, rgba(255, 136, 176, 0.65), transparent 12%),
-    radial-gradient(circle at 30% 64%, rgba(255, 177, 107, 0.32), transparent 18%),
-    linear-gradient(180deg, #372241 0%, #15151d 55%, #0d0d12 100%);
-}
-
-.photo-scene-3 {
-  background:
-    linear-gradient(90deg, rgba(244, 234, 220, 0.9) 0 18%, transparent 18% 41%, rgba(244, 234, 220, 0.9) 41% 59%, transparent 59% 82%, rgba(244, 234, 220, 0.9) 82% 100%),
-    linear-gradient(180deg, #6e7f46 0%, #3b4933 40%, #1d241f 100%);
-}
-
-.photo-scene-4 {
-  background:
-    radial-gradient(circle at 76% 72%, rgba(255, 220, 198, 0.22), transparent 16%),
-    linear-gradient(180deg, #b8c2ff 0%, #b7bee5 28%, #7b8cab 56%, #425061 78%, #1f252c 100%);
+.memory-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Personal photos stay black and white to match the polaroid feel */
+  filter: grayscale(1) contrast(1.03);
 }
 
 .memory-card figcaption {
@@ -1483,7 +1643,7 @@ main#main,
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  color: rgba(21, 21, 21, 0.68);
+  color: var(--text-muted);
 }
 
 @keyframes memory-loop {
@@ -1514,7 +1674,7 @@ main#main,
 
 .testimonial-card p {
   margin: 0;
-  font-size: var(--text-lg);
+  font-size: 1.125rem;
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-heading);
 }
@@ -1624,7 +1784,7 @@ main#main,
   text-align: center;
   padding-top: var(--space-fluid-lg);
   color: var(--text-soft);
-  font-size: var(--text-base);
+  font-size: 1.125rem;
 }
 
 /* ============================================================
@@ -1749,11 +1909,11 @@ main#main,
   }
 
   .testimonial-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .bento-item.bento-wide {
@@ -1799,7 +1959,7 @@ main#main,
   }
 
   .logo-mark {
-    height: 48px;
+    height: 34px;
   }
 
   .nav-links {
@@ -1820,8 +1980,8 @@ main#main,
   }
 
   .theme-toggle {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
   }
 
   .hero-kicker {
@@ -1833,10 +1993,6 @@ main#main,
     display: none;
   }
 
-  [data-theme="light"] .hero {
-    border-radius: 32px;
-  }
-
   .memory-strip-head {
     grid-template-columns: 1fr;
   }
@@ -1844,6 +2000,13 @@ main#main,
   .stats-grid,
   .testimonial-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Below the tablet range the bento drops back to 2 columns (it
+     collapses to 1 at 560px) so phone widths don't inherit the
+     cramped 3-column tablet layout. */
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .project-card {
@@ -1878,12 +2041,12 @@ main#main,
 
   .logo-mark,
   .nav-toggle {
-    height: 44px;
+    height: 34px;
   }
 
   .theme-toggle {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
   }
 
   .mobile-drawer-shell {
@@ -1902,11 +2065,6 @@ main#main,
     padding-bottom: var(--space-fluid-lg);
   }
 
-  [data-theme="light"] .hero {
-    width: calc(100% - 20px);
-    min-height: 0;
-  }
-
   .hero-kicker {
     max-width: 22rem;
   }
@@ -1920,7 +2078,7 @@ main#main,
   }
 
   .hero-visual {
-    width: min(94%, 816px);
+    width: min(84.6%, 734px);
     margin-top: 10px;
   }
 
@@ -1980,9 +2138,12 @@ main#main,
     transform: none;
   }
 
+  .memory-strip {
+    mask-image: none;
+  }
+
   .memory-window {
     overflow-x: auto;
-    mask-image: none;
   }
 
   .memory-rail {
@@ -2074,28 +2235,6 @@ html.has-cursor * {
   background: var(--accent-soft);
 }
 
-/* Hovering a project image / bento — show VIEW pill inside */
-.site-cursor-ring.is-view {
-  width: 92px;
-  height: 92px;
-  margin: -46px 0 0 -46px;
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.site-cursor-ring.is-view::after {
-  content: "View";
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: var(--text-caption);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-  color: var(--text);
-}
-
 /* Pressed — quick contraction */
 .site-cursor.is-pressed {
   transform: scale(0.6) translate3d(var(--cx, 0), var(--cy, 0), 0);
@@ -2121,9 +2260,12 @@ html.has-cursor * {
      that sits well below the 1.12 line-box, so we pad the bottom of
      the clip generously. Top is also bumped a touch so accents (ı́) and
      the slide-up start position aren't trimmed on the way up. */
-  padding-top: 0.08em;
-  padding-bottom: 0.38em;
-  margin-bottom: -0.38em;
+  /* Horizontal padding: Tiempos glyphs (g, s, commas) overhang their
+     advance width, so a clip box sized to the text width trims the
+     last glyph's right edge. Pad both sides and pull back with equal
+     negative margins so word spacing is unchanged. */
+  padding: 0.15em 0.14em 0.7em;
+  margin: 0 -0.14em -0.7em;
   line-height: inherit;
 }
 
@@ -2172,8 +2314,12 @@ html.has-cursor * {
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  padding-bottom: 0.3em;
-  margin-bottom: -0.3em;
+  /* Same overhang problem, different mechanism: background-clip:text
+     only paints ink inside the padding box, so glyph ink past the
+     advance width renders transparent. Extend the paint area on all
+     overhang sides and neutralise with negative margins. */
+  padding: 0 0.14em 0.7em;
+  margin: 0 -0.14em -0.7em;
 }
 
 /* Page-transition overlay — sheet sweeps in, then up on next load */
