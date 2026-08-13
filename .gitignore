@@ -2,3 +2,7 @@ node_modules
 .DS_Store
 
 .claude/
+
+# Raw video sources (originals live on Desktop; only optimized derivatives are committed)
+assets/covers/ArcIcon.mp4
+assets/covers/ArcLens_directed_v2.mp4

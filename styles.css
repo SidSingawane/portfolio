@@ -1453,6 +1453,80 @@ main#main,
   border-color: var(--border-strong);
 }
 
+/* Video tile: the recording fills the frame (cover), cropping top/bottom;
+   a Ken Burns intro opens on the top of the frame then settles centre. */
+.bento-placeholder--video {
+  /* Fixed dark grey in both themes (shows only during load) */
+  background: #1a1a1a;
+}
+
+.bento-placeholder--video::before {
+  display: none;
+}
+
+/* Top + bottom black scrims — solid at the very edge, soft toward the
+   middle — so the cropped video fades cleanly into the frame edges. */
+.bento-placeholder--video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.55) 6%, transparent 24%),
+    linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 6%, transparent 24%);
+}
+
+.bento-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform-origin: center top;
+  /* End frame: framed on the counter (matches the reference). Also the
+     reduced-motion fallback. % keeps it consistent across sizes. */
+  transform: translateY(-34%) scale(1);
+  display: block;
+}
+
+/* Intro (on scroll-in): hold a zoomed-out framing — top ~60% of the
+   recording, centred, with breathing space above — for ~4s, then ease-in
+   pan/zoom down to the counter frame and hold. Reduced motion rests on end. */
+.bento-grid.is-visible .bento-placeholder--video .bento-video {
+  animation: tally-focus 7.5s both;
+}
+
+@keyframes tally-focus {
+  0%,
+  53% {
+    transform: translateY(4%) scale(0.7);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(-34%) scale(1);
+  }
+}
+
+/* Landscape video tiles — plain cover fill (no Ken Burns) */
+.bento-placeholder--fill {
+  background: #1a1a1a;
+}
+
+.bento-placeholder--fill::before {
+  display: none;
+}
+
+.bento-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
 /* ============================================================
    10. About, stats & memory strip
    ============================================================ */
@@ -1638,12 +1712,7 @@ main#main,
 }
 
 .memory-card figcaption {
-  margin-top: var(--space-xs);
-  font-size: var(--text-caption);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-  color: var(--text-muted);
+  display: none;
 }
 
 @keyframes memory-loop {
@@ -1945,6 +2014,11 @@ main#main,
   .floating-nav {
     width: calc(100% - 24px);
     margin: 0 auto;
+    /* Flex (not the desktop 1fr/auto/1fr grid): with .nav-links hidden the
+       grid dropped .nav-actions into the empty centre column. Flex +
+       space-between keeps the logo left and the actions flush right. */
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 10px 12px;
     border-radius: 999px;
