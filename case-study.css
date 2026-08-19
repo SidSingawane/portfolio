@@ -444,7 +444,8 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
   color: var(--accent-ink);
-  margin-bottom: var(--space-sm);
+  /* Tightened from --space-sm (16px) to halve the eyebrow-to-title gap */
+  margin-bottom: var(--space-2xs);
 }
 
 .cs-card__title {
