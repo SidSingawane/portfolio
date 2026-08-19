@@ -1493,7 +1493,7 @@ main#main,
 /* Intro (on scroll-in): hold a zoomed-out framing — top ~60% of the
    recording, centred, with breathing space above — for ~4s, then ease-in
    pan/zoom down to the counter frame and hold. Reduced motion rests on end. */
-.bento-grid.is-visible .bento-placeholder--video .bento-video {
+.bento-grid.is-playing .bento-placeholder--video .bento-video {
   animation: tally-focus 7.5s both;
 }
 
@@ -1525,6 +1525,27 @@ main#main,
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+/* 16:9 video in a squarer tile — show the full frame (no side crop) and
+   feather the top/bottom letterbox into soft black negative space */
+.bento-placeholder--letterbox {
+  background: #000;
+}
+
+.bento-placeholder--letterbox .bento-media {
+  object-fit: contain;
+}
+
+.bento-placeholder--letterbox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.55) 10%, transparent 30%),
+    linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 10%, transparent 30%);
 }
 
 /* ============================================================

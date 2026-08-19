@@ -1956,3 +1956,73 @@ void main() {
     stop();
   });
 })();
+
+/* ============================================================
+   Highlights bento — play tile videos only while the section is
+   in view, and restart every video (and the tally Ken Burns) from
+   the beginning each time the user returns to the section.
+   ============================================================ */
+(() => {
+  const section = document.getElementById("ai-work");
+  if (!section) return;
+
+  const grid = section.querySelector(".bento-grid");
+  const videos = Array.from(section.querySelectorAll("video"));
+  if (!videos.length) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const playAll = () => {
+    if (grid) {
+      // Re-trigger the tally Ken Burns keyframe animation: remove the
+      // class, force a reflow, then re-add so it replays from 0%.
+      grid.classList.remove("is-playing");
+      void grid.offsetWidth;
+      grid.classList.add("is-playing");
+    }
+    videos.forEach((video) => {
+      try {
+        video.currentTime = 0;
+      } catch (err) {
+        /* currentTime can throw before metadata loads — ignore */
+      }
+      if (reduceMotion) return; // honour reduced-motion: leave the poster
+      const played = video.play();
+      if (played && typeof played.catch === "function") {
+        played.catch(() => {});
+      }
+    });
+  };
+
+  const pauseAll = () => {
+    if (grid) grid.classList.remove("is-playing");
+    videos.forEach((video) => video.pause());
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    playAll();
+    return;
+  }
+
+  let playing = false;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const inView =
+          entry.isIntersecting && entry.intersectionRatio >= 0.2;
+        if (inView && !playing) {
+          playing = true;
+          playAll();
+        } else if (!entry.isIntersecting && playing) {
+          playing = false;
+          pauseAll();
+        }
+      });
+    },
+    { threshold: [0, 0.2] }
+  );
+
+  observer.observe(section);
+})();
