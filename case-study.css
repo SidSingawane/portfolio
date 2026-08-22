@@ -1066,3 +1066,114 @@
     left: 7px;
   }
 }
+
+/* ============================================================
+   Doc layout: sticky table-of-contents rail + eyebrow sections
+   (Rachel-style structure — used on pages wrapped in .cs-doc)
+   ============================================================ */
+.cs-doc {
+  width: min(var(--max-width), calc(100% - var(--gutter) * 2));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 172px minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.cs-doc__body {
+  min-width: 0;
+}
+
+/* Sticky table-of-contents rail */
+.cs-toc {
+  position: sticky;
+  top: 112px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding-top: var(--space-fluid-lg);
+}
+
+.cs-toc__link {
+  font-size: var(--text-sm);
+  line-height: 1.35;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 0 6px var(--space-sm);
+  border-left: 2px solid transparent;
+  margin-left: -2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.cs-toc__link:hover {
+  color: var(--text);
+}
+
+.cs-toc__link.is-active {
+  color: var(--text);
+  border-left-color: var(--accent);
+  font-weight: var(--weight-medium);
+}
+
+/* Left-aligned hero inside the doc grid */
+.cs-doc-hero {
+  text-align: left;
+  padding: var(--space-fluid-lg) 0 var(--space-lg);
+}
+
+.cs-doc-hero .cs-hero__intro {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+/* Small uppercase label above a section statement */
+.cs-eyebrow {
+  display: block;
+  font-size: var(--text-overline);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--accent-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+/* Sections inside the doc: anchor offset for the floating nav */
+.cs-doc__body .cs-section {
+  scroll-margin-top: 100px;
+}
+
+/* Horizontal metadata row (under the cover) */
+.cs-meta--row {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+}
+
+.cs-meta--row .cs-meta__item {
+  padding: 0;
+  border-bottom: none;
+  background: none;
+  border-radius: 0;
+}
+
+@media (max-width: 980px) {
+  .cs-doc {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .cs-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .cs-meta--row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+}

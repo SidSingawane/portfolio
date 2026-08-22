@@ -60,7 +60,7 @@
       />
     </noscript>
     <link rel="stylesheet" href="styles.css?v=110" />
-    <link rel="stylesheet" href="case-study.css?v=20" />
+    <link rel="stylesheet" href="case-study.css?v=21" />
     <script defer src="script.js?v=31"></script>
   </head>
   <body>
@@ -133,610 +133,508 @@
       <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
 
       <main id="top" tabindex="-1">
+        <div class="cs-doc">
 
-        <!-- ===== 1. Hero ===== -->
-        <section class="cs-hero cs-container" data-reveal>
-          <span class="cs-hero__badge">Fintech &middot; Upstox</span>
-          <h1 class="cs-hero__title">Homepage Reimagined</h1>
-          <p class="cs-hero__intro">Rebuilding the Upstox home screen after it had quietly turned into a parking lot for every feature launch of the year. Three very different traders, one very crowded screen.</p>
-          <div class="cs-hero__image cs-hero__image--media">
-            <img class="cs-hero__media" src="./assets/covers/Home%20page.webp?v=2" alt="Homepage Reimagined preview" decoding="async" onerror="this.style.display='none'" />
-          </div>
-        </section>
+          <!-- ===== Sticky table of contents ===== -->
+          <nav class="cs-toc" aria-label="Case study sections">
+            <a class="cs-toc__link" href="#overview">Overview</a>
+            <a class="cs-toc__link" href="#problem">Problem</a>
+            <a class="cs-toc__link" href="#opportunity">Opportunity</a>
+            <a class="cs-toc__link" href="#solution">Solution</a>
+            <a class="cs-toc__link" href="#core-flows">Core Flows</a>
+            <a class="cs-toc__link" href="#research">Research</a>
+            <a class="cs-toc__link" href="#exploring">Exploring the Landscape</a>
+            <a class="cs-toc__link" href="#prototyping">Prototyping &amp; Testing</a>
+            <a class="cs-toc__link" href="#decisions">Design Decisions</a>
+            <a class="cs-toc__link" href="#constraints">Constraints</a>
+            <a class="cs-toc__link" href="#impact">Impact</a>
+            <a class="cs-toc__link" href="#reflection">Reflection</a>
+          </nav>
 
-        <!-- ===== TL;DR ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <div class="cs-tldr">
-              <span class="cs-tldr__key">Challenge</span>
-              <p class="cs-tldr__val">Every launch bolted another widget onto the home screen. Three very different trader types were all landing on the same overloaded page.</p>
-              <span class="cs-tldr__key">Move</span>
-              <p class="cs-tldr__val">Stop adding. Re-order the same widgets around what each cohort actually opens the app to do, and give the page a hierarchy instead of a pile.</p>
-              <span class="cs-tldr__key">Result</span>
-              <p class="cs-tldr__val">3&times; impressions and 2.3&times; orders period-over-period on Android, with zero new widgets added.</p>
-            </div>
-          </div>
-        </section>
+          <div class="cs-doc__body">
 
-        <!-- ===== 2. Project Overview ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <div class="cs-overview">
-              <aside class="cs-meta">
-                <div class="cs-meta__item">
-                  <div class="cs-meta__label">Industry</div>
-                  <div class="cs-meta__value">Fintech / Investing</div>
-                </div>
+            <!-- ===== Cover ===== -->
+            <header class="cs-hero cs-doc-hero" data-reveal>
+              <span class="cs-hero__badge">Fintech · Upstox</span>
+              <h1 class="cs-hero__title">Homepage Reimagined</h1>
+              <p class="cs-hero__intro">Rebuilding the Upstox home screen after it had quietly turned into a parking lot for every feature launch of the year. Three very different traders, one very crowded screen.</p>
+              <div class="cs-hero__image cs-hero__image--media">
+                <img class="cs-hero__media" src="./assets/covers/Home%20page.webp?v=2" alt="Homepage Reimagined preview" decoding="async" onerror="this.style.display='none'" />
+              </div>
+              <div class="cs-meta cs-meta--row">
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Role</div>
-                  <div class="cs-meta__value">Product Designer II</div>
+                  <div class="cs-meta__value">Product Designer</div>
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Timeline</div>
-                  <div class="cs-meta__value">12 Weeks</div>
-                </div>
-                <div class="cs-meta__item">
-                  <div class="cs-meta__label">Company</div>
-                  <div class="cs-meta__value">Upstox</div>
+                  <div class="cs-meta__value">3 Weeks</div>
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Team</div>
-                  <div class="cs-meta__value">Design (Shourya, Kevin), PM, Engineering, Research</div>
+                  <div class="cs-meta__value">Design, PM, Engineering, Research</div>
                 </div>
-              </aside>
-              <div class="cs-content">
-                <h2>Overview</h2>
-                <p>The Upstox home screen is where every trader starts their day. It&apos;s also where every product team at Upstox wants to place their newest widget. Over about eighteen months, the screen had piled up. Everything earned its slot; together they were slowing people down instead of helping them find things.</p>
-                <p>I rebuilt the homepage as a real system this time. Widgets have roles, the order changes depending on who&apos;s looking at it, and a new launch has somewhere obvious to go without breaking the whole layout.</p>
+                <div class="cs-meta__item">
+                  <div class="cs-meta__label">Skills</div>
+                  <div class="cs-meta__value">Product Design, Interaction, Visual Design</div>
+                </div>
+              </div>
+            </header>
 
-                <h2>Problem</h2>
-                <p>Five things kept coming up in the research:</p>
+            <!-- ===== Overview ===== -->
+            <section class="cs-section" id="overview" data-reveal>
+              <span class="cs-eyebrow">Overview</span>
+              <h2 class="cs-section-title">Rebuild the home screen as a system, not a pile.</h2>
+              <p class="cs-section-subtitle">The Upstox home screen is where every trader starts their day, and where every product team wants their newest widget. Over three weeks I re-ordered the same widgets around what each cohort actually opens the app to do.</p>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__title">Audit the pile</div>
+                  <p class="cs-card__text">Scored nine Indian investing apps, and every widget on our own screen, for how easy the homepage was to read and move through.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__title">Re-order, don&apos;t add</div>
+                  <p class="cs-card__text">Gave each widget a role, then let the stack re-order around the person opening the app instead of bolting on anything new.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__title">Ship on Android</div>
+                  <p class="cs-card__text">Rolled out in stages with zero new widgets, to prove hierarchy alone could move the numbers.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Problem ===== -->
+            <section class="cs-section" id="problem" data-reveal>
+              <span class="cs-eyebrow">Problem</span>
+              <h2 class="cs-section-title">Every launch bolted another widget onto the same screen.</h2>
+              <div class="cs-content cs-prose">
+                <p>Over about eighteen months the home screen piled up. Every widget earned its slot; together they were slowing people down instead of helping them find things. Five things kept coming up in the research:</p>
                 <ul>
-                  <li>Nobody could find anything. Even long-time users would open a widget to check what it did.</li>
+                  <li>Nobody could find anything. Even long-time users opened a widget just to check what it did.</li>
                   <li>Widgets looked alike. Momentum Gainers and Trending Options were, at a glance, the same card.</li>
-                  <li>Time-sensitive moments were invisible. No cues when the market moved, when a stock broke out, when something was worth watching right now.</li>
-                  <li>The whole screen felt like a list. No obvious starting point, no &ldquo;here&apos;s what you should look at first&rdquo;.</li>
-                  <li>Nothing was grouped by why you&apos;d use it. Discovery widgets sat next to referrals sat next to portfolio summaries.</li>
+                  <li>Time-sensitive moments were invisible. No cue when the market moved or a stock broke out.</li>
+                  <li>The whole screen read like a list. No obvious starting point, no sense of what to look at first.</li>
+                  <li>Nothing was grouped by why you&apos;d use it. Discovery sat next to referrals sat next to portfolio summaries.</li>
                 </ul>
-
-                <h2>Why This Problem Mattered</h2>
-                <p>Even in the mess, engagement was climbing. <strong>Impressions were up 3x period-over-period on Android. Clicks doubled. Order conversion was up 2.3x.</strong> Which meant a broken screen was about to become a much bigger broken screen. Ship the redesign now, or watch the numbers tell us next quarter that the entry point can&apos;t keep up.</p>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        <!-- ===== 3. Impact Metrics ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Impact</h2>
-            <p class="cs-section-subtitle">Homepage numbers from Android, April to May 2025. The old screen was already growing this fast when we started.</p>
-            <div class="cs-metrics" data-stagger>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">3&times;</div>
-                <div class="cs-metric-card__label">Impressions vs the same time last year on Android</div>
-              </div>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">2&times;</div>
-                <div class="cs-metric-card__label">Clicks on anything on the homepage</div>
-              </div>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">2.3&times;</div>
-                <div class="cs-metric-card__label">Orders placed after landing on the homepage</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 4. Full Width Visual ===== -->
-        <div class="cs-visual-spacer" data-reveal>
-          <div class="cs-container">
-            <div class="cs-visual cs-visual--hero"></div>
-          </div>
-        </div>
-
-        <!-- ===== 5. Industry Context ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Industry Context</h2>
-            <p class="cs-section-subtitle">Everyone was piling on widgets. Nobody was fixing the layout underneath.</p>
-
-            <div class="cs-content cs-prose">
-              <h3>What we looked at</h3>
-              <p>Nine Indian investing apps. Sahi, Angel One, Groww, Dhan, IndMoney, Share Market, ET Money, HDFC Sky, and our own. We scored each one on how easy the homepage was to read and how easy it was to move through, screenshot by screenshot, widget by widget.</p>
-
-              <h3>What we saw</h3>
-              <p>The trade-off kept repeating itself. Apps that packed everything in trained users to ignore the promotional bits, then failed when a real promo dropped. Apps that were beautiful and airy hid the analytical depth serious traders needed. Apps that got the beginner right often lost the intermediate. Nobody had one home screen that worked for the whole ladder from first-week user to daily options trader.</p>
-            </div>
-
-            <div class="cs-quote" data-reveal>
-              <p class="cs-quote__text">&ldquo;Density is the easy answer. Hierarchy is the design problem.&rdquo;</p>
-              <p class="cs-quote__source">Audit note, week two</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 6. Full Width Visual ===== -->
-        <div class="cs-visual-spacer" data-reveal>
-          <div class="cs-container">
-            <div class="cs-visual cs-visual--wide"></div>
-          </div>
-        </div>
-
-        <!-- ===== 7. Research &amp; Discovery ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Research &amp; Discovery</h2>
-            <p class="cs-section-subtitle">Three kinds of trader opening the same screen with three different questions in their head.</p>
-
-            <div class="cs-card-grid" data-stagger>
-              <div class="cs-card">
-                <div class="cs-card__tag">Segment 01</div>
-                <div class="cs-card__title">Active FnO Traders</div>
-                <div class="cs-card__label">Who they are</div>
-                <p class="cs-card__text">Daily derivatives traders. Live inside the options smartlists, commodities, and their untriggered orders folder.</p>
-                <div class="cs-card__label">What they want</div>
-                <p class="cs-card__text">Speed. Two taps to a live instrument, three taps to a placed order. Don&apos;t make them scroll.</p>
-                <div class="cs-card__label">What&apos;s in their way</div>
-                <p class="cs-card__text">The Learn banners. The IPO promos. All the polite things Upstox puts between them and their tools.</p>
-              </div>
-              <div class="cs-card">
-                <div class="cs-card__tag">Segment 02</div>
-                <div class="cs-card__title">Active Non-FnO Traders</div>
-                <div class="cs-card__label">Who they are</div>
-                <p class="cs-card__text">Regular equity investors. Hold portfolios, watch sectoral movers, read the odd advisory.</p>
-                <div class="cs-card__label">What they want</div>
-                <p class="cs-card__text">Ideas they can trust. Something to compare against what they already hold. A quick way to act on it.</p>
-                <div class="cs-card__label">What&apos;s in their way</div>
-                <p class="cs-card__text">Everything is derivatives-first. Their tools sit six scrolls down.</p>
-              </div>
-              <div class="cs-card">
-                <div class="cs-card__tag">Segment 03</div>
-                <div class="cs-card__title">New Investors</div>
-                <div class="cs-card__label">Who they are</div>
-                <p class="cs-card__text">First six months on Upstox. Still learning what a mutual fund SIP does. Not sure what to look at first.</p>
-                <div class="cs-card__label">What they want</div>
-                <p class="cs-card__text">Somewhere to start. Small trades they can practise on. A screen that doesn&apos;t make them feel behind.</p>
-                <div class="cs-card__label">What&apos;s in their way</div>
-                <p class="cs-card__text">Everything looks the same and everything is a number. They need scaffolding before they need depth.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 8. Competitive Analysis ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Competitive Landscape</h2>
-            <p class="cs-section-subtitle">Three positions on the &ldquo;calm vs busy&rdquo; scale, all worth learning from.</p>
-
-            <div class="cs-compare-grid" data-stagger>
-              <div class="cs-card">
-                <div class="cs-card__tag">Clean and airy</div>
-                <div class="cs-card__title">Groww</div>
-                <div class="cs-card__label">What they got right</div>
-                <p class="cs-card__text">Everything grouped into calm blocks. You always know where you are. The screen breathes.</p>
-                <div class="cs-card__label">What they didn&apos;t</div>
-                <p class="cs-card__text">Cards look like reading, not clicking. No motion, no signals about what&apos;s hot right now. The tab bar hogs the bottom of the screen.</p>
-              </div>
-              <div class="cs-card">
-                <div class="cs-card__tag">Busy and full</div>
-                <div class="cs-card__title">Angel One</div>
-                <div class="cs-card__label">What they got right</div>
-                <p class="cs-card__text">Everything is one tap away. Colour cues work. If you know what you&apos;re looking for, you&apos;ll find it.</p>
-                <div class="cs-card__label">What they didn&apos;t</div>
-                <p class="cs-card__text">If you don&apos;t already know, you&apos;re lost. Promotional banners keep interrupting. Nothing stands out because everything does.</p>
-              </div>
-              <div class="cs-card">
-                <div class="cs-card__tag">Ambitious and unfocused</div>
-                <div class="cs-card__title">HDFC Sky</div>
-                <div class="cs-card__label">What they got right</div>
-                <p class="cs-card__text">A proper section for promotions, so it doesn&apos;t leak everywhere. HDFC research shows up early, which counts as trust.</p>
-                <div class="cs-card__label">What they didn&apos;t</div>
-                <p class="cs-card__text">Too many products fighting for the same real estate. Long paragraphs where a line would do. It&apos;s not clear what&apos;s tappable.</p>
-              </div>
-            </div>
-
-            <div class="cs-quote" data-reveal>
-              <p class="cs-quote__text">&ldquo;Nobody had figured out how to make finding things, doing things, and learning things live on the same calm screen.&rdquo;</p>
-              <p class="cs-quote__source">Audit summary</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 9. Problem Definition ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Problem Definition</h2>
-            <p class="cs-section-subtitle">Three jobs the homepage had to do for every trader, every time they opened the app.</p>
-
-            <div class="cs-jtbd-grid" data-stagger>
-              <div class="cs-card">
-                <div class="cs-card__tag">Functional</div>
-                <div class="cs-card__title">Get me there fast</div>
-                <p class="cs-card__text">I know what I came here for. Get me to it in two taps and don&apos;t make me search.</p>
-              </div>
-              <div class="cs-card">
-                <div class="cs-card__tag">Emotional</div>
-                <div class="cs-card__title">Tell me where to look</div>
-                <p class="cs-card__text">Don&apos;t make me read every card to figure out which matters. Show me what&apos;s important before I even scroll.</p>
-              </div>
-              <div class="cs-card">
-                <div class="cs-card__tag">Behavioural</div>
-                <div class="cs-card__title">Catch me before the moment passes</div>
-                <p class="cs-card__text">A gainer, a breakout, an order I forgot to trigger. Surface it now, not in tomorrow&apos;s summary.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 10. UX Architecture ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">UX Architecture</h2>
-            <p class="cs-section-subtitle">Seven blocks, ordered by why you&apos;d open the app in the first place.</p>
-
-            <div class="cs-flow">
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Asset Grid</div>
-                <div class="cs-flow__node-desc">Fast access, sorted to fit you</div>
-              </div>
-              <div class="cs-flow__connector"></div>
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Holdings</div>
-                <div class="cs-flow__node-desc">How your portfolio&apos;s doing today</div>
-              </div>
-              <div class="cs-flow__connector"></div>
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Wallet</div>
-                <div class="cs-flow__node-desc">Money in, money out</div>
-              </div>
-              <div class="cs-flow__connector"></div>
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Advisory</div>
-                <div class="cs-flow__node-desc">Ideas from analysts you can name</div>
-              </div>
-              <div class="cs-flow__connector"></div>
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Smartlists</div>
-                <div class="cs-flow__node-desc">Ready-made ideas to browse</div>
-              </div>
-              <div class="cs-flow__connector"></div>
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Orders &amp; IPO</div>
-                <div class="cs-flow__node-desc">Pick up where you left off</div>
-              </div>
-              <div class="cs-flow__connector"></div>
-              <div class="cs-flow__node">
-                <div class="cs-flow__node-title">Offers</div>
-                <div class="cs-flow__node-desc">Always at the bottom, always in the same spot</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Full Width Visual ===== -->
-        <div class="cs-visual-spacer" data-reveal>
-          <div class="cs-container">
-            <div class="cs-visual cs-visual--hero"></div>
-          </div>
-        </div>
-
-        <!-- ===== 11. Design Challenges ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Design Challenges</h2>
-            <p class="cs-section-subtitle">Where the project kept getting hard.</p>
-
-            <div class="cs-challenge" data-reveal>
-              <div class="cs-challenge__content">
-                <div class="cs-challenge__number">01</div>
-                <div class="cs-challenge__title">Everything wanted to be first</div>
-                <p class="cs-challenge__text">Every widget on the screen had a real reason to be there. Nobody was going to let us delete anything. So the fix couldn&apos;t be about cutting; it had to be about ranking. I put every widget into one of three buckets: anchor (you use it every session), hero (you want to be shown to it), or supporting (it&apos;s there when you need it). That ranking held across every version we drew.</p>
-              </div>
-              <div class="cs-challenge__visual"></div>
-            </div>
-
-            <div class="cs-challenge cs-challenge--reverse" data-reveal>
-              <div class="cs-challenge__content">
-                <div class="cs-challenge__number">02</div>
-                <div class="cs-challenge__title">One screen, three different traders</div>
-                <p class="cs-challenge__text">An FnO trader opening the app wants their options smartlist first. A new investor wants somewhere to start. Same screen has to serve both. Building three different homepages was a bad idea, so I built one with a re-orderable stack that ships tuned to the person opening it. The layout stays familiar. The order moves.</p>
-              </div>
-              <div class="cs-challenge__visual"></div>
-            </div>
-
-            <div class="cs-challenge" data-reveal>
-              <div class="cs-challenge__content">
-                <div class="cs-challenge__number">03</div>
-                <div class="cs-challenge__title">Making Advisory stand out without shouting</div>
-                <p class="cs-challenge__text">Advisory had the best click-to-order rate on the whole page. The obvious move was to make it bigger. The obvious move was wrong. I gave it heavier type, room around it, and a visible byline from the analyst instead. It stopped competing for space and started earning attention.</p>
-              </div>
-              <div class="cs-challenge__visual"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 12. Design Solutions ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Design Solutions</h2>
-            <p class="cs-section-subtitle">Six decisions that changed how the page felt.</p>
-
-            <div class="cs-constraints">
-              <span class="cs-constraints__key">Constraints we designed inside</span>
-              <p>No new widgets. Leadership had to see that hierarchy alone could move the numbers before anyone would fund more real estate. The re-order had to work for all three cohorts from a single layout (no per-cohort forks to maintain). And every promo team still needed a home for launches, so &ldquo;just delete the banners&rdquo; was never on the table.</p>
-            </div>
-
-            <div class="cs-solution-block" data-reveal>
-              <div class="cs-solution-block__label">
-                <div class="cs-solution-block__number">01</div>
-                <div class="cs-solution-block__tag">Anchor</div>
-              </div>
-              <div class="cs-solution-block__body">
-                <h3>Asset Grid as the anchor</h3>
-                <p>A small grid of quick actions sits right at the top. Its shape never changes, but its contents shift depending on what you actually use. New product launches (IPO, NCD) get a small tag on the grid instead of a full banner across the screen.</p>
-                <div class="cs-decision">
-                  <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Give launches a tag on the existing grid instead of their own banner.</p></div>
-                  <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>Banners were the root of the banner-blindness problem. Each new one trained people to ignore the top of the page faster. A tag on a widget people already scan rides the attention that&apos;s there instead of fighting for new attention.</p></div>
-                  <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>A rotating banner carousel. It tested worst of all; people learned to scroll past the whole strip within a session.</p></div>
+            <!-- ===== Opportunity ===== -->
+            <section class="cs-section" id="opportunity" data-reveal>
+              <span class="cs-eyebrow">Opportunity</span>
+              <h2 class="cs-section-title">A crowded screen was about to get much more traffic.</h2>
+              <p class="cs-section-subtitle">Even in the mess, engagement was climbing fast. A broken screen was about to become a much bigger broken screen, so the time to fix the entry point was now.</p>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">01</div>
+                  <div class="cs-card__title">Rising impressions</div>
+                  <p class="cs-card__text">Impressions were up 3x period-over-period on Android. Far more people were landing on a screen with no hierarchy.</p>
                 </div>
-                <div class="cs-solution-block__visual"></div>
-              </div>
-            </div>
-
-            <div class="cs-solution-block" data-reveal>
-              <div class="cs-solution-block__label">
-                <div class="cs-solution-block__number">02</div>
-                <div class="cs-solution-block__tag">Summary</div>
-              </div>
-              <div class="cs-solution-block__body">
-                <h3>Holdings as a summary, not a tab</h3>
-                <p>The homepage version of Holdings is a small card. Today vs lifetime, one number, a link to the full screen. It&apos;s the daily check-in, not the deep audit. The proper screen still exists for people who want to sit with it.</p>
-                <div class="cs-solution-block__visual"></div>
-              </div>
-            </div>
-
-            <div class="cs-solution-block" data-reveal>
-              <div class="cs-solution-block__label">
-                <div class="cs-solution-block__number">03</div>
-                <div class="cs-solution-block__tag">Trust hero</div>
-              </div>
-              <div class="cs-solution-block__body">
-                <h3>Advisory looks the way it performs</h3>
-                <p>Bigger type, a byline from the analyst, and enough space around it that your eye stops there. Nothing about it was scaled up. It just got the visual weight it had earned.</p>
-                <div class="cs-solution-block__visual"></div>
-              </div>
-            </div>
-
-            <div class="cs-solution-block" data-reveal>
-              <div class="cs-solution-block__label">
-                <div class="cs-solution-block__number">04</div>
-                <div class="cs-solution-block__tag">Pattern</div>
-              </div>
-              <div class="cs-solution-block__body">
-                <h3>Every list gets its own look</h3>
-                <p>Vertical, horizontal, and tabbed lists each have their own visual signature. Momentum Gainers and Trending Options don&apos;t read as the same widget anymore. Different backgrounds, different card weight, different icon shape. You know which is which without reading the title.</p>
-                <div class="cs-solution-block__visual"></div>
-              </div>
-            </div>
-
-            <div class="cs-solution-block" data-reveal>
-              <div class="cs-solution-block__label">
-                <div class="cs-solution-block__number">05</div>
-                <div class="cs-solution-block__tag">Zone</div>
-              </div>
-              <div class="cs-solution-block__body">
-                <h3>All the promos, in one predictable place</h3>
-                <p>Referrals, offers, UpLearn. Same visual treatment, same spot near the bottom. Users learn where to find them without being interrupted by them. Banner blindness stops when banners stop being everywhere.</p>
-                <div class="cs-solution-block__visual"></div>
-              </div>
-            </div>
-
-            <div class="cs-solution-block" data-reveal>
-              <div class="cs-solution-block__label">
-                <div class="cs-solution-block__number">06</div>
-                <div class="cs-solution-block__tag">Recovery</div>
-              </div>
-              <div class="cs-solution-block__body">
-                <h3>Bring people back to the orders they forgot</h3>
-                <p>Untriggered Orders convert really well. When someone comes back after a day away, they see the ones still open with a timestamp and a soft nudge. A push notification helps the ones that aren&apos;t open yet.</p>
-                <div class="cs-solution-block__visual"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Full Width Visual ===== -->
-        <div class="cs-visual-spacer" data-reveal>
-          <div class="cs-container">
-            <div class="cs-visual-grid">
-              <div class="cs-visual"></div>
-              <div class="cs-visual"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ===== 13. Iterations ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Design Iterations</h2>
-            <p class="cs-section-subtitle">Three versions carried into research, each pushing further from the current design. The final one is what the versions taught us.</p>
-
-            <div class="cs-timeline">
-              <div class="cs-timeline__item">
-                <div class="cs-timeline__version">V1</div>
-                <div class="cs-timeline__label">The gentle rewrite</div>
-                <p class="cs-timeline__text">Same widgets, same order. Only the type weights and spacing changed. Quick actions got a cleaner grid, Advisory got a stronger tab treatment, and the F&amp;O and MTF buttons moved next to the indices they belong to.</p>
-                <div class="cs-timeline__label">Why start here</div>
-                <p class="cs-timeline__text">A safe baseline. Long-time users would barely notice, so it told us how much of the problem was really about hierarchy vs layout.</p>
-              </div>
-              <div class="cs-timeline__item">
-                <div class="cs-timeline__version">V2.1</div>
-                <div class="cs-timeline__label">Same shape, more room</div>
-                <p class="cs-timeline__text">Kept the structure. Loosened the spacing in the quick tiles. Cleaned up the portfolio alignment. Different visual styles for the pill lists, plus a new social-proof treatment on the Advisory cards.</p>
-                <div class="cs-timeline__label">Why try it</div>
-                <p class="cs-timeline__text">To see how much hierarchy we could add without touching the layout. Turns out: quite a bit.</p>
-              </div>
-              <div class="cs-timeline__item">
-                <div class="cs-timeline__version">V2.2</div>
-                <div class="cs-timeline__label">Quieter buttons</div>
-                <p class="cs-timeline__text">Softened the big primary CTAs (Activate F&amp;O, Add Funds) so they didn&apos;t compete with the content underneath. Colour, weight, and border all dialled down.</p>
-                <div class="cs-timeline__label">Why try it</div>
-                <p class="cs-timeline__text">Buttons had been shouting for months. Wanted to see what happened if they whispered instead.</p>
-              </div>
-              <div class="cs-timeline__item">
-                <div class="cs-timeline__version">V3</div>
-                <div class="cs-timeline__label">What we shipped</div>
-                <p class="cs-timeline__text">V1&apos;s quick-access grid. V2.1&apos;s Advisory. V2.2&apos;s quieter buttons. Nothing new; just the parts of each version that had earned their keep.</p>
-                <div class="cs-timeline__label">Why</div>
-                <p class="cs-timeline__text">Every version solved something. This one kept the wins and dropped the trade-offs.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 14. Usability Testing ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Usability Testing</h2>
-            <p class="cs-section-subtitle">Twelve traders. Four from each cohort. Moderated prototype walkthroughs, one screen at a time.</p>
-
-            <div class="cs-content cs-prose cs-prose--spaced">
-              <h3>What we wanted to find out</h3>
-              <ul>
-                <li>Does the re-ordered stack get active traders to their tools faster than the current design?</li>
-                <li>Does the new Advisory treatment make people trust it more, or does it just look nicer?</li>
-                <li>When we put three different list widgets in a row, can people tell them apart?</li>
-                <li>What&apos;s getting in the way when someone tries to pick up an untriggered order they left behind?</li>
-              </ul>
-            </div>
-
-            <div class="cs-quote-cards" data-stagger>
-              <div class="cs-quote-card">
-                <p class="cs-quote-card__text">&ldquo;I want my options smartlist when I open the app. Everything else can come after.&rdquo;</p>
-                <span class="cs-quote-card__source">Active FnO trader, 4 years</span>
-              </div>
-              <div class="cs-quote-card">
-                <p class="cs-quote-card__text">&ldquo;I never knew the IPO widget was a widget. It looked like a banner.&rdquo;</p>
-                <span class="cs-quote-card__source">New investor, 3 months</span>
-              </div>
-              <div class="cs-quote-card">
-                <p class="cs-quote-card__text">&ldquo;Show me which of these tips actually worked. Numbers, not promises.&rdquo;</p>
-                <span class="cs-quote-card__source">Active non-FnO trader, 2 years</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Full Width Visual ===== -->
-        <div class="cs-visual-spacer" data-reveal>
-          <div class="cs-container">
-            <div class="cs-visual cs-visual--hero"></div>
-          </div>
-        </div>
-
-        <!-- ===== 15. Final Outcome ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Final Outcome</h2>
-            <p class="cs-section-subtitle">Shipped as a staged rollout on Android. Numbers vs the previous design:</p>
-
-            <div class="cs-metrics" data-stagger>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">3&times;</div>
-                <div class="cs-metric-card__label">Impressions period-over-period on Android</div>
-              </div>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">2.3&times;</div>
-                <div class="cs-metric-card__label">Orders placed after landing on the homepage</div>
-              </div>
-              <div class="cs-metric-card">
-                <div class="cs-metric-card__number">0</div>
-                <div class="cs-metric-card__label">New widgets added to prove the hierarchy worked</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== 16. Key Learnings ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Key Learnings</h2>
-            <p class="cs-section-subtitle">Things I now believe about homepages, mostly because I learned them the hard way here.</p>
-
-            <div class="cs-learnings">
-              <div class="cs-learning" data-reveal>
-                <div class="cs-learning__number"></div>
-                <div>
-                  <h3 class="cs-learning__title">Density is a design problem, not a content problem</h3>
-                  <p class="cs-learning__text">We didn&apos;t take out a single widget. We just changed how they related to each other. When everything on a screen has equal weight, nothing does.</p>
+                <div class="cs-card">
+                  <div class="cs-card__tag">02</div>
+                  <div class="cs-card__title">Doubling clicks</div>
+                  <p class="cs-card__text">Clicks on the homepage had doubled, but nothing guided them. More attention, still no sense of where to look.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">03</div>
+                  <div class="cs-card__title">Climbing conversion</div>
+                  <p class="cs-card__text">Order conversion was up 2.3x. Fixing the layout now would compound; waiting would quietly cap it.</p>
                 </div>
               </div>
-              <div class="cs-learning" data-reveal>
-                <div class="cs-learning__number"></div>
-                <div>
-                  <h3 class="cs-learning__title">Different traders want different defaults, not different apps</h3>
-                  <p class="cs-learning__text">Personalising the order beats making three homepages. It got us most of the value for a fraction of the build.</p>
+            </section>
+
+            <!-- ===== Solution ===== -->
+            <section class="cs-section" id="solution" data-reveal>
+              <span class="cs-eyebrow">Solution</span>
+              <h2 class="cs-section-title">One screen, re-ordered around who&apos;s opening it.</h2>
+              <p class="cs-section-subtitle">The same widgets, given roles and a real hierarchy, ordered by why each trader opens the app. Anchor first, then the things worth being shown, then the rest on demand.</p>
+              <div class="cs-visual cs-visual--hero"></div>
+              <div class="cs-flow">
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Asset Grid</div>
+                  <div class="cs-flow__node-desc">Fast access, sorted to fit you</div>
+                </div>
+                <div class="cs-flow__connector"></div>
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Holdings</div>
+                  <div class="cs-flow__node-desc">How your portfolio&apos;s doing today</div>
+                </div>
+                <div class="cs-flow__connector"></div>
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Wallet</div>
+                  <div class="cs-flow__node-desc">Money in, money out</div>
+                </div>
+                <div class="cs-flow__connector"></div>
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Advisory</div>
+                  <div class="cs-flow__node-desc">Ideas from analysts you can name</div>
+                </div>
+                <div class="cs-flow__connector"></div>
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Smartlists</div>
+                  <div class="cs-flow__node-desc">Ready-made ideas to browse</div>
+                </div>
+                <div class="cs-flow__connector"></div>
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Orders &amp; IPO</div>
+                  <div class="cs-flow__node-desc">Pick up where you left off</div>
+                </div>
+                <div class="cs-flow__connector"></div>
+                <div class="cs-flow__node">
+                  <div class="cs-flow__node-title">Offers</div>
+                  <div class="cs-flow__node-desc">Always in the same spot, at the bottom</div>
                 </div>
               </div>
-              <div class="cs-learning" data-reveal>
-                <div class="cs-learning__number"></div>
-                <div>
-                  <h3 class="cs-learning__title">Clicks lie. Conversion tells you what to promote</h3>
-                  <p class="cs-learning__text">Advisory had fewer clicks than the indices widget, but many more of those clicks became orders. That ratio reshuffled the whole hierarchy.</p>
+            </section>
+
+            <!-- ===== Core Flows ===== -->
+            <section class="cs-section" id="core-flows" data-reveal>
+              <span class="cs-eyebrow">Core Flows</span>
+              <h2 class="cs-section-title">Six moves, no new widgets.</h2>
+              <p class="cs-section-subtitle">Each one changed how the page reads without adding anything to it.</p>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">01</div>
+                  <div class="cs-solution-block__tag">Anchor</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>Asset Grid as the anchor</h3>
+                  <p>A small grid of quick actions sits right at the top. Its shape never changes, but its contents shift with what you actually use. New launches like IPO and NCD get a small tag on the grid instead of a full banner across the screen.</p>
+                  <div class="cs-solution-block__visual"></div>
                 </div>
               </div>
-              <div class="cs-learning" data-reveal>
-                <div class="cs-learning__number"></div>
-                <div>
-                  <h3 class="cs-learning__title">Banner blindness goes away when you stop spraying banners around</h3>
-                  <p class="cs-learning__text">Put every promo in one predictable zone and people learn where it is. They stop ignoring it, because it stops interrupting them.</p>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">02</div>
+                  <div class="cs-solution-block__tag">Summary</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>Holdings as a summary, not a tab</h3>
+                  <p>The homepage version of Holdings is a small card. Today versus lifetime, one number, a link to the full screen. It&apos;s the daily check-in, not the deep audit. The proper screen still exists for people who want to sit with it.</p>
+                  <div class="cs-solution-block__visual"></div>
                 </div>
               </div>
-            </div>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">03</div>
+                  <div class="cs-solution-block__tag">Trust hero</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>Advisory looks the way it performs</h3>
+                  <p>Bigger type, a byline from the analyst, and enough space around it that your eye stops there. Nothing about it was scaled up. It just got the visual weight it had already earned.</p>
+                  <div class="cs-solution-block__visual"></div>
+                </div>
+              </div>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">04</div>
+                  <div class="cs-solution-block__tag">Pattern</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>Every list gets its own look</h3>
+                  <p>Vertical, horizontal, and tabbed lists each got their own visual signature. Momentum Gainers and Trending Options stopped reading as the same widget. Different backgrounds, card weight, and icon shape tell them apart before you read the title.</p>
+                  <div class="cs-solution-block__visual"></div>
+                </div>
+              </div>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">05</div>
+                  <div class="cs-solution-block__tag">Zone</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>All the promos in one predictable place</h3>
+                  <p>Referrals, offers, and UpLearn share one treatment and one spot near the bottom. Users learn where to find them without being interrupted by them. Banner blindness stops when banners stop being everywhere.</p>
+                  <div class="cs-solution-block__visual"></div>
+                </div>
+              </div>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">06</div>
+                  <div class="cs-solution-block__tag">Recovery</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>Bring people back to the orders they forgot</h3>
+                  <p>Untriggered orders convert really well. When someone comes back after a day away, they see the ones still open with a timestamp and a soft nudge. A push notification helps the ones that aren&apos;t open yet.</p>
+                  <div class="cs-solution-block__visual"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Research ===== -->
+            <section class="cs-section" id="research" data-reveal>
+              <span class="cs-eyebrow">Research</span>
+              <h2 class="cs-section-title">Three kinds of trader, three different questions.</h2>
+              <p class="cs-section-subtitle">The same screen, opened by three cohorts with very different things in their head.</p>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Segment 01</div>
+                  <div class="cs-card__title">Active FnO Traders</div>
+                  <div class="cs-card__label">Who they are</div>
+                  <p class="cs-card__text">Daily derivatives traders. Live inside the options smartlists, commodities, and their untriggered orders.</p>
+                  <div class="cs-card__label">What they want</div>
+                  <p class="cs-card__text">Speed. Two taps to a live instrument, three to a placed order. Don&apos;t make them scroll.</p>
+                  <div class="cs-card__label">What&apos;s in their way</div>
+                  <p class="cs-card__text">The Learn banners, the IPO promos, all the polite things between them and their tools.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Segment 02</div>
+                  <div class="cs-card__title">Active Non-FnO Traders</div>
+                  <div class="cs-card__label">Who they are</div>
+                  <p class="cs-card__text">Regular equity investors. Hold portfolios, watch sectoral movers, read the odd advisory.</p>
+                  <div class="cs-card__label">What they want</div>
+                  <p class="cs-card__text">Ideas they can trust, something to compare against what they hold, a quick way to act on it.</p>
+                  <div class="cs-card__label">What&apos;s in their way</div>
+                  <p class="cs-card__text">Everything is derivatives-first. Their tools sit six scrolls down.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Segment 03</div>
+                  <div class="cs-card__title">New Investors</div>
+                  <div class="cs-card__label">Who they are</div>
+                  <p class="cs-card__text">First six months on Upstox. Still learning what an SIP does, unsure what to look at first.</p>
+                  <div class="cs-card__label">What they want</div>
+                  <p class="cs-card__text">Somewhere to start, small trades to practise on, a screen that doesn&apos;t make them feel behind.</p>
+                  <div class="cs-card__label">What&apos;s in their way</div>
+                  <p class="cs-card__text">Everything looks the same and everything is a number. They need scaffolding before depth.</p>
+                </div>
+              </div>
+              <div class="cs-quote" data-reveal>
+                <p class="cs-quote__text">&ldquo;Density is the easy answer. Hierarchy is the design problem.&rdquo;</p>
+                <p class="cs-quote__source">Audit note, week two</p>
+              </div>
+            </section>
+
+            <!-- ===== Exploring the Landscape ===== -->
+            <section class="cs-section" id="exploring" data-reveal>
+              <span class="cs-eyebrow">Exploring the Landscape</span>
+              <h2 class="cs-section-title">Everyone picked a side of calm versus busy; nobody won both.</h2>
+              <div class="cs-compare-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Clean and airy</div>
+                  <div class="cs-card__title">Groww</div>
+                  <div class="cs-card__label">What they got right</div>
+                  <p class="cs-card__text">Everything grouped into calm blocks. You always know where you are, and the screen breathes.</p>
+                  <div class="cs-card__label">What they didn&apos;t</div>
+                  <p class="cs-card__text">Cards look like reading, not clicking. No signal about what&apos;s hot right now, and the tab bar hogs the bottom.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Busy and full</div>
+                  <div class="cs-card__title">Angel One</div>
+                  <div class="cs-card__label">What they got right</div>
+                  <p class="cs-card__text">Everything is one tap away, colour cues work, and if you know what you want you&apos;ll find it.</p>
+                  <div class="cs-card__label">What they didn&apos;t</div>
+                  <p class="cs-card__text">If you don&apos;t already know, you&apos;re lost. Promos keep interrupting, and nothing stands out because everything does.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Ambitious and unfocused</div>
+                  <div class="cs-card__title">HDFC Sky</div>
+                  <div class="cs-card__label">What they got right</div>
+                  <p class="cs-card__text">A proper section for promotions so they don&apos;t leak everywhere, and research shows up early, which reads as trust.</p>
+                  <div class="cs-card__label">What they didn&apos;t</div>
+                  <p class="cs-card__text">Too many products fight for the same space, long paragraphs where a line would do, and it&apos;s not clear what&apos;s tappable.</p>
+                </div>
+              </div>
+
+              <h3 class="cs-eyebrow" style="margin-top: var(--space-2xl)">What the audit told us</h3>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__title">Density trains blindness</div>
+                  <p class="cs-card__text">Apps that packed everything in taught users to ignore the promotional bits, then failed when a real promo dropped.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__title">Airy hides depth</div>
+                  <p class="cs-card__text">Beautiful, spacious apps buried the analytical depth serious traders needed to go deep.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__title">Nobody served the whole ladder</div>
+                  <p class="cs-card__text">No single home screen worked from first-week user all the way to daily options trader.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Prototyping & Testing ===== -->
+            <section class="cs-section" id="prototyping" data-reveal>
+              <span class="cs-eyebrow">Prototyping &amp; Testing</span>
+              <h2 class="cs-section-title">Three versions into research, then a fourth built from the wins.</h2>
+              <p class="cs-section-subtitle">Twelve traders, four from each cohort, moderated prototype walkthroughs one screen at a time.</p>
+
+              <div class="cs-timeline">
+                <div class="cs-timeline__item">
+                  <div class="cs-timeline__version">V1</div>
+                  <div class="cs-timeline__label">The gentle rewrite</div>
+                  <p class="cs-timeline__text">Same widgets, same order. Only type weights and spacing changed. A cleaner quick-actions grid, a stronger Advisory tab, and the F&amp;O and MTF buttons moved next to the indices they belong to.</p>
+                </div>
+                <div class="cs-timeline__item">
+                  <div class="cs-timeline__version">V2.1</div>
+                  <div class="cs-timeline__label">Same shape, more room</div>
+                  <p class="cs-timeline__text">Kept the structure, loosened the spacing in the quick tiles, cleaned up the portfolio alignment. Different styles for the pill lists, plus new social proof on the Advisory cards.</p>
+                </div>
+                <div class="cs-timeline__item">
+                  <div class="cs-timeline__version">V2.2</div>
+                  <div class="cs-timeline__label">Quieter buttons</div>
+                  <p class="cs-timeline__text">Softened the big primary CTAs like Activate F&amp;O and Add Funds so they stopped competing with the content underneath. Colour, weight, and border all dialled down.</p>
+                </div>
+                <div class="cs-timeline__item">
+                  <div class="cs-timeline__version">V3</div>
+                  <div class="cs-timeline__label">What we shipped</div>
+                  <p class="cs-timeline__text">V1&apos;s quick-access grid, V2.1&apos;s Advisory, V2.2&apos;s quieter buttons. Nothing new, just the parts of each version that had earned their keep.</p>
+                </div>
+              </div>
+
+              <div class="cs-quote-cards" data-stagger>
+                <div class="cs-quote-card">
+                  <p class="cs-quote-card__text">&ldquo;I want my options smartlist when I open the app. Everything else can come after.&rdquo;</p>
+                  <span class="cs-quote-card__source">Active FnO trader, 4 years</span>
+                </div>
+                <div class="cs-quote-card">
+                  <p class="cs-quote-card__text">&ldquo;I never knew the IPO widget was a widget. It looked like a banner.&rdquo;</p>
+                  <span class="cs-quote-card__source">New investor, 3 months</span>
+                </div>
+                <div class="cs-quote-card">
+                  <p class="cs-quote-card__text">&ldquo;Show me which of these tips actually worked. Numbers, not promises.&rdquo;</p>
+                  <span class="cs-quote-card__source">Active non-FnO trader, 2 years</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Design Decisions ===== -->
+            <section class="cs-section" id="decisions" data-reveal>
+              <span class="cs-eyebrow">Design Decisions</span>
+              <h2 class="cs-section-title">The two calls that shaped the build.</h2>
+              <p class="cs-section-subtitle">The hardest ones, and why they went the way they did.</p>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">01</div>
+                  <div class="cs-solution-block__tag">Anchor</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>A tag on the grid, not another banner</h3>
+                  <div class="cs-decision">
+                    <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Give launches a tag on the existing quick-actions grid instead of their own banner.</p></div>
+                    <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>Banners were the root of the banner-blindness problem, and each new one trained people to ignore the top of the page faster. A tag on a widget people already scan rides the attention that&apos;s there instead of fighting for new attention.</p></div>
+                    <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>A rotating banner carousel. It tested worst of all; people learned to scroll past the whole strip within a session.</p></div>
+                  </div>
+                  <div class="cs-solution-block__visual"></div>
+                </div>
+              </div>
+
+              <div class="cs-solution-block" data-reveal>
+                <div class="cs-solution-block__label">
+                  <div class="cs-solution-block__number">02</div>
+                  <div class="cs-solution-block__tag">Trust hero</div>
+                </div>
+                <div class="cs-solution-block__body">
+                  <h3>Advisory earns weight, not size</h3>
+                  <div class="cs-decision">
+                    <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Give Advisory heavier type, a visible byline, and room around it instead of making the card bigger.</p></div>
+                    <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>Advisory had the best click-to-order rate on the whole page, so it needed to draw the eye. Weight and space earn attention where raw size only adds noise.</p></div>
+                    <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>Scaling the card up. It would have made Advisory compete for real estate instead of quietly earning the look it deserved.</p></div>
+                  </div>
+                  <div class="cs-solution-block__visual"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Designing within Constraints ===== -->
+            <section class="cs-section" id="constraints" data-reveal>
+              <span class="cs-eyebrow">Designing within Constraints</span>
+              <h2 class="cs-section-title">Real limits the redesign had to live inside.</h2>
+
+              <div class="cs-challenge" data-reveal>
+                <div class="cs-challenge__content">
+                  <div class="cs-challenge__number">01</div>
+                  <div class="cs-challenge__title">Everything wanted to be first</div>
+                  <p class="cs-challenge__text">Every widget had a real reason to be there, and nobody would let us delete anything, so the fix had to be about ranking, not cutting. I sorted every widget into one of three buckets: anchor (used every session), hero (worth being shown to), or supporting (there when you need it). That ranking held across every version we drew.</p>
+                </div>
+                <div class="cs-challenge__visual"></div>
+              </div>
+
+              <div class="cs-challenge cs-challenge--reverse" data-reveal>
+                <div class="cs-challenge__content">
+                  <div class="cs-challenge__number">02</div>
+                  <div class="cs-challenge__title">One screen, three different traders</div>
+                  <p class="cs-challenge__text">An FnO trader wants their options smartlist first; a new investor wants somewhere to start. Building three separate homepages was a bad idea, so I built one with a re-orderable stack that ships tuned to the person opening it. The layout stays familiar; the order moves.</p>
+                </div>
+                <div class="cs-challenge__visual"></div>
+              </div>
+
+              <div class="cs-challenge" data-reveal>
+                <div class="cs-challenge__content">
+                  <div class="cs-challenge__number">03</div>
+                  <div class="cs-challenge__title">No new widgets on the table</div>
+                  <p class="cs-challenge__text">Leadership had to see that hierarchy alone could move the numbers before funding more real estate, and every promo team still needed a home for launches. So deleting widgets was never an option; re-ordering the ones we already had was the whole job.</p>
+                </div>
+                <div class="cs-challenge__visual"></div>
+              </div>
+            </section>
+
+            <!-- ===== Impact ===== -->
+            <section class="cs-section" id="impact" data-reveal>
+              <span class="cs-eyebrow">Impact</span>
+              <h2 class="cs-section-title">First rollout on Android, against the old screen.</h2>
+              <p class="cs-section-subtitle">Shipped as a staged rollout on Android. Numbers measured against the previous design.</p>
+              <div class="cs-metrics" data-stagger>
+                <div class="cs-metric-card">
+                  <div class="cs-metric-card__number">3&times;</div>
+                  <div class="cs-metric-card__label">Impressions period-over-period on Android</div>
+                </div>
+                <div class="cs-metric-card">
+                  <div class="cs-metric-card__number">2.3&times;</div>
+                  <div class="cs-metric-card__label">Orders placed after landing on the homepage</div>
+                </div>
+                <div class="cs-metric-card">
+                  <div class="cs-metric-card__number">0</div>
+                  <div class="cs-metric-card__label">New widgets added to prove the hierarchy worked</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Reflection ===== -->
+            <section class="cs-section" id="reflection" data-reveal>
+              <span class="cs-eyebrow">Reflection</span>
+              <h2 class="cs-section-title">What I learned.</h2>
+              <div class="cs-learnings">
+                <div class="cs-learning" data-reveal>
+                  <div class="cs-learning__number"></div>
+                  <div>
+                    <h3 class="cs-learning__title">Density is a design problem, not a content problem</h3>
+                    <p class="cs-learning__text">We didn&apos;t take out a single widget. We just changed how they related to each other. When everything on a screen has equal weight, nothing does.</p>
+                  </div>
+                </div>
+                <div class="cs-learning" data-reveal>
+                  <div class="cs-learning__number"></div>
+                  <div>
+                    <h3 class="cs-learning__title">Different traders want different defaults, not different apps</h3>
+                    <p class="cs-learning__text">Personalising the order beats building three homepages. It got us most of the value for a fraction of the build.</p>
+                  </div>
+                </div>
+                <div class="cs-learning" data-reveal>
+                  <div class="cs-learning__number"></div>
+                  <div>
+                    <h3 class="cs-learning__title">Clicks lie; conversion tells you what to promote</h3>
+                    <p class="cs-learning__text">Advisory had fewer clicks than the indices widget, but far more of them became orders. That ratio reshuffled the whole hierarchy.</p>
+                  </div>
+                </div>
+                <div class="cs-learning" data-reveal>
+                  <div class="cs-learning__number"></div>
+                  <div>
+                    <h3 class="cs-learning__title">Banner blindness ends when you stop spraying banners</h3>
+                    <p class="cs-learning__text">Put every promo in one predictable zone and people learn where it is. They stop ignoring it, because it stops interrupting them.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
           </div>
-        </section>
-
-        <!-- ===== 17. Future Opportunities ===== -->
-        <section class="cs-section" data-reveal>
-          <div class="cs-container">
-            <h2 class="cs-section-title">Future Opportunities</h2>
-            <p class="cs-section-subtitle">Where the homepage should go next.</p>
-
-            <div class="cs-opportunity-grid" data-stagger>
-              <div class="cs-opportunity-card">
-                <div class="cs-opportunity-card__icon">RT</div>
-                <div class="cs-opportunity-card__title">Read the session, not just the signup</div>
-                <p class="cs-opportunity-card__text">Right now the cohort is fixed at signup. It should shift with the session. Derivatives-heavy on an expiry Thursday. Calmer on a Sunday afternoon.</p>
-              </div>
-              <div class="cs-opportunity-card">
-                <div class="cs-opportunity-card__icon">DM</div>
-                <div class="cs-opportunity-card__title">Show me what&apos;s happening right now</div>
-                <p class="cs-opportunity-card__text">Sector spikes, breakouts, and unusual volume should come and go with the moment. They shouldn&apos;t live in a permanent widget that fades into the page.</p>
-              </div>
-              <div class="cs-opportunity-card">
-                <div class="cs-opportunity-card__icon">XP</div>
-                <div class="cs-opportunity-card__title">iOS and web, done properly</div>
-                <p class="cs-opportunity-card__text">Android was first. iOS and web are next. Not a copy-paste port. Each platform gets what it&apos;s good at.</p>
-              </div>
-              <div class="cs-opportunity-card">
-                <div class="cs-opportunity-card__icon">PUSH</div>
-                <div class="cs-opportunity-card__title">The lock screen is the homepage too</div>
-                <p class="cs-opportunity-card__text">A push notification should feel like the same conversation the app is having. Untriggered order pushes are the start; there&apos;s a lot more we could carry over.</p>
-              </div>
-              <div class="cs-opportunity-card">
-                <div class="cs-opportunity-card__icon">SYS</div>
-                <div class="cs-opportunity-card__title">Turn the widget roles into a real system</div>
-                <p class="cs-opportunity-card__text">Anchor, hero, supporting. Those three labels became a shorthand internally. Formalise them as components and downstream teams get faster without asking design every time.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        </div>
 
         <!-- ===== Project Nav ===== -->
-        <div class="cs-project-nav" data-reveal>
+        <div class="cs-project-nav cs-container" data-reveal>
           <a class="cs-back-link" href="case-study-options.html">
             <span aria-hidden="true">&larr;</span>
             <span>Previous project: Options Strategy Builder</span>
@@ -865,5 +763,36 @@
         <p class="footer-note">Designed + Vibe Coded by Siddharth</p>
       </footer>
     </div>
+
+    <script>
+      /* Scroll-spy: highlight the active section in the case-study ToC. */
+      (function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll(".cs-toc__link"));
+        if (!links.length || !("IntersectionObserver" in window)) return;
+        var map = {};
+        links.forEach(function (l) { map[l.getAttribute("href").slice(1)] = l; });
+        var visible = {};
+        var order = Object.keys(map);
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) visible[e.target.id] = true;
+              else delete visible[e.target.id];
+            });
+            var active = null;
+            for (var i = 0; i < order.length; i++) {
+              if (visible[order[i]]) { active = order[i]; break; }
+            }
+            links.forEach(function (l) { l.classList.remove("is-active"); });
+            if (active && map[active]) map[active].classList.add("is-active");
+          },
+          { rootMargin: "-100px 0px -55% 0px", threshold: 0 }
+        );
+        order.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>
