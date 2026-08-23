@@ -3,6 +3,10 @@
     { "source": "/optionsstrategy", "destination": "/case-study-options.html" },
     { "source": "/homepage", "destination": "/case-study-voice.html" },
     { "source": "/arcds", "destination": "/case-study-arc.html" },
-    { "source": "/accountopening", "destination": "/case-study-ao.html" }
+    { "source": "/accountopening", "destination": "/case-study-ao.html" },
+    { "source": "/work", "destination": "/index.html" },
+    { "source": "/highlights", "destination": "/index.html" },
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" }
   ]
 }

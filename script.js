@@ -250,27 +250,32 @@ window.addEventListener("resize", () => {
 });
 
 /* ============================================================
-   Scroll spy — nav links reflect the section in view
+   Scroll spy — nav links reflect the section in view.
+   Nav links use clean paths (/work, /highlights, /about); map each to
+   its section id for active highlighting.
    ============================================================ */
 (() => {
-  const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+  const navLinks = Array.from(
+    document.querySelectorAll(".nav-links a")
+  ).filter((a) => /^\/[a-z-]+$/.test(a.getAttribute("href") || ""));
   if (!navLinks.length || !("IntersectionObserver" in window)) {
     return;
   }
 
+  const idFor = (a) => a.getAttribute("href").slice(1); // "/work" -> "work"
   const sections = navLinks
-    .map((link) => document.querySelector(link.getAttribute("href")))
+    .map((a) => document.getElementById(idFor(a)))
     .filter(Boolean);
   if (!sections.length) {
     return;
   }
 
   const setActive = (id) => {
-    navLinks.forEach((link) => {
-      if (link.getAttribute("href") === `#${id}`) {
-        link.setAttribute("aria-current", "true");
+    navLinks.forEach((a) => {
+      if (idFor(a) === id) {
+        a.setAttribute("aria-current", "true");
       } else {
-        link.removeAttribute("aria-current");
+        a.removeAttribute("aria-current");
       }
     });
   };
@@ -290,6 +295,90 @@ window.addEventListener("resize", () => {
   );
 
   sections.forEach((section) => spyObserver.observe(section));
+})();
+
+/* ============================================================
+   Clean section URLs — /work, /highlights, /about, /contact scroll to
+   the matching homepage section (no # in the URL). Vercel rewrites serve
+   index.html for these paths on a direct visit; here we handle in-page
+   clicks (smooth scroll + History API) and the initial deep-link scroll.
+   ============================================================ */
+(() => {
+  const ROUTES = {
+    "/work": "work",
+    "/highlights": "highlights",
+    "/about": "about",
+    "/contact": "contact",
+  };
+  const NAV_OFFSET = 90; // clears the floating nav
+  const onHome = !!(
+    document.getElementById("work") && document.getElementById("about")
+  );
+
+  const cleanPath = (p) => (p || "/").replace(/\/+$/, "") || "/";
+
+  const scrollToId = (id, smooth) => {
+    const behavior = smooth ? "smooth" : "auto";
+    if (!id) {
+      window.scrollTo({ top: 0, behavior });
+      return true;
+    }
+    const el = document.getElementById(id);
+    if (!el) return false;
+    const y = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+    window.scrollTo({ top: Math.max(0, y), behavior });
+    return true;
+  };
+
+  // Deep link: /work (etc.) loaded directly -> scroll once layout settles.
+  if (onHome) {
+    const path = cleanPath(location.pathname);
+    if (path in ROUTES) {
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => scrollToId(ROUTES[path], false))
+      );
+    }
+  }
+
+  // In-page clicks on clean-path links -> scroll instead of navigate.
+  document.addEventListener("click", (e) => {
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey
+    ) {
+      return;
+    }
+    const a = e.target.closest ? e.target.closest("a") : null;
+    if (!a) return;
+    const href = a.getAttribute("href");
+    if (href == null || href.indexOf("#") !== -1) return;
+    const path = cleanPath(href);
+
+    if (path === "/" && onHome) {
+      e.preventDefault();
+      scrollToId(null, true);
+      history.pushState({}, "", "/");
+      return;
+    }
+    if (!(path in ROUTES)) return;
+    const id = ROUTES[path];
+    if (!onHome || !document.getElementById(id)) return; // navigate to homepage
+    e.preventDefault();
+    scrollToId(id, true);
+    history.pushState({}, "", path);
+  });
+
+  // Back / forward -> re-sync scroll position.
+  window.addEventListener("popstate", () => {
+    if (!onHome) return;
+    const path = cleanPath(location.pathname);
+    if (path in ROUTES) scrollToId(ROUTES[path], true);
+    else if (path === "/") scrollToId(null, true);
+  });
 })();
 
 /* ============================================================
