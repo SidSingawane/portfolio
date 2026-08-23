@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/optionsstrategy", "destination": "/case-study-options.html" },
+    { "source": "/homepage", "destination": "/case-study-voice.html" },
+    { "source": "/arcds", "destination": "/case-study-arc.html" },
+    { "source": "/accountopening", "destination": "/case-study-ao.html" }
+  ]
+}
