@@ -2052,7 +2052,7 @@ void main() {
    the beginning each time the user returns to the section.
    ============================================================ */
 (() => {
-  const section = document.getElementById("ai-work");
+  const section = document.getElementById("highlights");
   if (!section) return;
 
   const grid = section.querySelector(".bento-grid");
