@@ -50,7 +50,7 @@
 
 .cs-hero__title {
   font-family: var(--heading-font);
-  font-size: var(--display-xl);
+  font-size: var(--display-lg);
   font-weight: var(--weight-regular);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
