@@ -323,7 +323,7 @@
 
 .cs-section-title {
   font-family: var(--heading-font);
-  font-size: var(--display-md);
+  font-size: var(--display-sm);
   font-weight: var(--weight-regular);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
