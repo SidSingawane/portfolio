@@ -1177,3 +1177,23 @@
     gap: var(--space-md);
   }
 }
+
+/* ============================================================
+   Flat cards — no stroke, no drop shadow. The "shadow" was the
+   top-to-bottom panel gradient; flatten it to a solid fill.
+   ============================================================ */
+.cs-card,
+.cs-metric-card,
+.cs-quote-card,
+.cs-opportunity-card {
+  border: none;
+  box-shadow: none;
+  background: var(--panel-grad-top);
+}
+
+.cs-card:hover,
+.cs-metric-card:hover,
+.cs-quote-card:hover,
+.cs-opportunity-card:hover {
+  border-color: transparent;
+}
