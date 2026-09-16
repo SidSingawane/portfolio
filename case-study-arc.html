@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Case study on Arc, the Upstox cross-platform design system: collapsing 800+ colour tokens into one semantic layer, consolidating 32 components, and automating the Figma-to-code pipeline."
+      content="Arc: building a scalable, AI-ready design system at Upstox. One unified system for app, web, and marketing, with layered variables, machine-readable tokens, and a relink-don't-rebuild architecture."
     />
     <meta name="theme-color" content="#050505" />
     <title>Arc Design System · Upstox | Siddharth</title>
@@ -137,27 +137,25 @@
 
           <!-- ===== Sticky table of contents ===== -->
           <nav class="cs-toc" aria-label="Case study sections">
-            <a class="cs-toc__link" href="#overview">Overview</a>
-            <a class="cs-toc__link" href="#problem">Problem</a>
-            <a class="cs-toc__link" href="#opportunity">Opportunity</a>
-            <a class="cs-toc__link" href="#solution">Solution</a>
-            <a class="cs-toc__link" href="#foundations">Foundations</a>
-            <a class="cs-toc__link" href="#audit">Audit</a>
-            <a class="cs-toc__link" href="#exploring">Exploring the System</a>
-            <a class="cs-toc__link" href="#adoption">Adoption &amp; Migration</a>
-            <a class="cs-toc__link" href="#decisions">Design Decisions</a>
-            <a class="cs-toc__link" href="#challenges">Rollout Challenges</a>
+            <a class="cs-toc__link" href="#context">Context</a>
+            <a class="cs-toc__link" href="#breaking-point">The Breaking Point</a>
+            <a class="cs-toc__link" href="#problems">Core Problems</a>
+            <a class="cs-toc__link" href="#constraints">Constraints</a>
+            <a class="cs-toc__link" href="#journey">The Journey</a>
+            <a class="cs-toc__link" href="#system">The System</a>
+            <a class="cs-toc__link" href="#motion-ai">Motion &amp; AI</a>
+            <a class="cs-toc__link" href="#scalability">Scalability</a>
             <a class="cs-toc__link" href="#impact">Impact</a>
-            <a class="cs-toc__link" href="#reflection">Reflection</a>
+            <a class="cs-toc__link" href="#learnings">Learnings</a>
           </nav>
 
           <div class="cs-doc__body">
 
             <!-- ===== Cover ===== -->
             <header class="cs-hero cs-doc-hero" data-reveal>
-              <span class="cs-hero__badge">Design Systems &middot; Upstox</span>
+              <span class="cs-hero__badge">Arc 1.0 &middot; Upstox Design System</span>
               <h1 class="cs-hero__title">Arc Design System</h1>
-              <p class="cs-hero__intro">Upstox&apos;s design system had 800+ colour tokens and designers spending more time fighting it than using it. We rebuilt Arc around one idea: designers don&apos;t need tokens, they need decisions.</p>
+              <p class="cs-hero__intro">Building a scalable design system at Upstox: one unified, AI-ready system for app, web, and marketing.</p>
               <div class="cs-hero__image cs-hero__image--media">
                 <img class="cs-hero__media" src="./assets/covers/DS.webp?v=2" alt="Arc Design System preview" decoding="async" onerror="this.style.display='none'" />
               </div>
@@ -172,459 +170,280 @@
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Team</div>
-                  <div class="cs-meta__value">Design Systems pod with Platform Engineering (Android, iOS, Web)</div>
+                  <div class="cs-meta__value">Kevin, Siddharth, Chris</div>
                 </div>
                 <div class="cs-meta__item">
                   <div class="cs-meta__label">Skills</div>
-                  <div class="cs-meta__value">Design Systems, Tokens &amp; Components, Accessibility</div>
+                  <div class="cs-meta__value">Design Systems, Tokens &amp; Components, Governance</div>
                 </div>
               </div>
             </header>
 
-            <!-- ===== Overview ===== -->
-            <section class="cs-section" id="overview" data-reveal>
-              <span class="cs-eyebrow">Overview</span>
-              <h2 class="cs-section-title">One design system behind the whole Upstox ecosystem.</h2>
-              <p class="cs-section-subtitle">Arc powers trading, investing, mutual funds, IPO, insurance, loans and wealth. It began in 2024 as Figma files called &ldquo;design-system-v2&rdquo; and by late 2025 had outgrown them. This is a pod&apos;s work: where I say &ldquo;we&rdquo;, I mean the team.</p>
+            <!-- ===== Context ===== -->
+            <section class="cs-section" id="context" data-reveal>
+              <span class="cs-eyebrow">Context</span>
+              <h2 class="cs-section-title">Multi-platform. Multi-product. Growing teams.</h2>
               <div class="cs-card-grid" data-stagger>
                 <div class="cs-card">
-                  <div class="cs-card__title">Simplify</div>
-                  <p class="cs-card__text">Collapse 800+ tokens and a three-layer model into one semantic layer designers actually reason about.</p>
+                  <div class="cs-card__tag">Three surfaces</div>
+                  <p class="cs-card__text">Mobile apps, web apps, and a marketing site, each drifting into its own visual language.</p>
                 </div>
                 <div class="cs-card">
-                  <div class="cs-card__title">Consolidate</div>
-                  <p class="cs-card__text">Pull ~32 scattered components into four cross-platform libraries teams can find and reuse.</p>
+                  <div class="cs-card__tag">Two systems, one gap</div>
+                  <p class="cs-card__text">Separate design systems for mobile and web. Nothing at all for marketing.</p>
                 </div>
                 <div class="cs-card">
-                  <div class="cs-card__title">Automate</div>
-                  <p class="cs-card__text">Wire Figma straight into code so tokens and icons can&apos;t drift, with syncs designers trigger themselves.</p>
+                  <div class="cs-card__tag">15 to 20 designers</div>
+                  <p class="cs-card__text">Design output scaled fast. The shared source of truth did not scale with it.</p>
                 </div>
               </div>
             </section>
 
-            <!-- ===== Problem ===== -->
-            <section class="cs-section" id="problem" data-reveal>
-              <span class="cs-eyebrow">Problem</span>
-              <h2 class="cs-section-title">Designing on Arc had started to feel like debugging.</h2>
-              <div class="cs-content cs-prose">
-                <p>The system had three problems tangled together, and each one made the others worse.</p>
-                <ul>
-                  <li>Token overload. 800+ colour tokens, roughly 250 just for backgrounds. Designers spent more time choosing tokens than designing, and still paired them wrong.</li>
-                  <li>Fragmentation. Per-component libraries that weren&apos;t discoverable, so designers copied old screens instead of using them. Nested instances lagged people&apos;s laptops.</li>
-                  <li>Drift. With no shared decision layer, every designer applied their own taste, and Home, Holdings and Portfolio started to look like different products.</li>
-                </ul>
+            <!-- ===== The Breaking Point ===== -->
+            <section class="cs-section" id="breaking-point" data-reveal>
+              <span class="cs-eyebrow">The Breaking Point</span>
+              <h2 class="cs-section-title">By early 2025, the design ecosystem reached a breaking point.</h2>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Inconsistency</div>
+                  <p class="cs-card__text">The same UI element existed in several forms at once, and no two surfaces agreed.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Rework</div>
+                  <p class="cs-card__text">Components were overridden instead of reused, so every screen started over.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Developer pain</div>
+                  <p class="cs-card__text">The same components were rebuilt again and again, from raw values, not tokens.</p>
+                </div>
               </div>
             </section>
 
-            <!-- ===== Opportunity ===== -->
-            <section class="cs-section" id="opportunity" data-reveal>
-              <span class="cs-eyebrow">Opportunity</span>
-              <h2 class="cs-section-title">A hard-to-use system quietly breaks the product.</h2>
-              <p class="cs-section-subtitle">A design system that&apos;s hard to use doesn&apos;t just slow designers down. It fails accessibility, blocks releases, and turns the people who own it into a bottleneck.</p>
+            <!-- ===== Core Problems ===== -->
+            <section class="cs-section" id="problems" data-reveal>
+              <span class="cs-eyebrow">Core Problems</span>
+              <h2 class="cs-section-title">Five problems.</h2>
               <div class="cs-card-grid" data-stagger>
                 <div class="cs-card">
                   <div class="cs-card__tag">01</div>
-                  <div class="cs-card__title">Accessibility broke silently</div>
-                  <p class="cs-card__text">Wrong token pairings failed contrast, so a system that was hard to use quietly shipped inaccessible screens.</p>
+                  <div class="cs-card__title">Inconsistency</div>
+                  <p class="cs-card__text">No variables. Random colors. Duplicate UI across every surface.</p>
                 </div>
                 <div class="cs-card">
                   <div class="cs-card__tag">02</div>
-                  <div class="cs-card__title">Releases got blocked</div>
-                  <p class="cs-card__text">Broken and undiscoverable components stalled releases while teams hunted for the right part.</p>
+                  <div class="cs-card__title">No scalability</div>
+                  <p class="cs-card__text">Components overloaded with variants, and nothing built for future brands.</p>
                 </div>
                 <div class="cs-card">
                   <div class="cs-card__tag">03</div>
-                  <div class="cs-card__title">The pod became the bottleneck</div>
-                  <p class="cs-card__text">Every team leaned on the DS pod for answers, which turned the people who owned the system into its constraint.</p>
+                  <div class="cs-card__title">High developer effort</div>
+                  <p class="cs-card__text">Raw values instead of tokens, and every screen reviewed by hand.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">04</div>
+                  <div class="cs-card__title">Override culture</div>
+                  <p class="cs-card__text">Complex components were overridden instead of reused, so the system drifted.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">05</div>
+                  <div class="cs-card__title">No governance</div>
+                  <p class="cs-card__text">No quality bar for new components, no ownership, no education.</p>
                 </div>
               </div>
             </section>
 
-            <!-- ===== Solution ===== -->
-            <section class="cs-section" id="solution" data-reveal>
-              <span class="cs-eyebrow">Solution</span>
-              <h2 class="cs-section-title">One semantic layer, four libraries, and a pipeline that can&apos;t drift.</h2>
-              <p class="cs-section-subtitle">The rebuild collapsed the token model, consolidated components into platform libraries, and put Figma and code on one automated rail across Android, iOS and Web.</p>
-              <div class="cs-visual cs-visual--hero"></div>
-              <div class="cs-flow">
-                <div class="cs-flow__node">
-                  <div class="cs-flow__node-title">Figma</div>
-                  <div class="cs-flow__node-desc">Tokens &amp; icons</div>
-                </div>
-                <div class="cs-flow__connector"></div>
-                <div class="cs-flow__node">
-                  <div class="cs-flow__node-title">Plugin</div>
-                  <div class="cs-flow__node-desc">Export from the file</div>
-                </div>
-                <div class="cs-flow__connector"></div>
-                <div class="cs-flow__node">
-                  <div class="cs-flow__node-title">Sync service</div>
-                  <div class="cs-flow__node-desc">Opens the pull request</div>
-                </div>
-                <div class="cs-flow__connector"></div>
-                <div class="cs-flow__node">
-                  <div class="cs-flow__node-title">Screenshot tests</div>
-                  <div class="cs-flow__node-desc">1000+ per run</div>
-                </div>
-                <div class="cs-flow__connector"></div>
-                <div class="cs-flow__node">
-                  <div class="cs-flow__node-title">Merge</div>
-                  <div class="cs-flow__node-desc">One source of truth</div>
-                </div>
-                <div class="cs-flow__connector"></div>
-                <div class="cs-flow__node">
-                  <div class="cs-flow__node-title">Platforms</div>
-                  <div class="cs-flow__node-desc">Android, iOS, Web</div>
-                </div>
-              </div>
-            </section>
-
-            <!-- ===== Foundations ===== -->
-            <section class="cs-section" id="foundations" data-reveal>
-              <span class="cs-eyebrow">Foundations</span>
-              <h2 class="cs-section-title">The layer everything else inherits from.</h2>
-              <p class="cs-section-subtitle">Most of the real work lived here: tokens, type, icons and theming, rebuilt so the right choice is the easy one.</p>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">01</div>
-                  <div class="cs-solution-block__tag">Tokens</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>Three token layers down to one</h3>
-                  <p>The legacy model ran L0 primitives (raw hex) &rarr; L1 semantic &rarr; L2 component-scoped tokens, so designers reasoned about three layers to place one colour. L1v2 is a single semantic layer designers touch, with the system resolving the rest internally.</p>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">02</div>
-                  <div class="cs-solution-block__tag">Typography</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>Messina Sans to Inter</h3>
-                  <p>We migrated brand and product to Inter for consistency and availability. Inter&apos;s high x-height can read childish at large sizes, so the plan added Inter Display for 20pt and up plus letter-spacing tuning. Naming moved to intent-based names (Heading-1, Body-Default, Meta-Label) so platform values can differ while the intent holds.</p>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">03</div>
-                  <div class="cs-solution-block__tag">Craft</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>Icons, elevation and motion on a grid</h3>
-                  <p>Icons moved to the Huge Icons library on a strict 24&times;24 grid with 1.5px strokes, keeping the same names so nothing downstream broke. Elevation became a seven-level scale on a Y&times;2=Blur rule with no negative-Y shadows. Motion got easing and duration tokens plus a cross-platform handoff doc, so animation stopped being per-designer improvisation.</p>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">04</div>
-                  <div class="cs-solution-block__tag">Theming</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>Dark mode that resolves itself</h3>
-                  <p>Light and dark resolve automatically through alias rebinds, so designers work in one place and both themes stay correct, once we&apos;d fixed the contrast failures the old token pairings were producing.</p>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-            </section>
-
-            <!-- ===== Audit ===== -->
-            <section class="cs-section" id="audit" data-reveal>
-              <span class="cs-eyebrow">Audit</span>
-              <h2 class="cs-section-title">Count everything before changing anything.</h2>
-              <p class="cs-section-subtitle">Before touching a single token, we measured what we actually had and let the data settle live debates.</p>
+            <!-- ===== Constraints ===== -->
+            <section class="cs-section" id="constraints" data-reveal>
+              <span class="cs-eyebrow">Constraints</span>
+              <h2 class="cs-section-title">Built under real pressure.</h2>
+              <p class="cs-section-subtitle">We had to prove value fast, or risk losing momentum entirely.</p>
               <div class="cs-card-grid" data-stagger>
                 <div class="cs-card">
-                  <div class="cs-card__tag">Colour</div>
-                  <div class="cs-card__title">800+ tokens, no map</div>
-                  <div class="cs-card__label">What we found</div>
-                  <p class="cs-card__text">Over 800 colour tokens, roughly 250 for backgrounds alone. Designers spent longer choosing a token than designing, and still paired them wrong.</p>
+                  <div class="cs-card__tag">Time</div>
+                  <p class="cs-card__text">We built the system while shipping the new Upstox homepage.</p>
                 </div>
                 <div class="cs-card">
-                  <div class="cs-card__tag">Components</div>
-                  <div class="cs-card__title">Libraries nobody could find</div>
-                  <div class="cs-card__label">What we found</div>
-                  <p class="cs-card__text">Around 32 components scattered across per-component files that, in one architect&apos;s words, weren&apos;t even discoverable. Nested instances lagged people&apos;s laptops.</p>
+                  <div class="cs-card__tag">Stakeholder buy-in</div>
+                  <p class="cs-card__text">It generated no revenue, so every hour of it needed justification.</p>
                 </div>
                 <div class="cs-card">
-                  <div class="cs-card__tag">Platform data</div>
-                  <div class="cs-card__title">Can we even ship letter-spacing?</div>
-                  <div class="cs-card__label">What the data said</div>
-                  <p class="cs-card__text">A backward-support check on order-placing users (301.8k on Android, 296.6k on iOS) showed 100% on OS versions that support native <code>letterSpacing</code>. Evidence, not assumption, unblocked the typography call.</p>
+                  <div class="cs-card__tag">Tool limitations</div>
+                  <p class="cs-card__text">Figma supported only four modes, which made multi-brand work tricky.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Technical</div>
+                  <p class="cs-card__text">Heavy reliance on Lottie made motion expensive at runtime.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== The Journey ===== -->
+            <section class="cs-section" id="journey" data-reveal>
+              <span class="cs-eyebrow">The Journey</span>
+              <h2 class="cs-section-title">Audit. Brainstorm. Failures. Learnings.</h2>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">01</div>
+                  <div class="cs-card__title">Audit</div>
+                  <p class="cs-card__text">Every screen screenshotted, every component dumped, all motion reviewed.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">02</div>
+                  <div class="cs-card__title">Brainstorm</div>
+                  <p class="cs-card__text">Monolithic, headless, or one library per platform. We rejected both extremes.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">03</div>
+                  <div class="cs-card__title">Failures</div>
+                  <p class="cs-card__text">Naming broke MCP. Too many files broke sync. Good components went unused.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">04</div>
+                  <div class="cs-card__title">Learnings</div>
+                  <p class="cs-card__text">Kebab-case everything. Consolidate by purpose. Teach continuously.</p>
                 </div>
               </div>
               <div class="cs-quote" data-reveal>
-                <p class="cs-quote__text">&ldquo;Designing shouldn&apos;t feel like debugging. That&apos;s a system failure, not a people problem.&rdquo;</p>
-                <p class="cs-quote__source">From the internal deck</p>
+                <p class="cs-quote__text">&ldquo;Balance flexibility for designers with control for the system.&rdquo;</p>
+                <p class="cs-quote__source">The guiding principle</p>
               </div>
             </section>
 
-            <!-- ===== Exploring the System ===== -->
-            <section class="cs-section" id="exploring" data-reveal>
-              <span class="cs-eyebrow">Exploring the System</span>
-              <h2 class="cs-section-title">We studied the systems we respect, then took a stance.</h2>
-              <div class="cs-compare-grid" data-stagger>
-                <div class="cs-card">
-                  <div class="cs-card__tag">Benchmark</div>
-                  <div class="cs-card__title">Material 3</div>
-                  <div class="cs-card__label">Strengths</div>
-                  <p class="cs-card__text">A rigorous token architecture and mature theming most teams already recognise.</p>
-                  <div class="cs-card__label">What we took</div>
-                  <p class="cs-card__text">A semantic layer designers reason about, instead of exposing raw primitives.</p>
-                </div>
-                <div class="cs-card">
-                  <div class="cs-card__tag">Benchmark</div>
-                  <div class="cs-card__title">Fluent 2</div>
-                  <div class="cs-card__label">Strengths</div>
-                  <p class="cs-card__text">A clear elevation and motion language across a huge surface area.</p>
-                  <div class="cs-card__label">What we took</div>
-                  <p class="cs-card__text">A structured elevation scale. Our own study across five systems confirmed none use negative-Y shadows.</p>
-                </div>
-                <div class="cs-card">
-                  <div class="cs-card__tag">Benchmark</div>
-                  <div class="cs-card__title">Atlassian &amp; Polaris</div>
-                  <div class="cs-card__label">Strengths</div>
-                  <p class="cs-card__text">System-as-product thinking: governance, contribution models and deep docs.</p>
-                  <div class="cs-card__label">What we took</div>
-                  <p class="cs-card__text">A governance model that scales contribution, plus the leaner &ldquo;to the point, no BS&rdquo; docs bar we admired in Wise.</p>
-                </div>
-              </div>
+            <!-- ===== The System ===== -->
+            <section class="cs-section" id="system" data-reveal>
+              <span class="cs-eyebrow">The System</span>
+              <h2 class="cs-section-title">Layered variables. Layered components.</h2>
 
-              <h3 class="cs-eyebrow" style="margin-top: var(--space-2xl)">The stance we took</h3>
+              <h3 class="cs-eyebrow">Variables</h3>
               <div class="cs-card-grid" data-stagger>
                 <div class="cs-card">
-                  <div class="cs-card__title">Surface decisions, not variables</div>
-                  <p class="cs-card__text">Designers don&apos;t need 800 tokens. They need to know which one is right here. The system carries the complexity so the designer carries the decision.</p>
+                  <div class="cs-card__tag">L0</div>
+                  <div class="cs-card__title">Primitives</div>
+                  <p class="cs-card__text">Colors, font weights, sizes, radii.</p>
                 </div>
                 <div class="cs-card">
-                  <div class="cs-card__title">Consistency over customization</div>
-                  <p class="cs-card__text">A shared language beats individual taste. If two designers make the same page look like two products, the system has failed, not the designers.</p>
+                  <div class="cs-card__tag">L1</div>
+                  <div class="cs-card__title">System</div>
+                  <p class="cs-card__text">Background, text, icon, padding and gaps. Light and dark, compact and relaxed.</p>
                 </div>
                 <div class="cs-card">
-                  <div class="cs-card__title">Govern, don&apos;t gatekeep</div>
-                  <p class="cs-card__text">Rules exist to keep the system lean, not to make the pod a bottleneck. The end state is shared ownership, not a locked door.</p>
+                  <div class="cs-card__tag">L2</div>
+                  <div class="cs-card__title">Component</div>
+                  <p class="cs-card__text">Button padding, card elevation, tab icon size.</p>
+                </div>
+              </div>
+
+              <h3 class="cs-eyebrow" style="margin-top: var(--space-2xl)">Components</h3>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__title">Base</div>
+                  <p class="cs-card__text">Foundations, like a base button.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__title">Items and elements</div>
+                  <p class="cs-card__text">Atomic parts, like a tab item or a dropdown item.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__title">Compositions</div>
+                  <p class="cs-card__text">Full components built from the two layers above, then code connected by developers and checked in VQA (visual QA) before they ship.</p>
+                </div>
+              </div>
+
+              <p class="cs-section-subtitle" style="margin-top: var(--space-2xl); margin-bottom: 0;">One structure unified app and web, enabled viewport scaling, and made global updates instant.</p>
+            </section>
+
+            <!-- ===== Motion & AI ===== -->
+            <section class="cs-section" id="motion-ai" data-reveal>
+              <span class="cs-eyebrow">Motion &amp; AI</span>
+              <h2 class="cs-section-title">Tokens a machine can read.</h2>
+              <p class="cs-section-subtitle">Standardizing every variable to kebab-case (<code>lowercase-words-separated-by-dashes</code>) was the single decision that unlocked reliable AI parsing.</p>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Motion tokens</div>
+                  <p class="cs-card__text">Easing, opacity, scale, and timing, standardized and annotated so MCP can read them. The motion designer stopped recreating interactions.</p>
+                </div>
+                <div class="cs-card">
+                  <div class="cs-card__tag">AI in the workflow</div>
+                  <p class="cs-card__text">MCP lets developers pull design context straight into code. It also lets designers connect Claude to test new variable structures and generate AI-ready components. Prototyping happens directly in Figma Make.</p>
                 </div>
               </div>
             </section>
 
-            <!-- ===== Adoption & Migration ===== -->
-            <section class="cs-section" id="adoption" data-reveal>
-              <span class="cs-eyebrow">Adoption &amp; Migration</span>
-              <h2 class="cs-section-title">Arc rolled out in phases, each earning the next.</h2>
-              <p class="cs-section-subtitle">We migrated underneath live work rather than freezing the product, and validated L1v2 with a focus group of product designers in short usability sessions before rollout.</p>
-
-              <div class="cs-timeline">
-                <div class="cs-timeline__item">
-                  <div class="cs-timeline__version">2024</div>
-                  <div class="cs-timeline__label">Scattered files</div>
-                  <p class="cs-timeline__text">&ldquo;design-system-v2&rdquo; exists as Figma files. Useful, but fragmented. The starting point, not a system.</p>
+            <!-- ===== Scalability ===== -->
+            <section class="cs-section" id="scalability" data-reveal>
+              <span class="cs-eyebrow">Scalability</span>
+              <h2 class="cs-section-title">Relink, don&apos;t rebuild.</h2>
+              <p class="cs-section-subtitle">New brands, new themes, and new platforms are additions to the system, not rewrites of it.</p>
+              <div class="cs-card-grid" data-stagger>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Variables</div>
+                  <p class="cs-card__text">A funnel structure. A new surface is added by relinking collections.</p>
                 </div>
-                <div class="cs-timeline__item">
-                  <div class="cs-timeline__version">Mid 2025</div>
-                  <div class="cs-timeline__label">A real pod forms</div>
-                  <p class="cs-timeline__text">A dedicated DS designer and engineering channels, a success-metrics framework, and per-component VQA. The system gets owners.</p>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Components</div>
+                  <p class="cs-card__text">Slots hold the uncertain parts, so AI-generated content lands without restructuring the system.</p>
                 </div>
-                <div class="cs-timeline__item">
-                  <div class="cs-timeline__version">Late 2025</div>
-                  <div class="cs-timeline__label">Web, motion, type</div>
-                  <p class="cs-timeline__text">Web DS readiness, a motion system POC, and the Messina to Inter typography migration land in parallel.</p>
+                <div class="cs-card">
+                  <div class="cs-card__tag">Documentation</div>
+                  <p class="cs-card__text">Separate guides for feature designers, developers, and new contributors.</p>
                 </div>
-                <div class="cs-timeline__item">
-                  <div class="cs-timeline__version">Early 2026</div>
-                  <div class="cs-timeline__label">The re-architecture</div>
-                  <p class="cs-timeline__text">A dedicated architect joins; the team aligns on separate mobile and web systems, the L1v2 token plan, and a step-by-step migration with focus-group validation.</p>
-                </div>
-                <div class="cs-timeline__item">
-                  <div class="cs-timeline__version">Mid 2026</div>
-                  <div class="cs-timeline__label">Consolidate &amp; automate</div>
-                  <p class="cs-timeline__text">Four consolidated libraries ship, Huge Icons migrates, accessibility token fixes merge to main, and the one-click Figma-to-code pipeline goes live.</p>
-                </div>
-              </div>
-
-              <div class="cs-quote-cards" data-stagger>
-                <div class="cs-quote-card">
-                  <p class="cs-quote-card__text">&ldquo;They aren&apos;t even discoverable, so designers can&apos;t use them unless they copy old screens.&rdquo;</p>
-                  <span class="cs-quote-card__source">Design-systems architect</span>
-                </div>
-                <div class="cs-quote-card">
-                  <p class="cs-quote-card__text">&ldquo;Now it&apos;s one click and a few minutes. Even designers can trigger it themselves.&rdquo;</p>
-                  <span class="cs-quote-card__source">Platform engineer</span>
-                </div>
-                <div class="cs-quote-card">
-                  <p class="cs-quote-card__text">&ldquo;Do not chase idealism.&rdquo; Once a set of components was done, we only changed it for release blockers.</p>
-                  <span class="cs-quote-card__source">Change-freeze principle</span>
-                </div>
-              </div>
-            </section>
-
-            <!-- ===== Design Decisions ===== -->
-            <section class="cs-section" id="decisions" data-reveal>
-              <span class="cs-eyebrow">Design Decisions</span>
-              <h2 class="cs-section-title">The calls that did the heavy lifting.</h2>
-              <p class="cs-section-subtitle">Every decision below had to survive the same four facts at once.</p>
-
-              <div class="cs-constraints">
-                <span class="cs-constraints__key">Constraints we designed inside</span>
-                <p>The product could not stop shipping during the rebuild. Engineering demanded traceability, so every change ran through a Jira ticket. Code Connect was fragile, so node-ids couldn&apos;t change casually. And the mandate covered three platforms (Android, iOS, Web) that each build tokens differently.</p>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">01</div>
-                  <div class="cs-solution-block__tag">Tokens</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>One semantic layer, L1v2</h3>
-                  <div class="cs-decision">
-                    <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Introduce an L1v2 semantic layer and make the old L2 tokens private on release rather than deleting them.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>Token overload was the root problem, but a hard delete would break in-flight production designs. Going private, then observing for a month, let us simplify the designer&apos;s surface without a big-bang migration.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>Keeping the full three-layer model exposed. It kept designers debugging tokens instead of designing.</p></div>
-                  </div>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">02</div>
-                  <div class="cs-solution-block__tag">Architecture</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>Separate Mobile and Web systems</h3>
-                  <div class="cs-decision">
-                    <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Keep the mobile and web design systems separate, consolidated into four files instead of dozens of per-component libraries.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>Platform-specific systems are easier to build and maintain, and Code Connect works cleanly when a web build references web components. Mobile components were being used on web, which had broken that link.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Rejected</span><p>A single unified system. Elegant on paper, but it forced compromises neither platform&apos;s engineers wanted to maintain.</p></div>
-                  </div>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">03</div>
-                  <div class="cs-solution-block__tag">Automation</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>One-click Figma-to-code sync</h3>
-                  <div class="cs-decision">
-                    <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Automate the whole token and icon pipeline instead of syncing by hand.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>The manual path meant downloading ~12 files, running a local sync, then raising and merging a PR. It was slow and it drifted. Automating it is the 20+ minutes saved on every update.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Guardrail</span><p>A screenshot-regression suite (1000+ tests per run) gates every sync, so automated never means unverified.</p></div>
-                  </div>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-
-              <div class="cs-solution-block" data-reveal>
-                <div class="cs-solution-block__label">
-                  <div class="cs-solution-block__number">04</div>
-                  <div class="cs-solution-block__tag">Patterns</div>
-                </div>
-                <div class="cs-solution-block__body">
-                  <h3>The &ldquo;3+ Rule&rdquo; graduation gate</h3>
-                  <div class="cs-decision">
-                    <div class="cs-decision__row"><span class="cs-decision__key">Decision</span><p>Split Component from Pattern, and put a usage-based promotion gate between local patterns and the global system.</p></div>
-                    <div class="cs-decision__row"><span class="cs-decision__key">Why</span><p>A pattern graduates to global only once three or more verticals actually use it. That answers &ldquo;can my thing go in the system?&rdquo; with evidence instead of politics, and keeps the global library from becoming a dumping ground.</p></div>
-                  </div>
-                  <div class="cs-solution-block__visual"></div>
-                </div>
-              </div>
-            </section>
-
-            <!-- ===== Rollout Challenges ===== -->
-            <section class="cs-section" id="challenges" data-reveal>
-              <span class="cs-eyebrow">Rollout Challenges</span>
-              <h2 class="cs-section-title">Three tensions we had to design inside.</h2>
-
-              <div class="cs-challenge" data-reveal>
-                <div class="cs-challenge__content">
-                  <div class="cs-challenge__number">01</div>
-                  <div class="cs-challenge__title">Simplify the model without losing the power</div>
-                  <p class="cs-challenge__text">The three-layer token model was genuinely useful. At one point it revealed the exact blast radius of a component change. Collapsing to one semantic layer for designers couldn&apos;t mean throwing that away; the complexity had to move inside the system, not disappear. That tension was still a live, healthy debate on the team.</p>
-                </div>
-                <div class="cs-challenge__visual"></div>
-              </div>
-
-              <div class="cs-challenge cs-challenge--reverse" data-reveal>
-                <div class="cs-challenge__content">
-                  <div class="cs-challenge__number">02</div>
-                  <div class="cs-challenge__title">Migrate 41 live files without breaking anyone</div>
-                  <p class="cs-challenge__text">Engineers referenced 41 production files through Code Connect. Change a node-id and their build breaks. We couldn&apos;t freeze the product for a design-system rebuild, so migration had to happen underneath live work, which meant tolerating messy overlap instead of a clean switch.</p>
-                </div>
-                <div class="cs-challenge__visual"></div>
-              </div>
-
-              <div class="cs-challenge" data-reveal>
-                <div class="cs-challenge__content">
-                  <div class="cs-challenge__number">03</div>
-                  <div class="cs-challenge__title">Keep the system lean as everyone wanted in</div>
-                  <p class="cs-challenge__text">Once the system worked, every team wanted their pattern in it. Left unchecked, the global library becomes a dumping ground. We needed a way to say &ldquo;not yet&rdquo; that felt fair rather than territorial: governance that scaled contribution instead of blocking it.</p>
-                </div>
-                <div class="cs-challenge__visual"></div>
               </div>
             </section>
 
             <!-- ===== Impact ===== -->
             <section class="cs-section" id="impact" data-reveal>
               <span class="cs-eyebrow">Impact</span>
-              <h2 class="cs-section-title">One source of truth, measured where we could.</h2>
-              <p class="cs-section-subtitle">Tokens and icons now match Figma with zero drift, designers trigger syncs without an engineer, and accessibility fixes are merged to main. Adoption and ticket-volume metrics were still being instrumented, so I&apos;m only claiming what was measured.</p>
+              <h2 class="cs-section-title">Time saved. Trust built.</h2>
+              <p class="cs-section-subtitle">The goal was to shorten the path from product conception to release.</p>
               <div class="cs-metrics" data-stagger>
                 <div class="cs-metric-card">
-                  <div class="cs-metric-card__number">90%</div>
-                  <div class="cs-metric-card__label">Token adoption across product teams</div>
+                  <div class="cs-metric-card__number">55%</div>
+                  <div class="cs-metric-card__label">Average developer build time reduced, after the layered L0-L2 variable structure shipped</div>
                 </div>
                 <div class="cs-metric-card">
-                  <div class="cs-metric-card__number">100%</div>
-                  <div class="cs-metric-card__label">Component reuse where applicable</div>
+                  <div class="cs-metric-card__number">25+</div>
+                  <div class="cs-metric-card__label">Designers using the component library daily, across web and app</div>
                 </div>
-                <div class="cs-metric-card">
-                  <div class="cs-metric-card__number">80%</div>
-                  <div class="cs-metric-card__label">Component generation automated, sharply cutting dev effort</div>
-                </div>
+              </div>
+              <div class="cs-constraints" style="margin-top: var(--space-xl)">
+                <span class="cs-constraints__key">What changed</span>
+                <p>PMs prototype directly in Figma Make. Developers generate code through MCP and Code Connect. Overrides, rework, and manual QA all dropped, and developers stopped rebuilding what already existed.</p>
               </div>
             </section>
 
-            <!-- ===== Reflection ===== -->
-            <section class="cs-section" id="reflection" data-reveal>
-              <span class="cs-eyebrow">Reflection</span>
-              <h2 class="cs-section-title">What building Arc taught me.</h2>
-              <div class="cs-learnings">
-                <div class="cs-learning" data-reveal>
-                  <div class="cs-learning__number"></div>
-                  <div>
-                    <h3 class="cs-learning__title">A design system&apos;s job is to remove decisions, not add options</h3>
-                    <p class="cs-learning__text">800 tokens felt thorough. It was actually a tax. The system got better the moment we started hiding complexity instead of exposing it. Designers need decisions, not variables.</p>
-                  </div>
-                </div>
-                <div class="cs-learning" data-reveal>
-                  <div class="cs-learning__number"></div>
-                  <div>
-                    <h3 class="cs-learning__title">Governance is as important as components</h3>
-                    <p class="cs-learning__text">The &ldquo;3+ Rule&rdquo; and the contribution model did more for the system&apos;s health than any single component. Without a way to say &ldquo;not yet&rdquo;, a good library rots into a dumping ground.</p>
-                  </div>
-                </div>
-                <div class="cs-learning" data-reveal>
-                  <div class="cs-learning__number"></div>
-                  <div>
-                    <h3 class="cs-learning__title">Automation is what makes consistency stick</h3>
-                    <p class="cs-learning__text">You can preach &ldquo;single source of truth&rdquo; forever, but drift is a manual-process problem. Wiring Figma into the repo is what actually made the promise true and gave designers back 20 minutes an update.</p>
-                  </div>
-                </div>
-                <div class="cs-learning" data-reveal>
-                  <div class="cs-learning__number"></div>
-                  <div>
-                    <h3 class="cs-learning__title">Migrate underneath live work, not instead of it</h3>
-                    <p class="cs-learning__text">Tolerating messy overlap (two Code Connect links, a month of private tokens) was uncomfortable but correct. A clean big-bang cutover would have broken 41 files and the team&apos;s trust with them.</p>
-                  </div>
-                </div>
+            <!-- ===== Learnings ===== -->
+            <section class="cs-section" id="learnings" data-reveal>
+              <span class="cs-eyebrow">Learnings</span>
+              <h2 class="cs-section-title">What worked, what didn&apos;t.</h2>
+
+              <h3 class="cs-eyebrow">What worked</h3>
+              <div class="cs-content cs-prose">
+                <ul>
+                  <li>Documentation people could actually find.</li>
+                  <li>Recorded walkthroughs in a Slack channel.</li>
+                  <li>One-to-one sessions with individual designers.</li>
+                  <li>Files consolidated by purpose, not by team.</li>
+                  <li>Clear ownership for every component group.</li>
+                </ul>
+              </div>
+
+              <h3 class="cs-eyebrow" style="margin-top: var(--space-xl)">What didn&apos;t</h3>
+              <div class="cs-content cs-prose">
+                <ul>
+                  <li>Group workshops on their own.</li>
+                  <li>Treating adoption as a launch moment.</li>
+                  <li>Parts of the system that grew too complex for daily use.</li>
+                </ul>
+              </div>
+
+              <div class="cs-quote" data-reveal>
+                <p class="cs-quote__text">&ldquo;Adoption is not a one-time event. It is continuous enablement.&rdquo;</p>
+                <p class="cs-quote__source">The lesson that stuck</p>
+              </div>
+
+              <div class="cs-quote" data-reveal>
+                <p class="cs-quote__text">&ldquo;Design systems are products, not libraries. A design system should adapt to its users, not force its users to adapt to it.&rdquo;</p>
+                <p class="cs-quote__source">Arc</p>
               </div>
             </section>
 
