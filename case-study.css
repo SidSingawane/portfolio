@@ -33,20 +33,6 @@
   text-align: center;
 }
 
-.cs-hero__badge {
-  display: inline-block;
-  padding: var(--space-2xs) var(--space-md);
-  border-radius: 999px;
-  font-size: var(--text-caption);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-  color: var(--accent-ink);
-  border: 1px solid rgba(201, 184, 156, 0.25);
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-  background: var(--accent-soft);
-  margin-bottom: var(--space-md);
-}
 
 .cs-hero__title {
   font-family: var(--heading-font);

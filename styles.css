@@ -469,7 +469,54 @@ main#main,
   padding: 12px 20px;
 }
 
+/* Pointer-tracked specular rim. A narrow conic highlight is masked down to
+   the pill's 1px edge, so the bar reads as a lit glass object that catches
+   the cursor rather than a flat plate. Scrolled state only: at rest the nav
+   is transparent and a floating rim would have nothing to sit on.
+   Composited (opacity + a custom-property angle), so it never triggers
+   layout — unlike the dock-magnification pattern this replaces. */
+.site-header.is-scrolled .floating-nav::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--rim-angle, 210deg),
+    transparent 0deg,
+    var(--rim-hot, rgba(255, 255, 255, 0.5)) 18deg,
+    var(--rim-warm, rgba(255, 255, 255, 0.12)) 40deg,
+    transparent 64deg
+  );
+  /* Two boxes XOR'd leaves only the 1px padding ring — the border edge. */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--rim-on, 0);
+  transition: opacity 420ms ease;
+  pointer-events: none;
+}
+
+/* Light theme needs a darker, tighter specular or the rim disappears
+   against the near-white pill. */
+[data-theme="light"] .site-header.is-scrolled .floating-nav {
+  --rim-hot: rgba(20, 30, 45, 0.42);
+  --rim-warm: rgba(20, 30, 45, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header.is-scrolled .floating-nav::after {
+    display: none;
+  }
+}
+
 .floating-nav {
+  position: relative;
   width: 100%;
   margin: 0 auto;
   padding: 12px var(--gutter);
@@ -973,6 +1020,15 @@ main#main,
   margin: 0 auto;
   padding: 0 var(--gutter);
   text-align: center;
+  /* DO NOT give this element a transform. Its h1's words paint through
+     background-clip:text with a transparent fill and sit on their own
+     compositing layers (.is-visible .split-word-inner rests at
+     translate3d(0,0,0), which promotes on its own). Making .hero-copy a
+     transformed ancestor makes those text-clipped layers GHOST: a second,
+     offset copy of the headline paints over the real one. Verified both
+     3D and 2D transforms trigger it, and that removing will-change from
+     the words does NOT help. A foreground parallax plane was tried here
+     and reverted for exactly this reason. */
 }
 
 .hero-cursor {
@@ -1025,6 +1081,16 @@ main#main,
   width: min(75.6%, 734px);
   margin: -20px auto 0;
   pointer-events: none;
+  /* --hero-py is the scroll parallax offset, written by the water shader's
+     render loop. It MUST stay identical to the value on
+     .hero-text-reflection: the shader derives its reflection band from the
+     two elements' relative rects (see resizeCanvas in script.js) and
+     nothing re-measures on transform, so any drift between them desyncs
+     the mirrored headline permanently. One variable, two consumers.
+     .hero-copy must NOT be given one: a transform there makes its
+     background-clip:text headline words ghost. See the note on
+     .hero-copy. */
+  transform: translate3d(0, var(--hero-py, 0px), 0);
 }
 
 .hero-iceberg {
@@ -1087,6 +1153,16 @@ main#main,
   .hero-rays {
     display: none;
   }
+
+  /* Belt to the JS module's braces. The module already returns before
+     writing either variable, but this survives a live OS-setting flip and
+     any stale inline value. The global reduced-motion block lower down
+     kills animation and transition; it does NOT stop a JS-written
+     transform, so this rule is load-bearing. */
+  .hero-visual,
+  .hero .hero-text-reflection {
+    --hero-py: 0px;
+  }
 }
 
 .hero-kicker {
@@ -1135,7 +1211,9 @@ main#main,
   margin: clamp(-140px, -3vw, -30px) auto 0;
   padding: 0 var(--gutter);
   text-align: center;
-  transform: scaleY(-1);
+  /* Translate FIRST, then flip: the parallax offset must resolve in page
+     space so it matches .hero-visual's offset exactly. Same --hero-py. */
+  transform: translate3d(0, var(--hero-py, 0px), 0) scaleY(-1);
   opacity: 0.34;
   filter: blur(2px);
   pointer-events: none;
@@ -2105,7 +2183,10 @@ main#main,
   }
 
   .project-card {
-    position: static;
+    /* relative, not static: visually identical with no offsets set, but it
+       keeps the card a containing block so the glow ring still anchors to
+       the card below 820px instead of escaping to a distant ancestor. */
+    position: relative;
     top: auto;
     margin-top: 0;
   }
@@ -2454,5 +2535,227 @@ html.has-cursor * {
   html.has-cursor,
   html.has-cursor * {
     cursor: auto !important;
+  }
+}
+
+/* ============================================================
+   Card glow — a pointer-tracked arc of light riding each card's edge.
+   Same two-box XOR ring primitive as the nav specular rim: the geometry
+   comes from the pseudo-element's own 1px padding, NOT from a border, so
+   it works unchanged on the flat border:none case-study cards.
+
+   At rest --glow-on is 0 and the browser paints nothing, so cards are
+   pixel-identical to today. The hook is [data-glow], applied by JS only
+   for fine pointers with motion enabled, so no-JS and touch visitors
+   never get the pseudo-element at all.
+   ============================================================ */
+
+/* :where() so this carries ZERO specificity and never clobbers a card's
+   own position. .project-card stays sticky; cards that declare no
+   position become relative so the ring anchors to them. */
+:where([data-glow]) {
+  position: relative;
+}
+
+/* Two hosts for the same ring. Most cards get it on ::after. Bento tiles
+   cannot: their ::before carries the base wash and their --video /
+   --letterbox ::after carries the black top/bottom scrims (z-index 2), so
+   they get a real <i class="glow-ring"> child injected by the JS instead.
+   Both read the same --glow-on / --glow-start, so the pointer logic is
+   identical for every host. */
+[data-glow]:not(.bento-placeholder)::after,
+[data-glow] > .glow-ring {
+  content: "";
+  position: absolute;
+  /* 0 sits on a borderless card's edge; -1px lands exactly on the border
+     pixels of the cards that still have one, instead of drawing a second
+     concentric line just inside it. */
+  inset: var(--glow-inset, 0);
+  border-radius: inherit;
+  padding: 1px;
+  /* Arc centred on --glow-start: transparent, up to full at one spread,
+     back to transparent at two. Matches the reference's wedge. */
+  background: conic-gradient(
+    from calc((var(--glow-start, 0) - var(--glow-spread, 20)) * 1deg),
+    transparent 0deg,
+    var(--glow-tint) calc(var(--glow-spread, 20) * 1deg),
+    transparent calc(var(--glow-spread, 20) * 2deg)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--glow-on, 0);
+  /* Declared on the pseudo, never the host: `.js [data-reveal]` at
+     specificity (0,2,0) sets its own transition and would clobber one
+     declared on the card itself. */
+  transition: opacity 240ms ease;
+  pointer-events: none;
+}
+
+/* The injected ring must clear the bento scrims, which sit at z-index 2.
+   Bento tiles are overflow:hidden, so the ring stays at the default
+   --glow-inset of 0 and is drawn just inside the clip rather than being
+   shaved off at the rounded corners. */
+[data-glow] > .glow-ring {
+  z-index: 3;
+}
+
+/* Cards that still carry a 1px border: pull the ring onto it. */
+.project-card,
+.stat-card,
+.testimonial-card,
+.about-copy,
+.closing-panel {
+  --glow-inset: -1px;
+}
+
+/* The large panels are far wider than a grid card, so the same angular
+   spread lights a much longer perimeter. Widen it to compensate. */
+.project-card,
+.about-copy,
+.closing-panel {
+  --glow-spread: 28;
+}
+
+:root {
+  --glow-tint: var(--accent);
+}
+
+/* --accent drops from 8.97:1 to 3.28:1 against the light panel fill, so
+   the glow needs the darker ink token to read at all in light theme. */
+[data-theme="light"] {
+  --glow-tint: var(--accent-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-glow]::after {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Site loader — brand name blurs in per character while a counter
+   runs 0 to 100, then the panel wipes upward. Adapted from the
+   reference Framer component's behaviour (per-character blur-in,
+   spring-eased count, 0.6s cubic-bezier exit) in plain CSS/JS.
+
+   Safety: the panel covers the whole viewport, so it MUST be able to
+   leave without JS. Three independent escapes:
+     1. <noscript> hides it outright (in each page's head).
+     2. html.loader-skip hides it instantly — set by the inline head
+        script for repeat visits in the session and reduced motion.
+     3. The failsafe animation below retires it at 6s no matter what,
+        so a JS error can never leave the site permanently masked.
+   ============================================================ */
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* One gutter value, floored by the device's safe-area insets so the
+     mark and the counter clear a notch or a home indicator. */
+  --loader-gutter: clamp(18px, 5vw, 56px);
+  padding:
+    max(var(--loader-gutter), env(safe-area-inset-top, 0px))
+    max(var(--loader-gutter), env(safe-area-inset-right, 0px))
+    max(var(--loader-gutter), env(safe-area-inset-bottom, 0px))
+    max(var(--loader-gutter), env(safe-area-inset-left, 0px));
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  /* The panel is decorative; the real page is behind it and is what
+     screen readers and keyboard users get. */
+  pointer-events: none;
+  animation: loader-failsafe 1ms linear 6s forwards;
+}
+
+/* Repeat visit in this session, reduced motion, or no sessionStorage:
+   never paint the panel at all. */
+html.loader-skip .site-loader {
+  display: none;
+}
+
+@keyframes loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* The mark carries the entry animation (blur + lift + fade) and the img
+   carries the theme inversion. They are split across two elements on
+   purpose: both want `filter`, and one would overwrite the other. */
+.site-loader__mark {
+  opacity: 0.001;
+  filter: blur(10px);
+  transform: translateY(10px);
+  transition:
+    opacity 600ms var(--ease-out),
+    filter 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.site-loader.is-in .site-loader__mark {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+.site-loader__logo {
+  display: block;
+  width: clamp(38px, 5vw, 62px);
+  height: auto;
+}
+
+/* Same inversion the nav mark uses: the artwork is white, so it would
+   disappear against the light theme's panel. */
+[data-theme="light"] .site-loader__logo {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.site-loader__count {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  font-family: var(--heading-font);
+  /* min(vw, vh) keeps the numeral from swallowing a landscape phone,
+     where 18vw would be far taller than the viewport itself. */
+  font-size: clamp(3.25rem, min(17vw, 23vh), 15rem);
+  line-height: 0.8;
+  max-width: 100%;
+  color: var(--text);
+  /* Tabular figures stop the counter re-flowing as digits change. */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  opacity: 0.001;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.site-loader.is-in .site-loader__count {
+  opacity: 1;
+}
+
+.site-loader__pct {
+  font-size: 0.4em;
+  /* No colour of its own: inherits var(--text) from .site-loader__count
+     so the glyph and the number read as one piece of type. */
+}
+
+/* Exit: wipe upward. 600ms on the reference's own easing curve. */
+.site-loader.is-done {
+  transform: translateY(-100%);
+  transition: transform 600ms cubic-bezier(0.77, 0.02, 0.24, 1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader {
+    display: none;
   }
 }

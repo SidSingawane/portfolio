@@ -100,6 +100,8 @@ window.addEventListener("scroll", updateHeaderState, { passive: true });
    ============================================================ */
 (() => {
   const revealItems = document.querySelectorAll("[data-reveal], [data-stagger]");
+  let startReveal = null;
+  let begun = false;
 
   document.querySelectorAll("[data-stagger]").forEach((group) => {
     Array.from(group.children).forEach((child, index) => {
@@ -130,7 +132,7 @@ window.addEventListener("scroll", updateHeaderState, { passive: true });
       }
     );
 
-    revealItems.forEach((item) => revealObserver.observe(item));
+    startReveal = () => revealItems.forEach((item) => revealObserver.observe(item));
   } else {
     revealItems.forEach((item) => item.classList.add("is-visible"));
   }
@@ -141,13 +143,40 @@ window.addEventListener("scroll", updateHeaderState, { passive: true });
   // .is-visible at the moment those spans are created, so the
   // .is-visible .split-word-inner rule applies on creation and the
   // slide-up animation never plays.
-  requestAnimationFrame(() => {
-    revealItems.forEach((item, index) => {
-      if (index < 2) {
-        item.classList.add("is-visible");
-      }
+  const revealAboveFold = () => {
+    requestAnimationFrame(() => {
+      revealItems.forEach((item, index) => {
+        if (index < 2) {
+          item.classList.add("is-visible");
+        }
+      });
     });
-  });
+  };
+
+  // When the loader is up it covers the viewport, so every above-the-fold
+  // reveal would fire behind it and be spent by the time it lifts. Hold
+  // both triggers until the loader reports done. observe() is idempotent
+  // and .is-visible is additive, so running this twice is harmless -
+  // which is what makes the timeout below a safe backstop rather than a
+  // second code path. Without that backstop a loader failure would leave
+  // every section stuck at opacity 0.
+  const begin = () => {
+    if (begun) {
+      return;
+    }
+    begun = true;
+    if (startReveal) {
+      startReveal();
+    }
+    revealAboveFold();
+  };
+
+  if (document.documentElement.classList.contains("is-loading")) {
+    window.addEventListener("loader:done", begin, { once: true });
+    window.setTimeout(begin, 4000);
+  } else {
+    begin();
+  }
 })();
 
 /* ============================================================
@@ -270,8 +299,16 @@ window.addEventListener("resize", () => {
     return;
   }
 
+  // The drawer links point at the same clean paths, so they can carry the
+  // same active state — without this, mobile visitors get no wayfinding.
+  const drawerLinks = Array.from(
+    document.querySelectorAll(".mobile-drawer-link")
+  ).filter((a) => /^\/[a-z-]+$/.test(a.getAttribute("href") || ""));
+
+  const markable = navLinks.concat(drawerLinks);
+
   const setActive = (id) => {
-    navLinks.forEach((a) => {
+    markable.forEach((a) => {
       if (idFor(a) === id) {
         a.setAttribute("aria-current", "true");
       } else {
@@ -280,13 +317,36 @@ window.addEventListener("resize", () => {
     });
   };
 
+  // Track the band's occupants and resolve a single winner. Previously each
+  // intersecting entry called setActive() in turn, so whenever two sections
+  // overlapped the band the last one in the callback array silently won and
+  // the active link was non-deterministic. Deepest started section wins.
+  const inBand = new Set();
+  let activeId = null;
+
+  const resolveActive = () => {
+    let winner = null;
+    sections.forEach((section) => {
+      if (inBand.has(section.id)) {
+        winner = section.id;
+      }
+    });
+    if (winner && winner !== activeId) {
+      activeId = winner;
+      setActive(winner);
+    }
+  };
+
   const spyObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActive(entry.target.id);
+          inBand.add(entry.target.id);
+        } else {
+          inBand.delete(entry.target.id);
         }
       });
+      resolveActive();
     },
     {
       rootMargin: "-30% 0px -55% 0px",
@@ -1152,6 +1212,97 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
 })();
 
 /* ============================================================
+   Hero depth parallax
+   Writes two scroll-linked offsets on :root (inherited by the hero):
+     --hero-py       .hero-visual + .hero .hero-text-reflection.
+                     ONE value, TWO consumers — the water shader derives
+                     its reflection band from those two elements'
+                     RELATIVE rects and nothing re-measures on transform,
+                     so any drift between them desyncs the mirrored
+                     headline permanently.
+   A second, counter-moving plane on .hero-copy was tried and REVERTED:
+   any transform on .hero-copy makes its background-clip:text headline
+   words ghost a second, offset copy of themselves. Do not reintroduce it.
+
+   This lives here and not inside the water shader's render loop on
+   purpose. A parallax is a layout effect: it must not depend on a WebGL
+   context, on a requestIdleCallback'd texture upload, or on the berg
+   being in view. There is no frame-sync cost to the move — the water
+   canvas is appended INTO .hero-visual, so it inherits the transform,
+   and --hero-py is not a shader uniform.
+   ============================================================ */
+(() => {
+  if (!hero || reducedMotionMedia.matches) {
+    return;
+  }
+
+  const visual = document.querySelector(".hero-visual");
+  const root = document.documentElement;
+
+  let runway = 440;
+  let bergMax = 26;
+
+  const measure = () => {
+    // Viewport-anchored, not hero-anchored. The hero's WATCHED range ends
+    // when the headline and the berg's lower edge have left the screen,
+    // around scrollY 500, well before hero.offsetHeight (878). Dividing by
+    // the full hero height spent most of the travel on a hero nobody is
+    // looking at any more.
+    runway = Math.round(
+      Math.min(520, Math.max(320, window.innerHeight * 0.44))
+    );
+    // Peak scales with the berg. A fixed constant is ~9% of the 287px
+    // desktop berg but ~20% of the ~132px berg below the 560px
+    // breakpoint, i.e. the same number reads twice as strong on a phone.
+    const h = visual ? visual.getBoundingClientRect().height : 287;
+    bergMax = Math.min(26, h * 0.09);
+  };
+
+  // 0.5px quantum: below the eye's threshold, and it keeps a slow scroll
+  // from writing a new style on every single frame.
+  const q = (v) => Math.round(v * 2) / 2;
+
+  let lastPy = null;
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    const p = Math.min(window.scrollY / runway, 1);
+    // Ease-out quad, so most of the travel lands in the first ~150px where
+    // the hero is centre stage, and the curve is flat by the time it goes.
+    const e = 1 - (1 - p) * (1 - p);
+    const py = q(e * bergMax);
+    if (py !== lastPy) {
+      lastPy = py;
+      root.style.setProperty("--hero-py", py + "px");
+    }
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+
+  const remeasure = () => {
+    measure();
+    lastPy = null;
+    update();
+  };
+
+  measure();
+  update();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", remeasure);
+  if (visual && "ResizeObserver" in window) {
+    // The berg's height moves with viewport width and with font/image
+    // load; keep bergMax honest without reading a rect per frame.
+    new ResizeObserver(remeasure).observe(visual);
+  }
+})();
+
+/* ============================================================
    Hero water — WebGL ripple & wave shader over the iceberg
    Progressive enhancement: any failure leaves the <img> intact.
    ============================================================ */
@@ -1442,7 +1593,8 @@ if (hero && heroCursor && !reducedMotionMedia.matches) {
       return;
     }
     const now = performance.now() / 1000 - startTime;
-    const swell = 1 + Math.min(window.scrollY / Math.max(hero.offsetHeight, 1), 1) * 1.5;
+    const progress = Math.min(window.scrollY / Math.max(hero.offsetHeight, 1), 1);
+    const swell = 1 + progress * 1.5;
 
     gl.uniform1f(uniforms.time, now);
     gl.uniform1f(uniforms.amp, swell);
@@ -2114,4 +2266,440 @@ void main() {
   );
 
   observer.observe(section);
+})();
+
+/* ============================================================
+   Nav specular rim — the scrolled nav pill's 1px edge carries a conic
+   highlight whose angle tracks the cursor, so the bar reads as a lit
+   glass object. Writes two custom properties and nothing else: no
+   layout reads per move (the pill is position:sticky, so its rect only
+   changes on resize or when the scrolled state toggles) and no new
+   animation frame. Fine pointers only.
+   ============================================================ */
+(() => {
+  const header = document.querySelector(".site-header");
+  const nav = document.querySelector(".floating-nav");
+  if (!header || !nav) {
+    return;
+  }
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    return;
+  }
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  // Distance below the pill at which the highlight has fully faded out.
+  const FALLOFF = 260;
+
+  let rect = nav.getBoundingClientRect();
+  let scrolledWas = null;
+  let lastAngle = null;
+  let lastOn = null;
+
+  const measure = () => {
+    rect = nav.getBoundingClientRect();
+  };
+
+  window.addEventListener("resize", measure, { passive: true });
+
+  // Only re-measure on the state flip, not on every scroll event — the
+  // pill's geometry is otherwise fixed.
+  window.addEventListener(
+    "scroll",
+    () => {
+      const scrolled = header.classList.contains("is-scrolled");
+      if (scrolled !== scrolledWas) {
+        scrolledWas = scrolled;
+        measure();
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      if (!header.classList.contains("is-scrolled")) {
+        if (lastOn !== 0) {
+          lastOn = 0;
+          nav.style.setProperty("--rim-on", "0");
+        }
+        return;
+      }
+      if (!rect.width) {
+        measure();
+      }
+
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      // conic-gradient measures from 12 o'clock clockwise; atan2 measures
+      // from 3 o'clock, hence the +90 rotation.
+      const angle =
+        Math.round(
+          (Math.atan2(event.clientY - cy, event.clientX - cx) * 180) / Math.PI
+        ) + 90;
+
+      if (angle !== lastAngle) {
+        lastAngle = angle;
+        nav.style.setProperty("--rim-angle", angle + "deg");
+      }
+
+      const below = Math.max(0, event.clientY - rect.bottom);
+      const on = Math.round((1 - Math.min(below / FALLOFF, 1)) * 20) / 20;
+      if (on !== lastOn) {
+        lastOn = on;
+        nav.style.setProperty("--rim-on", String(on));
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "pointerleave",
+    () => {
+      lastOn = 0;
+      nav.style.setProperty("--rim-on", "0");
+    },
+    { passive: true }
+  );
+})();
+
+/* ============================================================
+   Card glow — one arc of light rides the edge of whichever card the
+   pointer is nearest. Ported from the Aceternity GlowingEffect's
+   behaviour, not its architecture:
+
+   - ONE delegated pointermove for every card, rAF-coalesced, with a
+     strict read-then-write split. The reference attaches a listener per
+     instance and calls getBoundingClientRect() inside it, which on a
+     case-study page would mean ~190 listeners and a forced layout per
+     card per frame.
+   - Exactly ONE card is lit at a time. The reference lights every card
+     in range, which here would flare whole grid rows at once (the
+     48px proximity is wider than the 16px grid gap) and would light all
+     four sticky project cards together, since one pointer point falls
+     inside all four of their rects.
+   - Activation is RAMPED, not the reference's binary cut at 0.7 of the
+     card's half-extent. Binary makes the glow blink out every time the
+     cursor crosses a card's middle; the ramp also fades the arc to
+     nothing exactly where atan2 is ill-conditioned, near the centre.
+   - .memory-card is excluded: the polaroids carry rotation transforms,
+     so a screen-space angle lands up to 7deg off in their local frame,
+     and getBoundingClientRect returns the inflated axis-aligned box.
+   ============================================================ */
+(() => {
+  const SELECTOR = [
+    ".project-card",
+    ".stat-card",
+    ".testimonial-card",
+    ".cs-card",
+    ".cs-metric-card",
+    ".cs-quote-card",
+    // The two big standalone panels. Hooked by name, NOT via their shared
+    // .glass-panel class: that class is also on .floating-nav and
+    // .mobile-drawer, and the nav pill already owns its ::after for the
+    // specular rim.
+    ".about-copy",
+    ".closing-panel",
+    // Highlights bento tiles. These need the injected ring child below.
+    ".bento-placeholder",
+  ].join(",");
+
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    return;
+  }
+  if (reducedMotionMedia.matches) {
+    return;
+  }
+
+  const cards = Array.from(document.querySelectorAll(SELECTOR));
+  if (!cards.length) {
+    return;
+  }
+  cards.forEach((card) => {
+    card.setAttribute("data-glow", "");
+    // Bento tiles have both pseudo-elements spoken for: ::before is the
+    // base wash, and --video / --letterbox ::after are the black scrims.
+    // Give those a real element to paint the ring into instead. The video
+    // inside is absolutely positioned, so this adds no layout.
+    if (card.classList.contains("bento-placeholder")) {
+      const ring = document.createElement("i");
+      ring.className = "glow-ring";
+      ring.setAttribute("aria-hidden", "true");
+      card.appendChild(ring);
+    }
+  });
+
+  // How far outside a card's edge the glow starts picking it up. Gives
+  // roughly a quarter-second of lead-in at a normal approach speed, so the
+  // arc is already in place rather than spawning at a stale angle.
+  const PROXIMITY = 48;
+  // Fraction of the card's half-extent that fades out toward the centre.
+  const INACTIVE_ZONE = 0.3;
+  const LERP = 0.14;
+
+  const visible = new Set();
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target);
+          else {
+            visible.delete(entry.target);
+            entry.target.style.setProperty("--glow-on", "0");
+          }
+        });
+      },
+      { rootMargin: PROXIMITY + "px" }
+    );
+    cards.forEach((card) => io.observe(card));
+  } else {
+    cards.forEach((card) => visible.add(card));
+  }
+
+  let mouseX = -9999;
+  let mouseY = -9999;
+  let active = null;
+  let targetAngle = 0;
+  let currentAngle = 0;
+  let ticking = false;
+  let settling = false;
+
+  const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+  const strengthFor = (rect) => {
+    // Distance the pointer sits OUTSIDE the rect, per axis.
+    const ox = Math.max(0, rect.left - mouseX, mouseX - rect.right);
+    const oy = Math.max(0, rect.top - mouseY, mouseY - rect.bottom);
+    const outside = Math.hypot(ox, oy);
+    if (outside > PROXIMITY) {
+      return 0;
+    }
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const inner = 0.5 * Math.min(rect.width, rect.height) * INACTIVE_ZONE;
+    const fromCentre = Math.hypot(mouseX - cx, mouseY - cy);
+    const innerRamp = inner > 0 ? clamp01(fromCentre / inner) : 1;
+    const outerRamp = 1 - clamp01(outside / PROXIMITY);
+    return innerRamp * outerRamp;
+  };
+
+  const measure = () => {
+    // READ PHASE. elementFromPoint resolves the topmost card under the
+    // pointer, which is the only correct answer for the sticky project
+    // stack where one point is inside all four rects.
+    let best = null;
+    let bestStrength = 0;
+    let bestRect = null;
+
+    const hit = document.elementFromPoint(mouseX, mouseY);
+    const direct = hit && hit.closest ? hit.closest("[data-glow]") : null;
+
+    if (direct) {
+      const rect = direct.getBoundingClientRect();
+      best = direct;
+      bestRect = rect;
+      bestStrength = strengthFor(rect);
+    } else {
+      visible.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const strength = strengthFor(rect);
+        if (strength > bestStrength) {
+          bestStrength = strength;
+          best = card;
+          bestRect = rect;
+        }
+      });
+    }
+
+    if (best && bestStrength > 0 && bestRect) {
+      const cx = bestRect.left + bestRect.width / 2;
+      const cy = bestRect.top + bestRect.height / 2;
+      targetAngle =
+        (Math.atan2(mouseY - cy, mouseX - cx) * 180) / Math.PI + 90;
+    }
+    return { best, bestStrength };
+  };
+
+  const write = (best, strength) => {
+    // WRITE PHASE. Never interleaved with a rect read.
+    if (active && active !== best) {
+      active.style.setProperty("--glow-on", "0");
+    }
+    active = best && strength > 0 ? best : null;
+    if (active) {
+      active.style.setProperty("--glow-on", strength.toFixed(3));
+      active.style.setProperty("--glow-start", currentAngle.toFixed(1));
+    }
+  };
+
+  const settle = () => {
+    // Shortest path around the circle. The reference's own expression,
+    // (diff + 180) % 360 - 180, is wrong for negative diff in JS because
+    // % keeps the sign of the dividend; the +540 normalises it first.
+    const diff = ((((targetAngle - currentAngle) % 360) + 540) % 360) - 180;
+    if (Math.abs(diff) < 0.3) {
+      currentAngle = targetAngle;
+      settling = false;
+    } else {
+      currentAngle += diff * LERP;
+      settling = true;
+    }
+    if (active) {
+      active.style.setProperty("--glow-start", currentAngle.toFixed(1));
+    }
+    if (settling && active) {
+      requestAnimationFrame(settle);
+    } else {
+      settling = false;
+    }
+  };
+
+  const frame = () => {
+    ticking = false;
+    const { best, bestStrength } = measure();
+    write(best, bestStrength);
+    if (active && !settling) {
+      settling = true;
+      requestAnimationFrame(settle);
+    }
+  };
+
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(frame);
+      }
+    },
+    { passive: true }
+  );
+
+  const clear = () => {
+    if (active) {
+      active.style.setProperty("--glow-on", "0");
+      active = null;
+    }
+  };
+  document.addEventListener("pointerleave", clear, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) clear();
+  });
+})();
+
+/* ============================================================
+   Site loader
+   The SID mark blurs in while a counter springs from 0 to 100, then the
+   panel wipes upward and the page's own reveals start.
+
+   Ported from the reference Framer component's BEHAVIOUR, not its
+   stack (that one is React + framer-motion + a <Counter> child):
+     - the blur(10px)/opacity/y entry, applied to the mark
+     - the count is spring-eased with no bounce, so it decelerates into
+       100 rather than ticking linearly
+     - 0.6s cubic-bezier(.77,.02,.24,1.02) exit
+
+   Deliberate deviations:
+     - Shown ONCE PER SESSION. The reference replays on every mount,
+       which here would mean a full-screen panel on every case-study
+       navigation.
+     - It waits for the real page load before leaving, rather than
+       running a fixed 3s timer, so the count means something. A cap
+       keeps it from ever outstaying its welcome on a slow connection.
+   ============================================================ */
+(() => {
+  const loader = document.querySelector("[data-loader]");
+  const root = document.documentElement;
+
+  const finish = () => {
+    root.classList.remove("is-loading");
+    try {
+      sessionStorage.setItem("sid:loaded", "1");
+    } catch (e) {
+      /* private mode - the loader simply shows again next page */
+    }
+    window.dispatchEvent(new CustomEvent("loader:done"));
+  };
+
+  // Nothing to run: repeat visit, reduced motion, or markup missing.
+  // Still fire the event so the gated reveals are released.
+  if (!loader || root.classList.contains("loader-skip")) {
+    if (loader) {
+      loader.remove();
+    }
+    finish();
+    return;
+  }
+
+  const COUNT_MS = 1500;
+  const MIN_MS = 900; // never flash by faster than this
+  const CAP_MS = 2600; // never hold the page longer than this
+
+  const num = loader.querySelector("[data-loader-num]");
+
+  const started = performance.now();
+  let pageLoaded = document.readyState === "complete";
+  let counted = false;
+  let left = false;
+
+  window.addEventListener(
+    "load",
+    () => {
+      pageLoaded = true;
+    },
+    { once: true }
+  );
+
+  const leave = () => {
+    if (left) {
+      return;
+    }
+    left = true;
+    loader.classList.add("is-done");
+    // Drop it from the DOM once the wipe has played so it can never
+    // intercept anything later.
+    window.setTimeout(() => loader.remove(), 700);
+    finish();
+  };
+
+  const maybeLeave = () => {
+    const elapsed = performance.now() - started;
+    if (elapsed >= CAP_MS) {
+      leave();
+      return;
+    }
+    if (counted && pageLoaded && elapsed >= MIN_MS) {
+      leave();
+    }
+  };
+
+  // easeOutCubic approximates the reference's bounce-free spring: fast
+  // at first, settling into 100 rather than arriving at a constant rate.
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+  const tick = (now) => {
+    const t = Math.min((now - started) / COUNT_MS, 1);
+    if (num) {
+      num.textContent = String(Math.round(ease(t) * 100));
+    }
+    if (t >= 1) {
+      counted = true;
+    }
+    maybeLeave();
+    if (!left) {
+      requestAnimationFrame(tick);
+    }
+  };
+
+  requestAnimationFrame(() => {
+    loader.classList.add("is-in");
+    requestAnimationFrame(tick);
+  });
+
+  // Hard backstop independent of rAF, which a hidden tab suspends.
+  window.setTimeout(leave, CAP_MS + 400);
 })();

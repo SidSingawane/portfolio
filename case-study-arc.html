@@ -37,6 +37,21 @@
           document.documentElement.setAttribute("data-theme", "dark");
         }
       })();
+      /* Decide the loader's fate before first paint, so a repeat visit
+         never flashes the panel. is-loading also gates the page's
+         reveal animations so they do not play behind it. */
+      (function () {
+        try {
+          var seen = sessionStorage.getItem("sid:loaded") === "1";
+          var still = window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches;
+          document.documentElement.classList.add(
+            seen || still ? "loader-skip" : "is-loading"
+          );
+        } catch (e) {
+          document.documentElement.classList.add("loader-skip");
+        }
+      })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,9 +74,9 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=110" />
-    <link rel="stylesheet" href="case-study.css?v=25" />
-    <script defer src="script.js?v=31"></script>
+    <link rel="stylesheet" href="styles.css?v=123" />
+    <link rel="stylesheet" href="case-study.css?v=26" />
+    <script defer src="script.js?v=42"></script>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
       (function(c,l,a,r,i,t,y){
@@ -70,9 +85,18 @@
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "ykuixge69c");
     </script>
+    <noscript><style>.site-loader{display:none !important}</style></noscript>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
+    <div class="site-loader" data-loader aria-hidden="true">
+      <div class="site-loader__mark">
+        <img class="site-loader__logo" src="./assets/Sid-logo.svg" alt="" />
+      </div>
+      <p class="site-loader__count">
+        <span data-loader-num>0</span><span class="site-loader__pct">%</span>
+      </p>
+    </div>
     <canvas id="code-rain" aria-hidden="true"></canvas>
     <div class="site-shell">
 
@@ -161,7 +185,6 @@
 
             <!-- ===== Cover ===== -->
             <header class="cs-hero cs-doc-hero" data-reveal>
-              <span class="cs-hero__badge">Arc 1.0 &middot; Upstox Design System</span>
               <h2 class="cs-hero__title">Arc Design System</h2>
               <p class="cs-hero__intro">Building a scalable design system at Upstox: one unified, AI-ready system for app, web, and marketing.</p>
               <div class="cs-hero__image cs-hero__image--media">
@@ -468,7 +491,7 @@
         <!-- ===== Closing ===== -->
         <section class="section closing-section cs-closing" id="contact" data-reveal>
           <div class="closing-panel glass-panel">
-            <h2>Let&apos;s connect!</h2>
+            <h2>Let&rsquo;s have a word?</h2>
             <p>
               I take on freelance work and full-time roles. Fintech, healthtech,
               and messy product problems especially welcome.
